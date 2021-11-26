@@ -60,17 +60,12 @@ exports.login = (req, res) => {
         try {
             var IsPasswordCorrect = await bcrypt.compare(Password, user.Password);
 
-            // if (!IsPasswordCorrect) {
-            //     return res.status(401).send({
-            //         accessToken: null,
-            //         message: "Invalid Password!"
-            //     });
-            // }
+            if (!IsPasswordCorrect) {
+                return res.status(401).send({
+                    message: "Invalid Password!"
+                });
+            }
 
-            // var accessToken = generateAccessToken(user);
-            // res.json({
-            //     accessToken: accessToken,
-            // });
             console.log(`Password - ${IsPasswordCorrect}`);
             res.send("Login Successful!");
         } catch {
