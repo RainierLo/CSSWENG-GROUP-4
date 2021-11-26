@@ -25,6 +25,9 @@ connection.once('open', () => {
     console.log("Atlas Connected!");
 });
 
+const userRouter = require('./router/userRoute');
+app.use('/user', userRouter);
+
 app.listen(port, hostname, function () {
     console.log(`Server running at: `);
     console.log(`http://` + hostname + `:` + port);
