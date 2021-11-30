@@ -26,7 +26,9 @@ connection.once('open', () => {
 });
 
 const userRouter = require('./router/userRoute');
+const foodRouter = require('./router/foodRoute');
 app.use('/user', userRouter);
+app.use('/menu', foodRouter);
 
 app.listen(port, hostname, function () {
     console.log(`Server running at: `);
