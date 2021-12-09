@@ -1,4 +1,5 @@
 const Food = require('../model/food');
+const User = require('../model/user');
 const mongoose = require('mongoose');
 
 exports.addFood = (req, res) => {
@@ -50,5 +51,18 @@ exports.deleteItem = (req, res) => {
     Food
         .findOneAndRemove({ _id: id })
         .then(() => res.json(`Item ${FoodName} has been deleted.`))
+        .catch(err => res.status(400).json('Error: ' + err));
+}
+
+exports.addToCart = (req, res) => {
+    const { userID } = req.body;
+    const { itemID } = req.params;
+
+    User
+        .updateOne( 
+            { _id: userID },
+            { $addToSet: { Cart: itemID } }
+        )
+        .then(() => res.json("Item added to cart!"))
         .catch(err => res.status(400).json('Error: ' + err));
 }

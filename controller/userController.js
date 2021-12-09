@@ -1,4 +1,5 @@
 const User = require('../model/user');
+const Food = require('../model/food');
 const bcrypt = require('bcrypt');
 
 exports.register = (req, res) => {
@@ -90,8 +91,10 @@ exports.login = (req, res) => {
 //         .catch(err => res.status(400).json('Error: ' + err));
 // }
 
-exports.getUser = (req, res) => {
+exports.getUsers = (req, res) => {
+
     User
         .find({ UserType: "Customer" })
+        .populate('Cart')
         .then(users => res.json(users));
 }
