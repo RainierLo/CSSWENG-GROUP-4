@@ -8,7 +8,7 @@ const cors = require('cors');
 const bodyParser = require(`body-parser`);
 
 const app = express();
-
+//app.set('view-engine', 'ejs');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -25,10 +25,11 @@ connection.once('open', () => {
     console.log("Atlas Connected!");
 });
 
-const userRouter = require('./router/userRoute');
-const foodRouter = require('./router/foodRoute');
-app.use('/user', userRouter);
-app.use('/menu', foodRouter);
+app.use(express.static('public'));
+
+const router = require('./router/router.js');
+app.use('/', router);
+
 
 app.listen(port, hostname, function () {
     console.log(`Server running at: `);

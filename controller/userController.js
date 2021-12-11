@@ -2,99 +2,72 @@ const User = require('../model/user');
 const Food = require('../model/food');
 const bcrypt = require('bcrypt');
 
-exports.register = (req, res) => {
-    //Checks the database first if the username is taken
-    User.exists({ Username: req.body.Username }, async function (err, result) {
-        var pass;
-        if (err) throw err;
+const userController = {
+    getRegister: function(req, res) {
+        //res.render('');
+    },
 
-        if (result) {
-            res.status(400).json("Username is already in use.");
-        } else {
-            try {
-                const hash_pass = await bcrypt.hash(req.body.Password, 10);
-                pass = hash_pass;
-            } catch {
-                res.status(500).send();
-            }
-            //result will return false if the user does not exist yet
-            //If the username is available, it is added to the database
-            if (!result) {
-                const today = new Date();
-                let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                const newUser = new User({
-                    UserType: "Customer",
-                    Username: req.body.Username,
-                    Password: pass,
-                    DateJoined: date,
-                    OrdersMade: 0,
-                    Cart: [],
-                });
-                newUser
-                    .save()
-                    .then(() => res.json('User Added!'))
-                    .catch(err => res.status(400).json('Error: ' + err));
-            } else {
-                res.status(400).json("Username is already in use.");
-            }
-        }
-    });
-}
-
-//Login
-exports.login = (req, res) => {
-    const { Username, Password } = req.body;
-
-    if (!Username || !Password)
-        return res.status(400).json({ message: 'Please fill out all fields' });
-
-
-    User.findOne({ Username: Username }, async function (err, user) {
-        if (err) {
-            res.status(500).json({ message: err });
-            return;
-        }
-        if (!user) {
-            return res.status(404).json({ message: "User Not found." });
-        }
-
+    postRegister: async function(req, res) {
         try {
-            var IsPasswordCorrect = await bcrypt.compare(Password, user.Password);
+            const hash_pass = await bcrypt.hash(req.body.password, 10);
+            pass = hash_pass;
+            const today = new Date();
+            let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            const newUser = new User({
+                UserType: "Customer",
+                Username: req.body.name,
+                Email: req.body.email,
+                Password: pass,
+                DateJoined: date,
+                OrdersMade: 0,
+                Cart: [],
+            });
+            newUser.save()
 
-            if (!IsPasswordCorrect) {
-                return res.status(401).send({
-                    message: "Invalid Password!"
-                });
-            }
-
-            console.log(`Password - ${IsPasswordCorrect}`);
-            res.send("Login Successful!");
+            //res.redirect('/login');
         } catch {
-            res.status(500).send();
+            //res.status(500).send();
         }
-    })
+    },
+
+    checkEmail: function (req, res) {
+        const { Email } = req.query;
+        User.findOne({Email: Email}, function(err, result) {
+            res.send(result);
+        });
+    }, 
+
+    getLogin: function (req, res) {
+        //res.render('');
+    },
+    
+    postLogin: function (req, res) {
+        const { Email, Password } = req.body;
+        //Check Email 
+        User.findOne( { Email: Email}, async function(err, user) {
+            var IsPasswordCorrect = false;
+            if (err) {
+                return res.status(500).json({ message: err });
+            } else if (user) {
+                IsPasswordCorrect = await bcrypt.compare(Password, user.Password);
+                if (IsPasswordCorrect) {
+                    //render main page
+                }
+                    
+            }
+            //Else, invalid credentials
+            res.send(IsPasswordCorrect);
+            
+        });
+    }
 }
 
-// exports.addUser = (req, res) => {
-//     const {Username, Password} = req.body;
-//     // console.log(req.body);
-//     UserType = "Customer";
-//     const newUser = new User ({
-//         UserType: UserType,
-//         Username: Username,
-//         Password: Password
-//     });
+// exports.getUsers = (req, res) => {
 
-//     newUser
-//         .save()
-//         .then(() => res.json('User Added!'))
-//         .catch(err => res.status(400).json('Error: ' + err));
+//     User
+//         .find({ UserType: "Customer" })
+//         .populate('Cart')
+//         .then(users => res.json(users));
 // }
 
-exports.getUsers = (req, res) => {
-
-    User
-        .find({ UserType: "Customer" })
-        .populate('Cart')
-        .then(users => res.json(users));
-}
+module.exports = userController;
