@@ -6,10 +6,11 @@ const userController = require('../controller/userController');
 
 const app = express();
 
-
-// app.get('/register', userController.getRegister);
-// app.get('/login', userController.getLogin);
+app.get('/', userController.getIndex);
+app.get('/register', userController.getRegister);
+app.get('/login', userController.getLogin);
 app.get('/checkEmail', userController.checkEmail);
+
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);

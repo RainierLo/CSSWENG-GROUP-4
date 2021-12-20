@@ -3,11 +3,16 @@ const Food = require('../model/food');
 const bcrypt = require('bcrypt');
 
 const userController = {
-    getRegister: function(req, res) {
+    getIndex: function (req, res) {
+        //res.render('index.hbs');
+        res.sendFile('index.html', { root: 'views' });
+    },
+    getRegister: function (req, res) {
         //res.render('');
+        res.sendFile('signup.html', { root: 'views' });
     },
 
-    postRegister: async function(req, res) {
+    postRegister: async function (req, res) {
         try {
             const hash_pass = await bcrypt.hash(req.body.password, 10);
             pass = hash_pass;
@@ -32,19 +37,20 @@ const userController = {
 
     checkEmail: function (req, res) {
         const { Email } = req.query;
-        User.findOne({Email: Email}, function(err, result) {
+        User.findOne({ Email: Email }, function (err, result) {
             res.send(result);
         });
-    }, 
+    },
 
     getLogin: function (req, res) {
         //res.render('');
+        res.sendFile('login.html', { root: 'views' });
     },
-    
+
     postLogin: function (req, res) {
         const { Email, Password } = req.body;
         //Check Email 
-        User.findOne( { Email: Email}, async function(err, user) {
+        User.findOne( { Email: Email }, async function(err, user) {
             var IsPasswordCorrect = false;
             if (err) {
                 return res.status(500).json({ message: err });
