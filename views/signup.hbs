@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Super 6 Grille House</title>
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/js/signupScript.js"></script>        
+        
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script defer src="/scripts/fileUpload.js"></script>
+</head>
+<body>
+    
+    <div class="login-bg">
+        <div class="login-form-container">
+            <div class="login-title-center">
+                <h1>Signup</h1>         
+            </div>
+            <hr style="height:2px;border-width:0;color:rgb(54, 54, 54);background-color:gray;margin: 30px 0 40px 0;">
+            <p id="error"></p>
+            <form name="myForm" action="" onsubmit="return validateForm()" class="form" id="form" method="POST">
+                <div class="form-input">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Username" id="username" name="username" />
+                </div>
+                <div class="form-input">
+                    <label for="username">Email</label>
+                    <input type="email" placeholder="Email" id="email" name="email" />
+                </div>
+                <div class="form-input">
+                    <label for="username">Password</label>
+                    <input type="password" placeholder="Password" id="password" name="password" />
+                </div>
+
+                <div class="form-input">
+                    <label for="username">Re-Enter Password</label>
+                    <input type="password" placeholder="Password" id="passwordConfirm" name="passwordConfirm" />
+                </div>
+                
+                <button type="submit" value="Submit" class="submit-form" id="submit">Signup</button> 
+            </form>   
+        </div>
+    </div>   
+</body>
+</html>

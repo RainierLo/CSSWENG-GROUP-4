@@ -4,12 +4,19 @@ const bcrypt = require('bcrypt');
 
 const userController = {
     getIndex: function (req, res) {
-        //res.render('index.hbs');
-        res.sendFile('index.html', { root: 'views' });
+        if (req.session.username) {
+            var user = {
+                Username: req.session.username,
+                id: req.session.id
+            };
+            res.render('index.hbs', user);
+        } else {
+            res.render('index.hbs');
+        }
     },
     getRegister: function (req, res) {
-        //res.render('');
-        res.sendFile('signup.html', { root: 'views' });
+        res.render('signup.hbs');
+
     },
 
     postRegister: async function (req, res) {
@@ -43,28 +50,48 @@ const userController = {
     },
 
     getLogin: function (req, res) {
-        //res.render('');
-        res.sendFile('login.html', { root: 'views' });
+        res.render('login.hbs');
+        // res.sendFile('login.html', { root: 'views' });
     },
 
     postLogin: function (req, res) {
-        const { Email, Password } = req.body;
-        //Check Email 
-        User.findOne( { Email: Email }, async function(err, user) {
-            var IsPasswordCorrect = false;
+        const { username, password } = req.body;
+
+        User.findOne({ Email: username }, async function (err, result) {
+  
             if (err) {
                 return res.status(500).json({ message: err });
-            } else if (user) {
-                IsPasswordCorrect = await bcrypt.compare(Password, user.Password);
-                if (IsPasswordCorrect) {
-                    //render main page
-                }
-                    
+            } else if (result) {
+
+                var user = {
+                    username: result.Username,
+                    email: result.Email,
+                    id: result._id
+                };
+
+                bcrypt.compare(password, result.Password, function (err, equal) {
+                    if (equal) {
+                        req.session.id = result._id;
+                        req.session.username = result.Username;
+                        res.redirect('/');
+                    } else {
+                        var details = {
+                            error: 'Invalid Credentials'
+                        }
+
+                        res.render('login.hbs', details);
+                    }
+                });
             }
-            //Else, invalid credentials
-            res.send(IsPasswordCorrect);
-            
         });
+    },
+
+    getLogout: function (req, res) {
+        req.session.destroy(function (err) {
+            if (err) throw err;
+
+            res.redirect('/');
+        })
     }
 }
 

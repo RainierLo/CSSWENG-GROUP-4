@@ -9,11 +9,13 @@ const app = express();
 app.get('/', userController.getIndex);
 app.get('/register', userController.getRegister);
 app.get('/login', userController.getLogin);
+app.get('/logout', userController.getLogout);
 app.get('/checkEmail', userController.checkEmail);
 
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
+
 //Render routes to be added
 
 

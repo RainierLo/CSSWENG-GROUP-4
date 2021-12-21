@@ -6,9 +6,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require(`body-parser`);
+const hbs = require('hbs');
+const session = require('express-session');
+
 
 const app = express();
-app.set('view-engine', 'hbs');
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,6 +32,12 @@ connection.once('open', () => {
 });
 
 app.use(express.static(__dirname + "/public"));
+
+app.use(session({
+    'secret': 'secret',
+    'resave': false,
+    'saveUninitialized': false,
+}));
 
 const router = require('./router/router.js');
 app.use('/', router);
