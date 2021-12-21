@@ -6,16 +6,3 @@ function validateForm() {
     return false;
   }
 }
-
-// $(document).ready(function () {
-//   $('#login').click(function () {
-//     var Email = document.forms["myForm"]["username"].value;
-//     var Password = document.forms["myForm"]["password"].value;
-//     if (Email.length > 0 && Password.length > 0) {
-//       var param = {
-//         Email: Email,
-//         Password: Password
-//       }
-//     }
-//   });
-// });

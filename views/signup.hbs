@@ -8,6 +8,7 @@
     <title>Super 6 Grille House</title>
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/js/validator.min.js" type="text/javascript"></script>
     <script src="/js/signupScript.js"></script>        
         
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -31,19 +32,23 @@
                 <div class="form-input">
                     <label for="username">Username</label>
                     <input type="text" placeholder="Username" id="username" name="username" />
+                    <p id="usernameError"></p>
                 </div>
                 <div class="form-input">
                     <label for="username">Email</label>
                     <input type="email" placeholder="Email" id="email" name="email" />
+                    <p id="emailError"></p>
                 </div>
                 <div class="form-input">
                     <label for="username">Password</label>
                     <input type="password" placeholder="Password" id="password" name="password" />
+                    <p id="passwordError"></p>
                 </div>
 
                 <div class="form-input">
                     <label for="username">Re-Enter Password</label>
                     <input type="password" placeholder="Password" id="passwordConfirm" name="passwordConfirm" />
+                    <p id="passwordConfirmError"></p>
                 </div>
                 
                 <button type="submit" value="Submit" class="submit-form" id="submit">Signup</button> 

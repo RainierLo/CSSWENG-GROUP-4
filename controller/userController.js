@@ -73,12 +73,19 @@ const userController = {
                     if (equal) {
                         req.session.id = result._id;
                         req.session.username = result.Username;
-                        res.redirect('/');
+
+                        if (result.UserType === 'Customer') {
+                            //If the current user is a customer
+                            res.redirect('/');
+                        } else {
+                            //For the admin / employee page
+                            //res.redirect();
+                        }
+                        
                     } else {
                         var details = {
                             error: 'Invalid Credentials'
                         }
-
                         res.render('login.hbs', details);
                     }
                 });
