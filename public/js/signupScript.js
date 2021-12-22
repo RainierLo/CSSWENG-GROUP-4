@@ -17,11 +17,11 @@ $(document).ready(function () {
 
     //Check if the entered email is a valid one and check in the db if there 
     //are duplicates
-    function isValidEmail(field) {
+    function isValidEmail(field, callback) {
         var email = validator.trim($('#email').val());
         var isEmail = validator.isEmail(email);
 
-        var checkDuplicate = false;
+        var isDuplicate;
 
         if (field.is($('#email'))) {
             //Check first if the email is valid
@@ -34,16 +34,15 @@ $(document).ready(function () {
             $.get('/checkEmail', { Email: email }, function (result) {
                 if (result.Email == email) {
                     $('#emailError').text('Email is already registered');
-                    checkDuplicate = false;
+                    isDuplicate = true;
                 }
                 else {
                     $('#error').text('');
-                    checkDuplicate = true;
+                    isDuplicate = false;
                 }
+                return callback(!isDuplicate && isEmail)
             });
         }
-        //If email is valid and is not a duplicate, return true
-        return checkDuplicate && isEmail;
     }
     //Checks if the password entered corresponds to the set required length
     function isValidPassword(field) {
@@ -69,15 +68,19 @@ $(document).ready(function () {
         var password = validator.trim($('#password').val());
         var confirmPass = validator.trim($('#passwordConfirm').val());
 
-        if (field.is($('#passwordConfirm'))) {
-            if (password !== confirmPass) {
+
+        if (password !== confirmPass) {
+            if (field.is($('#passwordConfirm'))) {
                 $('#passwordConfirmError').text('Passwords do not match.');
-                isMatch = false;
-            } else {
-                $('#passwordConfirmError').text();
-                isMatch = true;
             }
+            isMatch = false;
+        } else {
+            if (field.is($('#passwordConfirm'))) {
+                $('#passwordConfirmError').text();
+            }
+            isMatch = true;
         }
+
         return isMatch;
     }
     function validateField(field, fieldName, error) {
@@ -92,16 +95,18 @@ $(document).ready(function () {
         }
 
         var filled = isFilled();
-        var validEmail = isValidEmail(field);
+
         var validPass = isValidPassword(field);
 
         var isMatch = checkPasswords(field);
 
-        if (filled && validEmail && validPass && isMatch)
-            $('#submit').prop('disabled', false);
-        else
-            $('#submit').prop('disabled', true);
-
+        isValidEmail(field, function (validEmail) {
+            if (filled && validEmail && validPass && isMatch) {
+                $('#submit').prop('disabled', false);
+            } else {
+                $('#submit').prop('disabled', true);
+            }
+        });
     }
 
     $('#username').keyup(function () {

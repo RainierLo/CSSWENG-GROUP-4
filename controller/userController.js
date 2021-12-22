@@ -20,6 +20,8 @@ const userController = {
     },
 
     postRegister: async function (req, res) {
+
+        console.log(req.body);
         try {
             const hash_pass = await bcrypt.hash(req.body.password, 10);
             pass = hash_pass;
@@ -27,7 +29,7 @@ const userController = {
             let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             const newUser = new User({
                 UserType: "Customer",
-                Username: req.body.name,
+                Username: req.body.username,
                 Email: req.body.email,
                 Password: pass,
                 DateJoined: date,
@@ -36,7 +38,7 @@ const userController = {
             });
             newUser.save()
 
-            //res.redirect('/login');
+            res.redirect('/login');
         } catch {
             //res.status(500).send();
         }
