@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     //Check if all of the fields are filled with inputs
     function isFilled() {
         var username = validator.trim($('#username').val());
@@ -107,6 +106,8 @@ $(document).ready(function () {
                 $('#submit').prop('disabled', true);
             }
         });
+
+
     }
 
     $('#username').keyup(function () {

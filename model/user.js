@@ -11,7 +11,7 @@ const userSchema = new Schema({
     OrdersMade: { type: Number },
     Cart: [{
         type: Schema.Types.ObjectId,
-        ref: "Food"
+        ref: "CartItem"
     }]
 });
 

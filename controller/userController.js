@@ -60,7 +60,7 @@ const userController = {
         const { username, password } = req.body;
 
         User.findOne({ Email: username }, async function (err, result) {
-  
+
             if (err) {
                 return res.status(500).json({ message: err });
             } else if (result) {
@@ -83,7 +83,7 @@ const userController = {
                             //For the admin / employee page
                             //res.redirect();
                         }
-                        
+
                     } else {
                         var details = {
                             error: 'Invalid Credentials'
@@ -101,6 +101,26 @@ const userController = {
 
             res.redirect('/');
         })
+    },
+
+    getUsers: function (req, res) {
+        User.find({ UserType: 'Customer'}, function(err, users) {
+            if (err) throw err;
+            if (users) {
+                res.send(users);
+            }
+
+        })
+    },
+
+    remOneUser: function (req, res) {
+        const { userID } = req.params;
+        User.findOneAndRemove({ _id: userID }, function (err, result) {
+            if (err) throw err
+            if (result) {
+                res.send('Sucess');
+            }
+        });
     }
 }
 
