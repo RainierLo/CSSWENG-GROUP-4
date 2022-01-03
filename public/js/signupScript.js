@@ -14,8 +14,9 @@ $(document).ready(function () {
         return !usernameEmpty && !emailEmpty && !passwordEmpty && !confirmPassEmpty
     }
 
-    //Check if the entered email is a valid one and check in the db if there 
-    //are duplicates
+    /* Check if the entered email is a valid one and check in the db if there 
+       are duplicates 
+    */
     function isValidEmail(field, callback) {
         var email = validator.trim($('#email').val());
         var isEmail = validator.isEmail(email);
@@ -24,23 +25,25 @@ $(document).ready(function () {
 
         if (field.is($('#email'))) {
             //Check first if the email is valid
-            if (isEmail)
+            if (isEmail) {
                 $('#emailError').text('');
-            else
+                //Then check if there are duplicates in the db
+                $.get('/checkEmail', { Email: email }, function (result) {
+                    if (result.Email == email) {
+                        $('#emailError').text('Email is already registered');
+                        isDuplicate = true;
+                    }
+                    else {
+                        $('#error').text('');
+                        isDuplicate = false;
+                    }
+                    return callback(!isDuplicate);
+                });
+            }
+            else {
                 $('#emailError').text('Email is not valid.');
-
-            //Then check if there are duplicates in the db
-            $.get('/checkEmail', { Email: email }, function (result) {
-                if (result.Email == email) {
-                    $('#emailError').text('Email is already registered');
-                    isDuplicate = true;
-                }
-                else {
-                    $('#error').text('');
-                    isDuplicate = false;
-                }
-                return callback(!isDuplicate && isEmail)
-            });
+                return callback(false);
+            }        
         }
     }
     //Checks if the password entered corresponds to the set required length
@@ -82,6 +85,10 @@ $(document).ready(function () {
 
         return isMatch;
     }
+
+    /*
+        This function will be called for each keyup function
+    */ 
     function validateField(field, fieldName, error) {
         var value = validator.trim(field.val());
         var empty = validator.isEmpty(value);
@@ -100,16 +107,16 @@ $(document).ready(function () {
         var isMatch = checkPasswords(field);
 
         isValidEmail(field, function (validEmail) {
+            console.log(`${filled} ${validEmail} ${validPass} ${isMatch} `)
             if (filled && validEmail && validPass && isMatch) {
+                //The button will be activated if the conditions are met
                 $('#submit').prop('disabled', false);
             } else {
                 $('#submit').prop('disabled', true);
             }
         });
-
-
     }
-
+    
     $('#username').keyup(function () {
         validateField($('#username'), 'Username', $('#usernameError'));
     });
