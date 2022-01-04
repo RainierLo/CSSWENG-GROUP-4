@@ -45,6 +45,24 @@ $(document).ready(function () {
             return callback(false);
         }
     }
+    //Checks if the username entered corresponds to the set required length
+    function isValidUsername(field) {
+        var isValid = false;
+
+        var username = validator.trim($('#username').val());
+        var isValidLength = validator.isLength(username, { min: 6 });
+
+        if (isValidLength) {
+            if (field.is($('#username')))
+                $('#usernameError').text('');
+
+            isValid = true;
+        } else {
+            if (field.is($('#username')))
+                $('#usernameError').text('Username should contain atleast 6 characters.');
+        }
+        return isValid;
+    }
     //Checks if the password entered corresponds to the set required length
     function isValidPassword(field) {
         var isValid = false;
@@ -100,15 +118,12 @@ $(document).ready(function () {
         }
 
         var filled = isFilled();
-
+        var validUsername = isValidUsername(field);
         var validPass = isValidPassword(field);
-
         var isMatch = checkPasswords(field);
 
         isValidEmail(field, function (validEmail) {
-            console.log(`${filled} ${validEmail} ${validPass} ${isMatch} `)
-            if (filled && validEmail && validPass && isMatch) {
-                //The button will be activated if the conditions are met
+            if (filled && validEmail && validPass && isMatch && validUsername) {
                 $('#submit').prop('disabled', false);
             } else {
                 $('#submit').prop('disabled', true);
