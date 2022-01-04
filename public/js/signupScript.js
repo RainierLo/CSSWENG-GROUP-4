@@ -28,16 +28,14 @@ $(document).ready(function () {
             //Then check if there are duplicates in the db
             $.get('/checkEmail', { Email: email }, function (result) {
                 if (result.Email == email) {
-                    if (field.is($('#email'))) {
+                    if (field.is($('#email')))
                         $('#emailError').text('Email is already registered');
-                        isDuplicate = true;
-                    }
+                    isDuplicate = true; 
                 }
                 else {
-                    if (field.is($('#email'))) {
+                    if (field.is($('#email')))
                         $('#error').text('');
-                        isDuplicate = false;
-                    }
+                    isDuplicate = false;
                 }
                 return callback(!isDuplicate);
             });
