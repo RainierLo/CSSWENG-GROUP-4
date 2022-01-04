@@ -7,6 +7,7 @@ const userSchema = new Schema({
     Email: { type: String, required: true },
     Username: { type: String, required: true },
     Password: { type: String, required: true },
+    MobileNumber: { type: String },
     DateJoined: { type: String },
     OrdersMade: { type: Number },
     Cart: [
