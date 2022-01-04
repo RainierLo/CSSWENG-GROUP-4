@@ -113,12 +113,32 @@ const userController = {
         })
     },
 
+    updateOneUser: function (req, res) {
+        const userID = req.session.userID;
+        
+        var userDetails = {
+            Email: req.body.email,
+            Username: req.body.username,
+            Password: req.body.password,
+            MobileNumber: req.body.mobileNum
+        };
+
+        User.updateOne({ _id: userID }, 
+            {$set: userDetails}, 
+            function (err, result) {
+            if (err) throw err
+            if (result) {
+                res.send('Success');
+            }
+        });
+    },
+
     remOneUser: function (req, res) {
         const { userID } = req.params;
         User.findOneAndRemove({ _id: userID }, function (err, result) {
             if (err) throw err
             if (result) {
-                res.send('Sucess');
+                res.send('Success');
             }
         });
     },
