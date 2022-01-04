@@ -104,7 +104,7 @@ const userController = {
     },
 
     getUsers: function (req, res) {
-        User.find({ UserType: 'Customer'}, function(err, users) {
+        User.find({ UserType: 'Customer' }, function (err, users) {
             if (err) throw err;
             if (users) {
                 res.send(users);
@@ -121,15 +121,38 @@ const userController = {
                 res.send('Sucess');
             }
         });
+    },
+    postAddtoCart: function (req, res) {
+        const id = req.session.userID;
+        const { itemID, qty } = req.body;
+
+        var foodItem = {
+            ItemID: itemID,
+            Quantity: qty
+        }
+
+        User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
+            if (err) throw err
+            if (result) {
+                //Item is added to the User's cart
+                res.send('Success');
+            }
+        })
+    },
+
+    getUserCart: function (req, res) {
+        const id = req.session.userID;
+
+        User.findOne({ _id: id })
+            .select('Cart')
+            .populate('Cart.ItemID')
+            .exec(function (err, Cart) {
+                if (err) throw err
+                if (Cart) {
+                    res.send(Cart);
+                }
+            })
     }
 }
-
-// exports.getUsers = (req, res) => {
-
-//     User
-//         .find({ UserType: "Customer" })
-//         .populate('Cart')
-//         .then(users => res.json(users));
-// }
 
 module.exports = userController;
