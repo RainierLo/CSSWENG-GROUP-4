@@ -172,6 +172,36 @@ const userController = {
                     res.send(Cart);
                 }
             })
+    },
+
+    updateUserCart: function (req, res) {
+        const id = req.session.userID;
+        const { itemID, qty } = req.body;
+
+        var foodItem = {
+            itemID: itemID,
+            Quantity: qty
+        };
+
+        User.findOneAndUpdate({_id: id},
+            {$set: {Cart: foodItem}}, function (err,result) {
+            if (err) throw err
+            // Succesfully updated the cart
+            if (result) {
+                res.send("Success");
+            }
+        }).populate('Cart').exec();
+    },
+
+    clearUserCart: function (req,res) {
+        const id = req.session.userID;
+        User.updateOne({ _id: id }, 
+            {$set: {Cart: []}}, function (err, result) {
+                if (err) throw err
+                if(result) {
+                    res.send("Success");
+                }
+            });
     }
 }
 
