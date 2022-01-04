@@ -24,7 +24,6 @@ $(document).ready(function () {
 
         //Check first if the email is valid
         if (isEmail) {
-            $('#emailError').text('');
             //Then check if there are duplicates in the db
             $.get('/checkEmail', { Email: email }, function (result) {
                 if (result.Email == email) {
