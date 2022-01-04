@@ -17,7 +17,7 @@ $(document).ready(function () {
     /* Check if the entered email is a valid one and check in the db if there 
        are duplicates 
     */
-       function isValidEmail(field, callback) {
+    function isValidEmail(field, callback) {
         var email = validator.trim($('#email').val());
         var isEmail = validator.isEmail(email);
         var isDuplicate;
@@ -30,18 +30,19 @@ $(document).ready(function () {
                 if (result.Email == email) {
                     if (field.is($('#email')))
                         $('#emailError').text('Email is already registered');
-                    isDuplicate = true; 
+                    isDuplicate = true;
                 }
                 else {
                     if (field.is($('#email')))
-                        $('#error').text('');
+                        $('#emailError').text('');
                     isDuplicate = false;
                 }
                 return callback(!isDuplicate);
             });
         }
         else {
-            $('#emailError').text('Email is not valid.');
+            if (field.is($('#email')))
+                $('#emailError').text('Email is not valid.');
             return callback(false);
         }
     }
@@ -87,7 +88,7 @@ $(document).ready(function () {
 
     /*
         This function will be called for each keyup function
-    */ 
+    */
     function validateField(field, fieldName, error) {
         var value = validator.trim(field.val());
         var empty = validator.isEmpty(value);
@@ -115,7 +116,7 @@ $(document).ready(function () {
             }
         });
     }
-    
+
     $('#username').keyup(function () {
         validateField($('#username'), 'Username', $('#usernameError'));
     });
