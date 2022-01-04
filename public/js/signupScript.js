@@ -17,33 +17,34 @@ $(document).ready(function () {
     /* Check if the entered email is a valid one and check in the db if there 
        are duplicates 
     */
-    function isValidEmail(field, callback) {
+       function isValidEmail(field, callback) {
         var email = validator.trim($('#email').val());
         var isEmail = validator.isEmail(email);
-
         var isDuplicate;
 
-        if (field.is($('#email'))) {
-            //Check first if the email is valid
-            if (isEmail) {
-                $('#emailError').text('');
-                //Then check if there are duplicates in the db
-                $.get('/checkEmail', { Email: email }, function (result) {
-                    if (result.Email == email) {
+        //Check first if the email is valid
+        if (isEmail) {
+            $('#emailError').text('');
+            //Then check if there are duplicates in the db
+            $.get('/checkEmail', { Email: email }, function (result) {
+                if (result.Email == email) {
+                    if (field.is($('#email'))) {
                         $('#emailError').text('Email is already registered');
                         isDuplicate = true;
                     }
-                    else {
+                }
+                else {
+                    if (field.is($('#email'))) {
                         $('#error').text('');
                         isDuplicate = false;
                     }
-                    return callback(!isDuplicate);
-                });
-            }
-            else {
-                $('#emailError').text('Email is not valid.');
-                return callback(false);
-            }        
+                }
+                return callback(!isDuplicate);
+            });
+        }
+        else {
+            $('#emailError').text('Email is not valid.');
+            return callback(false);
         }
     }
     //Checks if the password entered corresponds to the set required length
