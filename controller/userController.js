@@ -20,8 +20,6 @@ const userController = {
     },
 
     postRegister: async function (req, res) {
-
-        console.log(req.body);
         try {
             const hash_pass = await bcrypt.hash(req.body.password, 10);
             pass = hash_pass;
@@ -73,7 +71,7 @@ const userController = {
 
                 bcrypt.compare(password, result.Password, function (err, equal) {
                     if (equal) {
-                        req.session.id = result._id;
+                        req.session.userID = result._id;
                         req.session.username = result.Username;
 
                         if (result.UserType === 'Customer') {
