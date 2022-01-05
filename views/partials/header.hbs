@@ -7,12 +7,11 @@
                 <a class="nav-links"href="/">Home</a>
             </div>
             <div class="nav-left">
-
-                {{#if Username}}
                 <a href="/checkOut" style ="font-size: 20px;"class="fa-stack fa-4x nav-write">
                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
                     <i style ="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
                 </a>
+                {{#if Username}}
                     <a class="nav-link-btn" href="">{{Username}}</a>
                     <a class="nav-link-btn" href="/logout">Logout</a>
                 {{else}}

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const userController = {
     getIndex: function (req, res) {
+        req.session.current_url = '/';
         if (req.session.username) {
             var user = {
                 Username: req.session.username,
@@ -73,10 +74,13 @@ const userController = {
                     if (equal) {
                         req.session.userID = result._id;
                         req.session.username = result.Username;
-
+                        var redirect_to = req.session.redirect_to;
                         if (result.UserType === 'Customer') {
-                            //If the current user is a customer
-                            res.redirect('/');
+                            if (redirect_to !== undefined)
+                                res.redirect(redirect_to)
+                            else 
+                                //If the current user is a customer
+                                res.redirect('/');
                         } else {
                             //For the admin / employee page
                             //res.redirect();
@@ -142,6 +146,7 @@ const userController = {
     },
 
     getCheckOut: function (req, res) {
+        req.session.current_url = '/checkOut';
         if (req.session.username) {
             var user = {
                 Username: req.session.username,
