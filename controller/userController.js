@@ -140,6 +140,11 @@ const userController = {
             }
         });
     },
+
+    getCheckOut: function (req, res) {
+        res.render('checkout.hbs');
+    },
+
     postAddtoCart: function (req, res) {
         const id = req.session.userID;
         const { itemID, qty } = req.body;

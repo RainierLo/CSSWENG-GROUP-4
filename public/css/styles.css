@@ -808,3 +808,116 @@ body {
   padding: 10px;
   width: 600px;
 }
+
+/* checkout */
+
+.checkout-bg {
+  background: linear-gradient(
+    45deg,
+    rgba(245, 161, 66, 0.8) 0%,
+    rgba(230, 61, 9, 0.4) 100%
+  );
+  padding: 10px 0px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-container{
+  width: 850px;
+  height: 600px;
+  border: none;
+}
+
+.cart-page {
+  margin: 80px auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-info{
+  display: flex;
+  flex-wrap: wrap;
+}
+th{
+  text-align: left;
+  padding: 5px;
+  color: #fff;
+  background-color: #e74c3c;
+  font-weight: normal;
+}
+
+td{
+  padding: 10px 5px;
+}
+td input{
+  width: 40px;
+  height: 30px;
+  padding: 5px;
+}
+td a{
+  color: var(--orange);
+  font-size: 12px;
+}
+td img{
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+.total-price{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.total-price table{
+  border-top: 3px solid var(--orange);
+  width: 100%;
+  max-width: 350px;
+}
+td:last-child{
+  text-align: right;
+}
+th:last-child{
+  text-align: right;
+}
+
+.delivery-form-container {
+  height: auto;
+  width: 40%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px 30px;
+  padding-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.payment{
+  background: white;
+  max-width: 360px;
+  margin: 20px auto;
+  height: auto;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.payment h2{
+  text-align: center;
+  margin-bottom: 40px;
+  color: black;
+}
+
+.form .input{
+  padding: 12px 0 12px 10px;
+  width: 100%;
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  word-wrap: 3px;
+  margin-bottom: 10px;
+}
