@@ -204,7 +204,18 @@ const userController = {
         }).populate('Cart').exec();
     },
 
-    clearUserCart: function (req,res) {
+    remOneItem: function (req, res) {
+        const id = req.session.userID;
+        const {itemID } = req.body;
+        User.updateOne({ _id: id }, { $pull: {Cart: {_id: itemID}}}, function(err, result) {
+            if (err) throw err;
+            if (result) {
+                res.send('Success');
+            }
+        })
+    },
+
+    clearUserCart: function (req, res) {
         const id = req.session.userID;
         User.updateOne({ _id: id }, 
             {$set: {Cart: []}}, function (err, result) {

@@ -17,7 +17,7 @@ app.get('/getUserCart', userController.getUserCart);
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
-
+app.post('/removeCartItem', userController.remOneItem);
 //Render routes to be added
 
 
