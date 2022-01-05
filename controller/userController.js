@@ -142,7 +142,15 @@ const userController = {
     },
 
     getCheckOut: function (req, res) {
-        res.render('checkout.hbs');
+        if (req.session.username) {
+            var user = {
+                Username: req.session.username,
+                id: req.session.id
+            };
+            res.render('checkout.hbs', user);
+        } else {
+            res.render('checkout.hbs');
+        }
     },
 
     postAddtoCart: function (req, res) {

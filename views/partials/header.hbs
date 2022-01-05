@@ -1,0 +1,23 @@
+<div class="nav-container">
+        <nav class="nav-bar">
+            <div class="nav-right">
+                <i style ="color: var(--orange);   line-height:50px;
+                font-size: 30px; margin-left: 20px"class="fa fa-fire"></i>
+                <h1 class="" id="nav-title">Super 6 Grille House</h1>
+                <a class="nav-links"href="/">Home</a>
+            </div>
+            <div class="nav-left">
+
+                {{#if Username}}
+                <a href="/checkOut" style ="font-size: 20px;"class="fa-stack fa-4x nav-write">
+                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                    <i style ="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
+                </a>
+                    <a class="nav-link-btn" href="">{{Username}}</a>
+                    <a class="nav-link-btn" href="/logout">Logout</a>
+                {{else}}
+                    <a class="nav-link-btn" href="/login">Login</a>
+                {{/if}}
+            </div>
+        </nav>
+    </div>

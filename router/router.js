@@ -12,6 +12,8 @@ app.get('/login', userController.getLogin);
 app.get('/logout', userController.getLogout);
 app.get('/checkEmail', userController.checkEmail);
 app.get('/checkOut', userController.getCheckOut);
+app.get('/getUserCart', userController.getUserCart);
+
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);

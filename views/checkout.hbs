@@ -1,135 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Super 6 Grille House</title>
-    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
-        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
+
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
     <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script defer src="/scripts/fileUpload.js"></script>
+
+    <script>
+        var cart = {};
+        function buildCart(cart) {
+            var table = document.getElementById("cartTable");
+            table.innerHTML = "";
+            var subtotal = 0;
+            var deliveryfee = 100;//Temporary value
+            
+            //Image for this is still static
+            for (var i = 0; i < cart.length; i++) {
+                var row =        
+                        `<tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="images/Sisig.jpg">
+                                    <div>
+                                        <p>${cart[i].ItemID.FoodName}</p>
+                                        <small>Price: ₱${cart[i].ItemID.Price}</small>
+                                        <br>
+                                        <a href="">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input type="number" value="${cart[i].Quantity}"></td>
+                            <td>₱${cart[i].ItemID.Price*cart[i].Quantity}</td>
+                        </tr>`
+                subtotal += cart[i].ItemID.Price*cart[i].Quantity;
+                table.innerHTML += row
+            }
+            $('#subtotal').text(`₱${subtotal}`);
+            $('#total').text(`₱${subtotal + deliveryfee}`);
+        }
+
+        function getCart() {
+            $.get('/getUserCart', function(result) {
+                if (result) {
+                    console.log(result.Cart);
+                    data = result.Cart;
+                    buildCart(data);
+                }
+                    
+                else 
+                    alert('Error obtaining Cart');
+            })
+        }
+
+        $(document).ready(function () {
+            getCart();
+
+        })
+    </script>
+
 </head>
+
 <body>
-    <div class="nav-container">
-        <nav class="nav-bar">
-            <div class="nav-right">
-                <i style ="color: var(--orange);   line-height:50px;
-                font-size: 30px; margin-left: 20px"class="fa fa-fire"></i>
-                <h1 class="" id="nav-title">Super 6 Grille House</h1>
-                <a class="nav-links"href="index.html">Home</a>
-            </div>
-            <div class="nav-left">
-                <a href="createstory.html" style ="font-size: 20px;"class="fa-stack fa-4x nav-write">
-                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                    <i style ="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
-                </a>
-                <a class="nav-link-btn"href="login.html">Login</a>
-            </div>
-        </nav>
-    </div>
+    {{> header Username=Username}}   
 
     <!---- cart item details ---->
     <div class="checkout-bg">
         <section class="cart-container">
-        <div class="cart-page">
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="cart-info">
-                            <img src="images/Sisig.jpg">
-                            <div>
-                                <p>Sisig</p>
-                                <small>Price: ₱160</small>
-                                <br>
-                                <a href="">Remove</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input type="number" value="1"></td>
-                    <td>₱160</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="cart-info">
-                            <img src="images/Buttered Chicken.jpg">
-                            <div>
-                                <p>Buttered Chicken</p>
-                                <small>Price: ₱220</small>
-                                <br>
-                                <a href="">Remove</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input type="number" value="1"></td>
-                    <td>₱220</td>
-                </tr>
-            </table>
-
-            <div class="total-price">
+            <div class="cart-page">
                 <table>
                     <tr>
-                        <td>Subtotal</td>
-                        <td>₱380</td>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
                     </tr>
-                    <tr>
-                        <td>Delivery Fee</td>
-                        <td>₱100</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>₱480</td>
-                    </tr>
+                    <tbody id="cartTable">
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="images/Sisig.jpg">
+                                    <div>
+                                        <p>Sisig</p>
+                                        <small>Price: ₱160</small>
+                                        <br>
+                                        <a href="">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input type="number" value="1"></td>
+                            <td>₱160</td>
+                        </tr>
+                    </tbody>
+
                 </table>
+
+                <div class="total-price">
+                    <table>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td id="subtotal">₱380</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Fee</td>
+                            <td>₱100</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td id="total">₱480</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
         </section>
 
         <section class="delivery-form-container">
-                <div class="payment">
-                    <h2>Delivery Address</h2>
+            <div class="payment">
+                <h2>Delivery Address</h2>
 
-                    <div class="form">
-                        <div class="delivery-info">
-                            <input type="text" class="input" name="address" placeholder="Address">
-                        </div>
-                        <div class="delivery-info">
-                            <input type="text" class="input" name="city" placeholder="City/Municipality">
-                        </div>
-                        <div class="delivery-info">
-                            <input type="text" class="input" name="region" placeholder="Region">
-                        </div>
-                        <div class="delivery-info">
-                            <input type="text" class="input" name="zip" placeholder="ZIP Code">
-                        </div>
+                <div class="form">
+                    <div class="delivery-info">
+                        <input type="text" class="input" name="address" placeholder="Address">
+                    </div>
+                    <div class="delivery-info">
+                        <input type="text" class="input" name="city" placeholder="City/Municipality">
+                    </div>
+                    <div class="delivery-info">
+                        <input type="text" class="input" name="region" placeholder="Region">
+                    </div>
+                    <div class="delivery-info">
+                        <input type="text" class="input" name="zip" placeholder="ZIP Code">
                     </div>
                 </div>
-                <button class="submit-form">Confirm</button>
             </div>
+            <button class="submit-form">Confirm</button>
+    </div>
 
-                
-            </form>
-        </section>
+
+    </form>
+    </section>
     </div>
 
 
 
-    <footer class= "nav-footer-container">
+    <footer class="nav-footer-container">
         <div class="nav-footer">
             <div class="footer-logo">
                 <div style="display: flex;">
-                    <i style ="color: var(--orange); font-size: 25px;"class="fa fa-fire"></i>
+                    <i style="color: var(--orange); font-size: 25px;" class="fa fa-fire"></i>
                     <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
                 </div>
             </div>
@@ -143,4 +172,5 @@
 
     </footer>
 </body>
+
 </html>
