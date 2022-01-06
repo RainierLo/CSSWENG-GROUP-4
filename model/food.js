@@ -6,9 +6,10 @@ const foodSchema = new Schema({
     FoodName: { type: String, required: true },
     Price: { type: Number, required: true },
     Description: { type: String },
+    Tag: {type: String, required: true},
     isAvailable: { type: Boolean, required: true },
-    Image: {type: Buffer},
-    ImageType: {type: String}
+    Image: {type: Buffer, required: true },
+    ImageType: {type: String, required: true }
 });
 
 foodSchema.set('toObject', { virtuals: true })
