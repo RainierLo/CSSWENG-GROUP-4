@@ -15,6 +15,45 @@
     <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script defer src="/scripts/fileUpload.js"></script>
+    <script>
+        var menu = {}
+        function getFoodFromDB() {
+            $.get('/menu/:itemID', function (result) {
+                console.log(result);
+                menu = result;
+                buildFoodPage(menu);
+            });
+        }
+
+        function buildFoodPage(food) {
+            {{!-- var display = document.getElementsByClassName("indivItem-info");
+            display.innerHTML = ""; --}}
+            //for (var i = 0; i < menu.length; i++) {
+
+                var row = 
+                `   <img class="indivImage" src="${food.imagePath}">
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">${food.FoodName}</p>
+                        <br>
+                        <small style="font-size: 20px; ">${food.Description}</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ ${food.Price}.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                `
+                $(".indivItem-info").append(row);
+            //};
+        }
+        $(document).ready(function() {
+            getFoodFromDB();
+        })
+    </script>
 </head>
 <body>
     {{> header Username=Username}}
@@ -24,14 +63,34 @@
         <section class="indivItem-container">
             <div class="indivItem-page">
                 <div class="indivItem-info"> 
-                    <img class="indivImage" src="images/Sisig.jpg">
+                    <img class="indivImage" src="{{imagePath}}">
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">{{FoodName}}</p>
+                        <br>
+                        <small style="font-size: 20px; ">{{{Description}}}</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ {{Price}}.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <form action="/" method="post">
+                                    <button style="width: 350px" type="submit" value="Submit" class="submit-form href="/postAddtoCart">Add to Cart</button>
+                                </form>
+                                <br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                {{!-- <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Buttered Chicken.jpg">
                         
                     <div class="indivInfo">
-                        <p style="font-size: 40px;">Pork Sisig</p>
+                        <p style="font-size: 40px;">Buttered Chicken</p>
                         <br>
-                        <small style="font-size: 20px; ">The best sisig in Malate. Sizzling marinated pork bits with onion and chili. </small>
+                        <small style="font-size: 20px; ">Deep fried chicken cooked in butter, onion, and red pepper.</small>
                         <br><br>
-                        <small style="font-size: 20px;">₱ 208.00</small>
+                        <small style="font-size: 20px;">₱ 286.00</small>
                         <br>
                             <div class="indivButton">
                                 <small style="font-size: 20px">Quantity: </small>
@@ -40,8 +99,187 @@
                                 <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
                             </div>
                     </div>
-                    
                 </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Buttered Chicken.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Buttered Chicken</p>
+                        <br>
+                        <small style="font-size: 20px; ">Deep fried chicken cooked in butter, onion, and red pepper.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 286.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Adobong Kambing.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Adobong Kambing</p>
+                        <br>
+                        <small style="font-size: 20px; ">Tenderize goat meat cooked with the popular adobo style.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 455.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Bistek Tagalog.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Bistek Tagalog</p>
+                        <br>
+                        <small style="font-size: 20px; ">Thinly sliced beef braised in a mixture of citrus juice.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 325.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Sweet and Sour Pork.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Sweet and Sour Pork</p>
+                        <br>
+                        <small style="font-size: 20px; ">Juicy pieces of tenderloin combined with sweet and sour special sauce.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 247.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Crispy Pata.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Crispy Pata</p>
+                        <br>
+                        <small style="font-size: 20px; ">Boiled whole pork leg and deep fried until golden brown.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 715.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Sinigang na Baboy.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Sinigang na Baboy</p>
+                        <br>
+                        <small style="font-size: 20px; ">Pork soup that cooked in sour broth with cubes of pork meat.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 338.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Grilled Liempo.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Grilled Liempo</p>
+                        <br>
+                        <small style="font-size: 20px; ">Marinated and Grilled pork belly</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 124.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Spicy Pork Ribs.png">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Spicy Pork Ribs</p>
+                        <br>
+                        <small style="font-size: 20px; ">Marinated spareribs in pineapple, soy sauce, garlic, brown suggar, black pepper and ginger. </small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 338.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Patatim.png">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Patatim</p>
+                        <br>
+                        <small style="font-size: 20px; ">Whole pork leg cooked in sweet and savory sauce.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 715.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div>
+                 <div class="indivItem-info"> 
+                    <img class="indivImage" src="images\Buffalo Wings.png">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Buffalo Wings</p>
+                        <br>
+                        <small style="font-size: 20px; ">Deep fried chicken wings coated in a spicy special sauce.</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 286.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                </div> --}}
             </div>
         </section>
     </div>

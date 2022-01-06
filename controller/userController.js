@@ -167,13 +167,19 @@ const userController = {
             Quantity: qty
         }
 
-        User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
-            if (err) throw err
-            if (result) {
-                //Item is added to the User's cart
-                res.send('Success');
-            }
-        })
+        if (id) {
+            User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
+                if (err) throw err
+                if (result) {
+                    //Item is added to the User's cart
+                    // res.send('Success');
+                    res.redirect('/');
+                }
+            })
+        } else {
+            res.redirect('login.hbs');
+        }
+        
     },
 
     getUserCart: function (req, res) {
