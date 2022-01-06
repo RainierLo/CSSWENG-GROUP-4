@@ -859,7 +859,11 @@ td input{
   height: 30px;
   padding: 5px;
 }
-td a{
+td button{
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
   color: var(--orange);
   font-size: 12px;
 }

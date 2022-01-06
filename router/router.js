@@ -16,13 +16,13 @@ app.get('/getUserCart', userController.getUserCart);
 app.get('/getMenu', foodController.getMenu);
 app.get('/menu/:itemID', foodController.getIndivItemPage);
 
-app.get('/getMenuPage', foodController.getMenuPage);
+app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/removeCartItem', userController.remOneItem);
 app.post('/addFood', foodController.addFood);
-app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
+
 //Render routes to be added
 
 

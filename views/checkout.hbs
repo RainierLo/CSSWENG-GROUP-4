@@ -34,7 +34,7 @@
                         `<tr>
                             <td>
                                 <div class="cart-info">
-                                    <img src="images/Sisig.jpg">
+                                    <img src="${cart[i].ItemID.imagePath}">
                                     <div>
                                         <p>${cart[i].ItemID.FoodName}</p>
                                         <small>Price: ₱${cart[i].ItemID.Price}</small>
@@ -75,7 +75,7 @@
             $("#cartTable").on('click', '#remButton', function () {
                 var index = parseInt($(this).prop('name'));
                 var itemID = data[index]._id;
-                $.post(`/removeCartItem`, {itemID: itemID} , function (result) {
+                $.post(`/removeCartItem`, { itemID: itemID }, function (result) {
                     if (result) {
                         getCart()
                     } else {
@@ -128,28 +128,27 @@
         <section class="delivery-form-container">
             <div class="payment">
                 <h2>Delivery Address</h2>
-
-                <div class="form">
-                    <div class="delivery-info">
-                        <input type="text" class="input" name="address" placeholder="Address">
+                <form>
+                    <div class="form">
+                        <div class="delivery-info">
+                            <input type="text" class="input" name="address" placeholder="Address">
+                        </div>
+                        <div class="delivery-info">
+                            <input type="text" class="input" name="city" placeholder="City/Municipality">
+                        </div>
+                        <div class="delivery-info">
+                            <input type="text" class="input" name="region" placeholder="Region">
+                        </div>
+                        <div class="delivery-info">
+                            <input type="text" class="input" name="zip" placeholder="ZIP Code">
+                        </div>
                     </div>
-                    <div class="delivery-info">
-                        <input type="text" class="input" name="city" placeholder="City/Municipality">
-                    </div>
-                    <div class="delivery-info">
-                        <input type="text" class="input" name="region" placeholder="Region">
-                    </div>
-                    <div class="delivery-info">
-                        <input type="text" class="input" name="zip" placeholder="ZIP Code">
-                    </div>
-                </div>
             </div>
             <button class="submit-form">Confirm</button>
-    </div>
 
 
-    </form>
-    </section>
+            </form>
+        </section>
     </div>
 
 

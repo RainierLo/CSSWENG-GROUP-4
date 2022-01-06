@@ -23,7 +23,6 @@ const userController = {
                 }
             }
         })
-
     },
     getRegister: function (req, res) {
         res.render('signup.hbs');
@@ -170,14 +169,11 @@ const userController = {
 
     postAddtoCart: function (req, res) {
         const id = req.session.userID;
-        const { itemID, qty } = req.body;
-
+        const { itemID, Quantity } = req.body;
         var foodItem = {
             ItemID: itemID,
-            Quantity: qty
+            Quantity: Quantity
         }
-
-        if (id) {
             User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
                 if (err) throw err
                 if (result) {
@@ -186,10 +182,6 @@ const userController = {
                     res.redirect('/');
                 }
             })
-        } else {
-            res.redirect('login.hbs');
-        }
-        
     },
 
     getUserCart: function (req, res) {

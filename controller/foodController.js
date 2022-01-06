@@ -16,7 +16,11 @@ const foodController = {
             Food.findOne( {_id: itemID }, function (err, result) {
                 if (err) throw err
                 if (result) {
-                    res.render('indivitem.hbs/', result);
+                    var body = {
+                        Username: req.session.username,
+                        Food: result
+                    }
+                    res.render('indivitem.hbs', body);
                 }
             })
         // }

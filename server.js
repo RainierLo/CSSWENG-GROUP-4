@@ -8,12 +8,12 @@ const cors = require('cors');
 const bodyParser = require(`body-parser`);
 const hbs = require('hbs');
 const session = require('express-session');
-
+const path = require('path');
 
 const app = express();
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
-
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));

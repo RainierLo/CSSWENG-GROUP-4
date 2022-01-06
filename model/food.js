@@ -6,8 +6,7 @@ const foodSchema = new Schema({
     FoodName: { type: String, required: true },
     Price: { type: Number, required: true },
     Description: { type: String },
-    // Tag: {type: String, required: true},
-    Category: { type: String, required: true },
+    Category: {type: String},
     isAvailable: { type: Boolean, required: true },
     Image: {type: Buffer, required: true },
     ImageType: {type: String, required: true }
