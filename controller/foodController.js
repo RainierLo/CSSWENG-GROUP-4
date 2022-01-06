@@ -1,6 +1,7 @@
 const Food = require('../model/food');
 const User = require('../model/user');
 const mongoose = require('mongoose');
+const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
 const foodController = {
     // postMenuPage: function (req, res) {
@@ -23,6 +24,10 @@ const foodController = {
         //     res.redirect('login.hbs');
         // }
         
+    },
+
+    getMenuPage: function (req,res) {
+        res.render('menu.hbs');
     },
 
     addFood: function (req, res) {

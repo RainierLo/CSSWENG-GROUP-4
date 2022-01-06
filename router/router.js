@@ -16,6 +16,8 @@ app.get('/getUserCart', userController.getUserCart);
 app.get('/getMenu', foodController.getMenu);
 app.get('/menu/:itemID', foodController.getIndivItemPage);
 
+app.get('/getMenuPage', foodController.getMenuPage);
+
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/removeCartItem', userController.remOneItem);
