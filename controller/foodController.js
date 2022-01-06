@@ -19,7 +19,7 @@ const foodController = {
                         Username: req.session.username,
                         Food: result
                     }
-                    res.render('indivitem.hbs/', body);
+                    res.render('indivitem.hbs', body);
                 }
             })
         // }

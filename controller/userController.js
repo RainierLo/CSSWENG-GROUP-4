@@ -23,7 +23,6 @@ const userController = {
                 }
             }
         })
-
     },
     getRegister: function (req, res) {
         res.render('signup.hbs');
