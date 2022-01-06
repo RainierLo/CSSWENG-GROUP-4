@@ -66,44 +66,49 @@ const userController = {
 
     postLogin: function (req, res) {
         const { username, password } = req.body;
-
-        User.findOne({ Email: username }, async function (err, result) {
-
-            if (err) {
-                return res.status(500).json({ message: err });
-            } else if (result) {
-
-                var user = {
-                    username: result.Username,
-                    email: result.Email,
-                    id: result._id
-                };
-
-                bcrypt.compare(password, result.Password, function (err, equal) {
-                    if (equal) {
-                        req.session.userID = result._id;
-                        req.session.username = result.Username;
-                        var redirect_to = req.session.redirect_to;
-                        if (result.UserType === 'Customer') {
-                            if (redirect_to !== undefined)
-                                res.redirect(redirect_to)
-                            else 
-                                //If the current user is a customer
-                                res.redirect('/');
-                        } else {
-                            //For the admin / employee page
-                            //res.redirect();
-                        }
-
-                    } else {
-                        var details = {
-                            error: 'Invalid Credentials'
-                        }
-                        res.render('login.hbs', details);
-                    }
-                });
+        if (username.length == 0 || password.length == 0) {
+            var details = {
+                error: 'Invalid Credentials'
             }
-        });
+            res.render('login.hbs', details);
+        } else {
+            User.findOne({ Email: username }, async function (err, result) {
+
+                if (err) {
+                    return res.status(500).json({ message: err });
+                } else if (result) {
+
+                    var user = {
+                        username: result.Username,
+                        email: result.Email,
+                        id: result._id
+                    };
+                    bcrypt.compare(password, result.Password, function (err, equal) {
+                        if (equal) {
+                            req.session.userID = result._id;
+                            req.session.username = result.Username;
+                            var redirect_to = req.session.redirect_to;
+                            if (result.UserType === 'Customer') {
+                                if (redirect_to !== undefined)
+                                    res.redirect(redirect_to)
+                                else
+                                    //If the current user is a customer
+                                    res.redirect('/');
+                            } else {
+                                //For the admin / employee page
+                                //res.redirect();
+                            }
+
+                        } else {
+                            var details = {
+                                error: 'Invalid Credentials'
+                            }
+                            res.render('login.hbs', details);
+                        }
+                    });
+                }
+            });
+        }
     },
 
     getLogout: function (req, res) {
@@ -126,7 +131,7 @@ const userController = {
 
     updateOneUser: function (req, res) {
         const userID = req.session.userID;
-        
+
         var userDetails = {
             Email: req.body.email,
             Username: req.body.username,
@@ -134,14 +139,14 @@ const userController = {
             MobileNumber: req.body.mobileNum
         };
 
-        User.updateOne({ _id: userID }, 
-            {$set: userDetails}, 
+        User.updateOne({ _id: userID },
+            { $set: userDetails },
             function (err, result) {
-            if (err) throw err
-            if (result) {
-                res.send('Success');
-            }
-        });
+                if (err) throw err
+                if (result) {
+                    res.send('Success');
+                }
+            });
     },
 
     remOneUser: function (req, res) {
@@ -174,14 +179,14 @@ const userController = {
             ItemID: itemID,
             Quantity: Quantity
         }
-            User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
-                if (err) throw err
-                if (result) {
-                    //Item is added to the User's cart
-                    // res.send('Success');
-                    res.redirect('/');
-                }
-            })
+        User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
+            if (err) throw err
+            if (result) {
+                //Item is added to the User's cart
+                // res.send('Success');
+                res.redirect('/');
+            }
+        })
     },
 
     getUserCart: function (req, res) {
@@ -207,20 +212,20 @@ const userController = {
             Quantity: qty
         };
 
-        User.findOneAndUpdate({_id: id},
-            {$set: {Cart: foodItem}}, function (err,result) {
-            if (err) throw err
-            // Succesfully updated the cart
-            if (result) {
-                res.send("Success");
-            }
-        }).populate('Cart').exec();
+        User.findOneAndUpdate({ _id: id },
+            { $set: { Cart: foodItem } }, function (err, result) {
+                if (err) throw err
+                // Succesfully updated the cart
+                if (result) {
+                    res.send("Success");
+                }
+            }).populate('Cart').exec();
     },
 
     remOneItem: function (req, res) {
         const id = req.session.userID;
-        const {itemID } = req.body;
-        User.updateOne({ _id: id }, { $pull: {Cart: {_id: itemID}}}, function(err, result) {
+        const { itemID } = req.body;
+        User.updateOne({ _id: id }, { $pull: { Cart: { _id: itemID } } }, function (err, result) {
             if (err) throw err;
             if (result) {
                 res.send('Success');
@@ -230,10 +235,10 @@ const userController = {
 
     clearUserCart: function (req, res) {
         const id = req.session.userID;
-        User.updateOne({ _id: id }, 
-            {$set: {Cart: []}}, function (err, result) {
+        User.updateOne({ _id: id },
+            { $set: { Cart: [] } }, function (err, result) {
                 if (err) throw err
-                if(result) {
+                if (result) {
                     res.send("Success");
                 }
             });
