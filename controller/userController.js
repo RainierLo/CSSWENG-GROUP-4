@@ -179,13 +179,49 @@ const userController = {
             ItemID: itemID,
             Quantity: Quantity
         }
-        User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
-            if (err) throw err
-            if (result) {
-                //Item is added to the User's cart
-                // res.send('Success');
-                res.redirect('/');
+        // User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
+        //     if (err) throw err
+        //     if (result) {
+        //         //Item is added to the User's cart
+        //         // res.send('Success');
+        //         res.redirect('/');
+        //     }
+        // })
+        User.updateOne({
+            _id: id,
+            Cart: {
+                $not: {
+                    $elemMatch: {
+                        ItemID: itemID
+                    }
+                }
             }
+        }, {
+            $addToSet: {
+                Cart: {
+                    ItemID: itemID,
+                    Quantity: Quantity
+                }
+            }
+        }, { multi: true }, function (err, result) {
+            if (err) throw err
+            //If the foodItem is already in the cart, increment the quantity
+            if (result.modifiedCount == 0) {
+                User.updateOne({
+                    _id: id,
+                    Cart: {
+                        $elemMatch: { ItemID: itemID}
+                    }
+                }, {$inc: {'Cart.$.Quantity': Quantity}}, function(err, result2) {
+                    if (err) throw err
+                    if (result2) {
+                        //Item is added to the User's cart
+                        // res.send('Success');
+                        console.log("Quantity Updated");        
+                    }
+                })    
+            }
+            res.redirect('/');
         })
     },
 
@@ -205,21 +241,20 @@ const userController = {
 
     updateUserCart: function (req, res) {
         const id = req.session.userID;
-        const { itemID, qty } = req.body;
-
-        var foodItem = {
-            itemID: itemID,
-            Quantity: qty
-        };
-
-        User.findOneAndUpdate({ _id: id },
-            { $set: { Cart: foodItem } }, function (err, result) {
-                if (err) throw err
-                // Succesfully updated the cart
-                if (result) {
-                    res.send("Success");
-                }
-            }).populate('Cart').exec();
+        const { ItemID, Quantity } = req.body;
+        
+        User.updateOne({
+            _id: id,
+            //Cart: { $elemMatch: { ItemID: ItemID} }
+            Cart: { $elemMatch: { _id: ItemID}}
+        }, {$inc: {'Cart.$.Quantity': Quantity}}, function(err, result) {
+            if (err) throw err
+            if (result) {
+                //Item is added to the User's cart
+                // res.send('Success');
+                res.send('Success');  
+            }
+        })
     },
 
     remOneItem: function (req, res) {

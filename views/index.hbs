@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Super 6 Grille House</title>
-    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script>
@@ -20,12 +21,15 @@
         }
 
         function buildMenu(menu) {
-            {{!-- var display = document.getElementsByClassName("home-palette-container");
-            display.innerHTML = ""; --}}
+            {
+                {
+                    !-- var display = document.getElementsByClassName("home-palette-container");
+                    display.innerHTML = ""; --}
+            }
             for (var i = 0; i < menu.length; i++) {
 
-                var row = 
-                ` <div class="menu-card" style="margin-left: 45px">
+                var row =
+                    ` <div class="menu-card" style="margin-left: 45px">
                     <a href="/menu/${menu[i]._id}">
                         <img height="150" width="150" src="${menu[i].imagePath}">
                         <p>${menu[i].FoodName} - ${menu[i].Price}</p>
@@ -35,38 +39,41 @@
                 $(".home-palette-container").append(row);
             };
         }
-        $(document).ready(function() {
-            console.log('Hello')
-            getMenuFromDB();
-        })
+//        $(document).ready(function() {
+//            {{!-- console.log('Hello')
+//            getMenuFromDB(); --}}
+//        })
     </script>
 </head>
 <body>
-
-    {{> header Username=Username}}    
+    {{> header Username=Username}}
     <section class="container-dark">
         <div class="home-palette-dark">
-            <h1 class="welcome-text" style = "color: white; margin-bottom: 30px;">Malate's famous payong-payong restaurant!</h1>
-            <p style = "color: white; text-align: center;">
+            <h1 class="welcome-text" style="color: white; margin-bottom: 30px;">Malate's famous payong-payong
+                restaurant!</h1>
+            <p style="color: white; text-align: center;">
                 Enjoy Malate's best Filipino dishes, delivered right at your doorstep.<br>
                 Deliveries can be made all over Manila.<br>
                 What are you waiting for? Order some good food now!
             </p>
-                
-  
         </div>
-
     </section>
     <section class="container-light">
-
         <div class="home-palette-light">
-
-            <h1 style = "color: white;">Menu</h1>
+            <h1 style="color: white;">Menu</h1>
             <div class="home-palette-container">
+                {{#each Menu}}
+                    <div class="menu-card" style="margin-left: 45px">
+                        <a href="/menu/{{this._id}}">
+                            <img height="150" width="150" src="{{this.imagePath}}">
+                            <p>{{this.FoodName}} - {{this.Price}}</p>
+                        </a>
+                    </div>
+                {{/each}}
             </div>
         </div>
     </section>
-
-    {{> footer}}    
+    {{> footer}}
 </body>
+
 </html>

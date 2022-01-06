@@ -21,6 +21,16 @@
 
     <script>
         var cart = {};
+        function incQty(Quantity, ItemID) {
+            var index = cart.map(item => item._id).indexOf(ItemID);
+            var body = {
+                Quantity: Quantity - cart[index].Quantity,
+                ItemID: ItemID
+            }
+            $.post('/updateCart', body, function (result) {
+                getCart();
+            })
+        }
         function buildCart(cart) {
             var table = document.getElementById("cartTable");
             var subtotal = 0;
@@ -43,7 +53,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><input type="number" value="${cart[i].Quantity}"></td>
+                            <td><input type="number" name="${cart[i]._id}" value="${cart[i].Quantity}" onchange="incQty(this.value, this.name)"></td>
                             <td>₱${cart[i].ItemID.Price * cart[i].Quantity}</td>
                         </tr>`
                     subtotal += cart[i].ItemID.Price * cart[i].Quantity;
@@ -60,11 +70,9 @@
         function getCart() {
             $.get('/getUserCart', function (result) {
                 if (result) {
-                    console.log(result.Cart);
-                    data = result.Cart;
-                    buildCart(data);
+                    cart = result.Cart;
+                    buildCart(cart);
                 }
-
                 else
                     alert('Error obtaining Cart');
             })
@@ -145,31 +153,10 @@
                     </div>
             </div>
             <button class="submit-form">Confirm</button>
-
-
             </form>
         </section>
     </div>
-
-
-
-    <footer class="nav-footer-container">
-        <div class="nav-footer">
-            <div class="footer-logo">
-                <div style="display: flex;">
-                    <i style="color: var(--orange); font-size: 25px;" class="fa fa-fire"></i>
-                    <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
-                </div>
-            </div>
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-            </div>
-
-        </div>
-
-    </footer>
+    {{> footer}} 
 </body>
 
 </html>
