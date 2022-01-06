@@ -7,45 +7,71 @@
     <link rel="stylesheet" href="/css/styles.css">
     <title>Super 6 Grille House</title>
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
-        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script defer src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script defer src="/scripts/fileUpload.js"></script>
+
+    <script>
+        var menu = {}
+        function getMenuFromDB() {
+            $.get('/getMenu', function (result) {
+                console.log(result);
+                menu = result;
+                buildMenu(menu);
+            });
+        }
+
+        function buildMenu(menu) {
+            {{!-- var display = document.getElementsByClassName("home-palette-container");
+            display.innerHTML = ""; --}}
+            for (var i = 0; i < menu.length; i++) {
+
+                var row = 
+                ` <div class="menu-card" style="margin-left: 45px">
+                    <a href="/menu/${menu[i]._id}">
+                        <img height="150" width="150" src="${menu[i].imagePath}">
+                        <p>${menu[i].FoodName} - ${menu[i].Price}</p>
+                    </a>
+                  </div>
+                `
+                $(".home-palette-container").append(row);
+            };
+        }
+        $(document).ready(function() {
+            getMenuFromDB();
+        })
+    </script>
 </head>
 <body>
 
     {{> header Username=Username}}    
     <section class="container-dark">
+        
+
         <div class="home-palette-dark">
+
             <h1 class="welcome-text" style = "color: white; margin-bottom: 30px;">Malate's famous payong-payong restaurant!</h1>
             <p style = "color: white; text-align: center;">
                 Enjoy Malate's best Filipino dishes, delivered right at your doorstep.<br>
                 Deliveries can be made all over Manila.<br>
                 What are you waiting for? Order some good food now!
             </p>
+                
+  
         </div>
+
     </section>
     <section class="container-light">
 
         <div class="home-palette-light">
 
             <h1 style = "color: white;">Menu</h1>
-
             <div class="home-palette-container">
-
-                    <div class="menu-card" style="margin-left: 45px">
-                        <img src="/images/Sisig.jpg">
-                        <a href="">Pork Sisig - 160</a>
-                    </div>
-
-                    <div class="menu-card" style="margin-left: 45px">
-                        <img src="/images/Buttered Chicken.jpg">
-                        <a href="">Buttered Chicken - 220</a>
-                    </div>
             </div>
         </div>
     </section>
