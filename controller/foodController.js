@@ -26,17 +26,19 @@ const foodController = {
     },
 
     addFood: function (req, res) {
-        const { FoodName, Price, Description } = req.body;
+        const { FoodName, Price, Description, Picture } = req.body;
         const newFood = new Food({
             FoodName: FoodName,
             Price: Price,
             Description: Description,
             isAvailable: true
         });
+
+        saveImage(newFood, Picture);
         newFood.save(function (err) {
             if (err) throw err
             else
-                res.send('Success');
+                res.redirect('/menu');
         });
     },
 
@@ -77,6 +79,16 @@ const foodController = {
             }
         });
 
+    }
+}
+
+function saveImage(foodItem, encodedImg) {
+    if (encodedImg == null) return;
+
+    const image = JSON.parse(encodedImg);
+    if (image != null && imageMimeTypes.includes(image.type)) {
+        foodItem.Image = new Buffer.from(image.data, 'base64');
+        foodItem.ImageType = image.type;
     }
 }
 

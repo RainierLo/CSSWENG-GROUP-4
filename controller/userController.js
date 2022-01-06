@@ -5,15 +5,25 @@ const bcrypt = require('bcrypt');
 const userController = {
     getIndex: function (req, res) {
         req.session.current_url = '/';
-        if (req.session.username) {
-            var user = {
-                Username: req.session.username,
-                id: req.session.id
-            };
-            res.render('index.hbs', user);
-        } else {
-            res.render('index.hbs');
-        }
+        Food.find(function (err, menu) {
+            if (err) throw err
+            if (menu) {
+                if (req.session.username) {
+                    var user = {
+                        Username: req.session.username,
+                        id: req.session.id,
+                        Menu: menu
+                    };
+                    res.render('index.hbs', user);
+                } else {
+                    var param = {
+                        Menu: menu
+                    }
+                    res.render('index.hbs', param);
+                }
+            }
+        })
+
     },
     getRegister: function (req, res) {
         res.render('signup.hbs');

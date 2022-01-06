@@ -19,6 +19,7 @@ app.get('/menu/:itemID', foodController.getIndivItemPage);
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/removeCartItem', userController.remOneItem);
+app.post('/addFood', foodController.addFood);
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 //Render routes to be added
 
