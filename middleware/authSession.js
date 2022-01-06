@@ -1,5 +1,3 @@
-
-
 const authSession = {
     //Middleware to see if the user is currently logged in
     checkIfLoggedIn: function (req, res, next) {

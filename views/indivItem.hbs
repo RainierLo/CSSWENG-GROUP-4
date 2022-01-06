@@ -17,38 +17,36 @@
     <script defer src="/scripts/fileUpload.js"></script>
 </head>
 <body>
+    {{> header Username=Username}}
 
-    {{> header Username=Username}}    
-    <section class="container-dark">
-        <div class="home-palette-dark">
-            <h1 class="welcome-text" style = "color: white; margin-bottom: 30px;">Malate's famous payong-payong restaurant!</h1>
-            <p style = "color: white; text-align: center;">
-                Enjoy Malate's best Filipino dishes, delivered right at your doorstep.<br>
-                Deliveries can be made all over Manila.<br>
-                What are you waiting for? Order some good food now!
-            </p>
-        </div>
-    </section>
-    <section class="container-light">
-
-        <div class="home-palette-light">
-
-            <h1 style = "color: white;">Menu</h1>
-
-            <div class="home-palette-container">
-
-                    <div class="menu-card" style="margin-left: 45px">
-                        <img src="/images/Sisig.jpg">
-                        <a href="">Pork Sisig - 160</a>
+    <!---- individual item details ---->
+    <div class="indivItem-bg">
+        <section class="indivItem-container">
+            <div class="indivItem-page">
+                <div class="indivItem-info"> 
+                    <img class="indivImage" src="images/Sisig.jpg">
+                        
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">Pork Sisig</p>
+                        <br>
+                        <small style="font-size: 20px; ">The best sisig in Malate. Sizzling marinated pork bits with onion and chili. </small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ 208.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
                     </div>
-
-                    <div class="menu-card" style="margin-left: 45px">
-                        <img src="/images/Buttered Chicken.jpg">
-                        <a href="">Buttered Chicken - 220</a>
-                    </div>
+                    
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+
 
     <footer class= "nav-footer-container">
         <div class="nav-footer">

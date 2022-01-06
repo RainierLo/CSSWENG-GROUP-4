@@ -13,7 +13,7 @@ app.get('/logout', userController.getLogout);
 app.get('/checkEmail', userController.checkEmail);
 app.get('/checkOut', authSession.checkIfLoggedIn, userController.getCheckOut);
 app.get('/getUserCart', userController.getUserCart);
-
+app.get('/menu', foodController.getIndivItemPage);
 
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);

@@ -10,6 +10,18 @@ const foodController = {
 
     // },
 
+    getIndivItemPage: function (req, res) {
+        const { itemID } = req.params;
+
+        // Food.findOne( {_id: itemID }, function (err, result) {
+        //     if (err) throw err
+        //     if (result) {
+        //         res.render('indivitem.hbs', result)
+        //     }
+        // })
+        res.render('indivitem.hbs')
+    },
+
     addFood: function (req, res) {
         const { FoodName, Price, Description } = req.body;
         const newFood = new Food({
