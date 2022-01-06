@@ -8,13 +8,6 @@
     <title>Super 6 Grille House</title>
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <script defer src="https://unpkg.com/filepond/dist/filepond.js"></script>
-    <script defer src="/scripts/fileUpload.js"></script>
 
     <script>
         var menu = {}
@@ -43,6 +36,7 @@
             };
         }
         $(document).ready(function() {
+            console.log('Hello')
             getMenuFromDB();
         })
     </script>
@@ -51,10 +45,7 @@
 
     {{> header Username=Username}}    
     <section class="container-dark">
-        
-
         <div class="home-palette-dark">
-
             <h1 class="welcome-text" style = "color: white; margin-bottom: 30px;">Malate's famous payong-payong restaurant!</h1>
             <p style = "color: white; text-align: center;">
                 Enjoy Malate's best Filipino dishes, delivered right at your doorstep.<br>
@@ -76,22 +67,6 @@
         </div>
     </section>
 
-    <footer class= "nav-footer-container">
-        <div class="nav-footer">
-            <div class="footer-logo">
-                <div style="display: flex;">
-                    <i style ="color: var(--orange); font-size: 25px;"class="fa fa-fire"></i>
-                    <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
-                </div>
-            </div>
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-            </div>
-
-        </div>
-
-    </footer>
+    {{> footer}}    
 </body>
 </html>
