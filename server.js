@@ -25,10 +25,26 @@ port = process.env.PORT;
 hostname = process.env.HOSTNAME;
 uri = process.env.URI;
 
+const io = require('socket.io')(3000, {
+    cors: {
+        origin: '*',
+    }
+});
 mongoose.connect(uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("Atlas Connected!");
+
+    orderCollection = connection.db.collection('orders');
+    orderStream = orderCollection.watch();
+
+    io.on('connection', socket => {
+        
+        //Waits for the 'orders' collection to be updated for changes
+        orderStream.on('change', change => {
+            socket.emit('orderdb-updated', change);
+        });
+    })
 });
 
 app.use(express.static(__dirname + "/public"));

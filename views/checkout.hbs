@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><input type="number" name="${cart[i]._id}" value="${cart[i].Quantity}" onchange="incQty(this.value, this.name)"></td>
+                            <td><input type="number" name="${cart[i]._id}" value="${cart[i].Quantity}" min="1" onchange="incQty(this.value, this.name)"></td>
                             <td>₱${cart[i].ItemID.Price * cart[i].Quantity}</td>
                         </tr>`
                     subtotal += cart[i].ItemID.Price * cart[i].Quantity;
@@ -136,23 +136,23 @@
         <section class="delivery-form-container">
             <div class="payment">
                 <h2>Delivery Address</h2>
-                <form>
+                <form action="/submitOrder" method="POST">
                     <div class="form">
                         <div class="delivery-info">
-                            <input type="text" class="input" name="address" placeholder="Address">
+                            <input type="text" class="input" name="Address" placeholder="Address">
                         </div>
                         <div class="delivery-info">
-                            <input type="text" class="input" name="city" placeholder="City/Municipality">
+                            <input type="text" class="input" name="City" placeholder="City/Municipality">
                         </div>
                         <div class="delivery-info">
-                            <input type="text" class="input" name="region" placeholder="Region">
+                            <input type="text" class="input" name="Region" placeholder="Region">
                         </div>
                         <div class="delivery-info">
-                            <input type="text" class="input" name="zip" placeholder="ZIP Code">
+                            <input type="text" class="input" name="Zip" placeholder="ZIP Code" title="Please enter a valid zip code." pattern="[0-9]{3,4}">
                         </div>
                     </div>
             </div>
-            <button class="submit-form">Confirm</button>
+            <button type="submit" class="submit-form" id="submit-Order">Confirm</button>
             </form>
         </section>
     </div>

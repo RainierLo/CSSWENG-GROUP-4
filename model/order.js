@@ -10,10 +10,7 @@ const orderSchema = new Schema({
     Address: { type: String, required: true },
     Cart: [
         {
-            ItemID: {
-                type: Schema.Types.ObjectId,
-                ref: 'Food'
-            },
+            FoodName: { type: String },
             Quantity: { type: Number }
         },
     ],

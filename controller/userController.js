@@ -1,5 +1,6 @@
 const User = require('../model/user');
 const Food = require('../model/food');
+const Order = require('../model/order');
 const bcrypt = require('bcrypt');
 
 const userController = {
@@ -210,16 +211,16 @@ const userController = {
                 User.updateOne({
                     _id: id,
                     Cart: {
-                        $elemMatch: { ItemID: itemID}
+                        $elemMatch: { ItemID: itemID }
                     }
-                }, {$inc: {'Cart.$.Quantity': Quantity}}, function(err, result2) {
+                }, { $inc: { 'Cart.$.Quantity': Quantity } }, function (err, result2) {
                     if (err) throw err
                     if (result2) {
                         //Item is added to the User's cart
                         // res.send('Success');
-                        console.log("Quantity Updated");        
+                        console.log("Quantity Updated");
                     }
-                })    
+                })
             }
             res.redirect('/');
         })
@@ -242,17 +243,17 @@ const userController = {
     updateUserCart: function (req, res) {
         const id = req.session.userID;
         const { ItemID, Quantity } = req.body;
-        
+
         User.updateOne({
             _id: id,
             //Cart: { $elemMatch: { ItemID: ItemID} }
-            Cart: { $elemMatch: { _id: ItemID}}
-        }, {$inc: {'Cart.$.Quantity': Quantity}}, function(err, result) {
+            Cart: { $elemMatch: { _id: ItemID } }
+        }, { $inc: { 'Cart.$.Quantity': Quantity } }, function (err, result) {
             if (err) throw err
             if (result) {
                 //Item is added to the User's cart
                 // res.send('Success');
-                res.send('Success');  
+                res.send('Success');
             }
         })
     },
@@ -277,7 +278,66 @@ const userController = {
                     res.send("Success");
                 }
             });
+    },
+    getOrderPage: function (req, res) {
+        res.render('TESTorders.hbs');
+    },
+    createOrder: function (req, res) {
+        const id = req.session.userID;
+        const { Address, City, Region, Zip } = req.body;
+
+        const completeAddr = `${Address}, ${City}, ${Region}, ${Zip}`;
+        var TotalPrice = 0;
+        var Cart = [];
+        var newOrder = new Order({
+            User: id,
+            Address: completeAddr,
+            Status: 'Pending'
+        })
+        getCart(id, function (cart) {
+            cart.map(foodItem => {
+                var item = {
+                    FoodName: foodItem.ItemID.FoodName,
+                    Quantity: foodItem.Quantity
+                }
+                TotalPrice += (foodItem.ItemID.Price * foodItem.Quantity);
+                Cart.push(item);
+            })
+            newOrder.Cart = Cart;
+            newOrder.TotalPrice = TotalPrice;
+            newOrder.save();
+        });
+    },
+
+    getOrders: function (req, res) {
+        Order
+            .find()
+            .populate({
+                path: 'User',
+                select: 'Username Email MobileNumber'
+            })
+            .exec(function (err, orders) {
+                if (err) throw err
+                if (orders) {
+                    res.send(orders);
+                }
+            })
     }
+}
+
+function getCart(userID, callback) {
+    User.findOne({ _id: userID })
+        .select('Cart')
+        .populate({
+            path: 'Cart.ItemID',
+            select: 'FoodName Price -_id'
+        })
+        .exec(function (err, Cart) {
+            if (err) throw err
+            if (Cart) {
+                callback(Cart.Cart);
+            }
+        })
 }
 
 module.exports = userController;
