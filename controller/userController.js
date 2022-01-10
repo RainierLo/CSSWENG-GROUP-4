@@ -322,6 +322,12 @@ const userController = {
                     res.send(orders);
                 }
             })
+    },
+
+    // ADMIN CONTROLLER
+
+    getAdmin: function (req,res) {
+        res.render('admin.hbs');
     }
 }
 

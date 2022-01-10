@@ -17,6 +17,7 @@ app.get('/getMenu', foodController.getMenu);
 app.get('/menu/:itemID', foodController.getIndivItemPage);
 app.get('/admin/orders', userController.getOrderPage)
 app.get('/getOrders', userController.getOrders);
+app.get('/admin', userController.getAdmin);
 
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 app.post('/register', userController.postRegister);

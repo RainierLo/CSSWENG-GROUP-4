@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+        <link rel="stylesheet" href="/css/styles.css">
+        <title>Super 6 Grille House</title>
+        <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
+            
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+        <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+        <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script defer src="/public/upload.js"></script>
+    </head>
+
+    <body>
+        {{> header Username=Username}}
+        <div class="admin-bg">
+            <h1 class="title">Admin Management</h1>
+            <div class="tab-container">
+                <div class="button-container">
+                    <button onclick="showPanel(0, 'var(--red)')">Users</button>
+                    <button onclick="showPanel(1, 'var(--red)')">Orders</button>
+                    <button onclick="showPanel(2, 'var(--red)')">Menu</button>
+                </div>
+                <div class="tab-panel">Users: Data</div>
+                <div class="tab-panel">Orders: Data</div>
+                <div class="tab-panel">Menu: Data</div>
+            </div>
+        </div>
+    </body>
+
+    {{> footer}}
+    <script src="/js/adminScript.js"></script>
+</html>
