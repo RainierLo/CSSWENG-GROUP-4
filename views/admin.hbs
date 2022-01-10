@@ -1,39 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Super 6 Grille House</title>
-        <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
-            
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-        <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-        <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
-        <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-        <script defer src="/public/upload.js"></script>
-    </head>
 
-    <body>
-        {{> header Username=Username}}
-        <div class="admin-bg">
-            <h1 class="title">Admin Management</h1>
-            <div class="tab-container">
-                <div class="button-container">
-                    <button onclick="showPanel(0, 'var(--red)')">Users</button>
-                    <button onclick="showPanel(1, 'var(--red)')">Orders</button>
-                    <button onclick="showPanel(2, 'var(--red)')">Menu</button>
-                </div>
-                <div class="tab-panel">Users: Data</div>
-                <div class="tab-panel">Orders: Data</div>
-                <div class="tab-panel">Menu: Data</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Super 6 Grille House</title>
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script defer src="/scripts/fileUpload.js"></script>
+
+
+</head>
+
+<body>
+    <script defer src="/js/adminScript.js" type="module"></script>
+    <div class="nav-container">
+        <nav class="nav-bar">
+            <div class="nav-right">
+                <i style="color: var(--orange);   line-height:50px;
+                    font-size: 30px; margin-left: 20px" class="fa fa-fire"></i>
+                <h1 class="" id="nav-title">Super 6 Grille House</h1>
+            </div>
+            <div class="nav-left">
+                <a class="nav-link-btn" href="/logout">Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="admin-bg">
+        <h1 class="title">Admin Management</h1>
+        <div class="tab-container">
+            <div class="button-container">
+                <button id="userBtn">Users</button>
+                <button id="orderBtn">Orders</button>
+                <button id="menuBtn">Menu</button>
+            </div>
+            <div class="tab-panel">
+                <table>
+                    <tr>
+                        <th>Date Joined</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Orders Made</th>
+                        <th>Remove</th>
+                    </tr>
+                    <tbody id="userTable">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-panel" id="order-Table">
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th>Address</th>
+                        <th>Order</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                    </tr>
+                    <tbody id="orderTable">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-panel" id="menu-Table">Menu: Data</div>
+        </div>
+    </div>
+</body>
+
+<footer class="nav-footer-container">
+    <div class="nav-footer">
+        <div class="footer-logo">
+            <div style="display: flex;">
+                <i style="color: var(--orange); font-size: 25px;" class="fa fa-fire"></i>
+                <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
             </div>
         </div>
-    </body>
+        <div class="footer-socials">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+        </div>
 
-    {{> footer}}
-    <script src="/js/adminScript.js"></script>
+    </div>
+
+</footer>
+
+
 </html>
