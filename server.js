@@ -35,11 +35,16 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("Atlas Connected!");
 
-    orderCollection = connection.db.collection('orders');
-    orderStream = orderCollection.watch();
+    var orderCollection = connection.db.collection('orders');
+    var orderStream = orderCollection.watch();
 
+    var userCollection = connection.db.collection('users');
+    var userStream = userCollection.watch();
     io.on('connection', socket => {
-        
+        //Waits for the 'users' collection to be updated for changes
+        userStream.on('change', change => {
+            socket.emit('userdb-updated', change);
+        });
         //Waits for the 'orders' collection to be updated for changes
         orderStream.on('change', change => {
             socket.emit('orderdb-updated', change);

@@ -18,16 +18,26 @@ showPanel(0, 'var(--red)');
 
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 const socket = io("http://localhost:3000");
-
-
 var users = {};
 var orders = {};
 var menu = {};
+socket.on('userdb-updated', change => {
+    $.get('/getUsers', function (result) {
+        users = result;
+        filterUser("Date-Ascending", users);
+    });
+});
+
+socket.on('orderdb-updated', change => {
+    getOrdersFromDB();
+});
+
+
 /* User Tab */
 function getUsersFromDB() {
     $.get('/getUsers', function (result) {
         users = result;
-        buildUserTable(users);
+        filterUser("Date-Ascending", users);
     });
 };
 
@@ -97,13 +107,67 @@ function buildMenuTable(menu) {
         <td>${menu[i].FoodName}</td>
         <td>${menu[i].Price}</td>
         <td>${menu[i].Description}</td>
-        <td>Category</td>
+        <td>${menu[i].Category}</td>
         <td><button type="button" id="editButton" name="${i}">Edit</button></td>    
         <td><button type="button" id="remButton" name="${i}">Remove</button></td>
         </tr>`
         table.append(row);
     };
 }
+
+/* Filters for sorting */
+function AtoZ(a, b) {
+    if (a.Username.toLowerCase() < b.Username.toLowerCase()) {
+        return -1;
+    }
+    if (b.Username.toLowerCase() > a.Username.toLowerCase()) {
+        return 1;
+    }
+    return 0;
+};
+
+function ZtoA(a, b) {
+    if (a.Username.toLowerCase() > b.Username.toLowerCase()) {
+        return -1;
+    }
+    if (b.Username.toLowerCase() < a.Username.toLowerCase()) {
+        return 1;
+    }
+    return 0;
+};
+
+function filterUser(filter, users) {
+    switch (filter) {
+        case 'Date-Ascending':
+            buildUserTable(users.sort(function (a, b) {
+                return new Date(a.DateJoined) - new Date(b.DateJoined);
+            }));
+            break;
+        case 'Date-Descending':
+            buildUserTable(users.sort(function (a, b) {
+                return new Date(b.DateJoined) - new Date(a.DateJoined);
+            }));
+            break;
+        case 'Name-Ascending':
+            buildUserTable(users.sort(AtoZ));
+            break;
+        case 'Name-Descending':
+            buildUserTable(users.sort(ZtoA));
+            break;
+        case 'Orders-Ascending':
+            buildUserTable(users.sort(function (a, b) {
+                return a.OrdersMade - b.OrdersMade;
+            }));
+            break;
+        case 'Orders-Descending':
+            buildUserTable(users.sort(function (a, b) {
+                return b.OrdersMade - a.OrdersMade;
+            }));
+            break;
+    };
+};
+
+
 
 $(document).ready(function () {
     getUsersFromDB();
@@ -121,6 +185,12 @@ $(document).ready(function () {
                 alert("Error");
             }
         });
+    });
+
+    /* User Operations*/
+    $('#userFilter').change(function () {
+        var filter = $('#userFilter option:selected').prop('value')
+        filterUser(filter, users);
     });
 
     /* Menu Operations */
