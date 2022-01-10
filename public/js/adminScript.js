@@ -1,20 +1,20 @@
-var tabButtons=document.querySelectorAll(".tab-container .button-container button");
-var tabPanels=document.querySelectorAll(".tab-container .tab-panel");
+var tabButtons = document.querySelectorAll(".tab-container .button-container button");
+var tabPanels = document.querySelectorAll(".tab-container .tab-panel");
 
-function showPanel(panelIndex, colorCode){
-    tabButtons.forEach(function(node){
-        node.style.backgroundColor="";
-        node.style.color="";
+function showPanel(panelIndex, colorCode) {
+    tabButtons.forEach(function (node) {
+        node.style.backgroundColor = "";
+        node.style.color = "";
     });
-    tabButtons[panelIndex].style.backgroundColor=colorCode;
-    tabButtons[panelIndex].style.color="white";
-    tabPanels.forEach(function(node) {
-        node.style.display="none";
+    tabButtons[panelIndex].style.backgroundColor = colorCode;
+    tabButtons[panelIndex].style.color = "white";
+    tabPanels.forEach(function (node) {
+        node.style.display = "none";
     });
-    tabPanels[panelIndex].style.display="block";
-    tabPanels[panelIndex].style.backgroundColor=colorCode;
+    tabPanels[panelIndex].style.display = "block";
+    tabPanels[panelIndex].style.backgroundColor = colorCode;
 }
-showPanel(0,'var(--red)');
+showPanel(0, 'var(--red)');
 
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 const socket = io("http://localhost:3000");
@@ -35,7 +35,7 @@ function buildUserTable(users) {
     var table = $('#userTable');
     table.empty();
     for (var i = 0; i < users.length; i++) {
-        var row = `<tr>
+        var row = `<tr class="user-row">
             <td>${users[i].DateJoined}</td>
             <td>${users[i].Username}</td>
             <td>${users[i].Email}</td>
@@ -58,8 +58,8 @@ function getOrdersFromDB() {
 function buildOrderTable(orders) {
     var table = $('#orderTable');
     table.empty();
-    for (var i = 0; i < orders.length; i++) { 
-        var row = `<tr>
+    for (var i = 0; i < orders.length; i++) {
+        var row = `<tr class="order-row">
         <td>${orders[i].User.Username}</td>
         <td>${orders[i].User.Email}</td>
         <td>${orders[i].User.MobileNumber}</td>    
@@ -72,29 +72,46 @@ function buildOrderTable(orders) {
     };
 }
 
-function getOrderString (Cart) {
+function getOrderString(Cart) {
     var orderStr = ''
     Cart.map(item => {
         var str = `${item.Quantity}x ${item.FoodName} <br/>`;
         orderStr = orderStr.concat('', str);
     })
-   return orderStr;
+    return orderStr;
 }
 /* Menu Tab */
+
+function getMenuFromDB() {
+    $.get('/getMenu', function (result) {
+        menu = result;
+        buildMenuTable(menu);
+    });
+}
+function buildMenuTable(menu) {
+    var table = $('#menuTable');
+    table.empty();
+    for (var i = 0; i < menu.length; i++) {
+        var row = `<tr class="menu-row">
+        <td><img height="150" width="150" src="${menu[i].imagePath}"></td>
+        <td>${menu[i].FoodName}</td>
+        <td>${menu[i].Price}</td>
+        <td>${menu[i].Description}</td>    
+        <td><button type="button" id="remButton" name="${i}">Remove</button></td>
+        </tr>`
+        table.append(row);
+    };
+}
+
+
+
+
 $(document).ready(function () {
 
-    $(".button-container").on('click', '#userBtn', function () {
-        showPanel(0, 'var(--red)');
-    });
-    $(".button-container").on('click', '#orderBtn', function () {
-        showPanel(1, 'var(--red)');
-    });
-    $(".button-container").on('click', '#menuBtn', function () {
-        showPanel(2, 'var(--red)');
-    });
 
     getUsersFromDB();
     getOrdersFromDB();
+    getMenuFromDB();
     $("#userTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = users[index]._id;
@@ -107,5 +124,17 @@ $(document).ready(function () {
                 alert("Error");
             }
         });
+    });
+
+
+
+    $(".button-container").on('click', '#userBtn', function () {
+        showPanel(0, 'var(--red)');
+    });
+    $(".button-container").on('click', '#orderBtn', function () {
+        showPanel(1, 'var(--red)');
+    });
+    $(".button-container").on('click', '#menuBtn', function () {
+        showPanel(2, 'var(--red)');
     });
 })

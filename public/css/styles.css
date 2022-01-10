@@ -842,3 +842,7 @@ th:last-child{
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.user-row, .order-row, .menu-row {
+  border-style: solid;
+}
