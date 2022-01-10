@@ -96,19 +96,16 @@ function buildMenuTable(menu) {
         <td><img height="150" width="150" src="${menu[i].imagePath}"></td>
         <td>${menu[i].FoodName}</td>
         <td>${menu[i].Price}</td>
-        <td>${menu[i].Description}</td>    
+        <td>${menu[i].Description}</td>
+        <td>Category</td>
+        <td><button type="button" id="editButton" name="${i}">Edit</button></td>    
         <td><button type="button" id="remButton" name="${i}">Remove</button></td>
         </tr>`
         table.append(row);
     };
 }
 
-
-
-
 $(document).ready(function () {
-
-
     getUsersFromDB();
     getOrdersFromDB();
     getMenuFromDB();
@@ -126,7 +123,17 @@ $(document).ready(function () {
         });
     });
 
-
+    $("#menuTable").on('click', '#remButton', function () {
+        var index = parseInt($(this).prop('name'));
+        var id = menu[index]._id;
+        $.post(`/admin/removeItem/${id}`, function (result) {
+            if (result) {
+                getMenuFromDB();
+            } else {
+                alert("Error");
+            }
+        });
+    })
 
     $(".button-container").on('click', '#userBtn', function () {
         showPanel(0, 'var(--red)');

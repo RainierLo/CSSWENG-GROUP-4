@@ -839,6 +839,10 @@ th:last-child{
   font-size: 22px;
   display: none;
   font-family: 'Red Hat Mono', monospace;
+}
+
+#user-Table, #order-Table, #menu-Table {
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 }

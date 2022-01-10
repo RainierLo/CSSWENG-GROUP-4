@@ -28,6 +28,7 @@ app.post('/removeCartItem', userController.remOneItem);
 app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);
+app.post('/admin/removeItem/:itemID', foodController.removeItem);
 //Render routes to be added
 
 
