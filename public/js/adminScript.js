@@ -76,7 +76,14 @@ function buildOrderTable(orders) {
         <td>${orders[i].Address}</td>
         <td>${getOrderString(orders[i].Cart)}</td>
         <td>${orders[i].TotalPrice}</td>
-        <td>${orders[i].Status}</td>
+        <td>                
+            <select name="orderProgress" id="orderProgress" value=${orders[i].Status}>
+                <option value="Pending">Pending</option>
+                <option value="On Route">On Route</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </td>
         </tr>`
         table.append(row);
     };
