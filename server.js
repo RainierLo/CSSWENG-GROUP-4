@@ -16,7 +16,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 app.use(bodyParser.json());
 
 dotenv.config();

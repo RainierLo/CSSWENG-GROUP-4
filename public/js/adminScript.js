@@ -123,6 +123,7 @@ $(document).ready(function () {
         });
     });
 
+    /* Menu Operations */
     $("#menuTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = menu[index]._id;
@@ -133,8 +134,23 @@ $(document).ready(function () {
                 alert("Error");
             }
         });
-    })
+    });
 
+    
+    $("#add-item").click(function() {
+        $("#addItemModal").css("display", "block");
+    });
+
+    $("#menu-closeBtn").click(function() {
+        $("#addItemModal").css("display", "none");
+    })
+    $("menu-submitBtn").click(function() {
+        $("#addItemModal").css("display", "none");
+    });
+    $(window).click(function(event) {
+        if (event.target.id == $("#addItemModal").attr('id'))
+            $("#addItemModal").css("display", "none");
+    })
     $(".button-container").on('click', '#userBtn', function () {
         showPanel(0, 'var(--red)');
     });

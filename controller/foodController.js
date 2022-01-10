@@ -35,11 +35,13 @@ const foodController = {
     },
 
     addFood: function (req, res) {
-        const { FoodName, Price, Description, Picture } = req.body;
+        console.log(req.body.FoodName);
+        const { FoodName, Price, Description, Category, Picture } = req.body;
         const newFood = new Food({
             FoodName: FoodName,
             Price: Price,
             Description: Description,
+            Category: Category,
             isAvailable: true
         });
 
@@ -47,7 +49,8 @@ const foodController = {
         newFood.save(function (err) {
             if (err) throw err
             else
-                res.redirect('/menu');
+                // res.send('Success');
+                res.redirect('/admin');
         });
     },
 
