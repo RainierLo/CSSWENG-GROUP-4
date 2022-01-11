@@ -18,7 +18,9 @@ app.get('/menu/:itemID', foodController.getIndivItemPage);
 app.get('/admin/orders', userController.getOrderPage)
 app.get('/getOrders', userController.getOrders);
 app.get('/getUsers', userController.getUsers);
+//app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
 app.get('/admin', userController.getAdmin);
+
 
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 app.post('/register', userController.postRegister);
@@ -29,6 +31,7 @@ app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
+app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
 //Render routes to be added
 
 

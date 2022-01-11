@@ -15,6 +15,7 @@ const orderSchema = new Schema({
         },
     ],
     TotalPrice: { type: Number, required: true },
+    DateOrdered: { type: String },
     Status: { type: String }
 });
 

@@ -282,9 +282,15 @@ const userController = {
     getOrderPage: function (req, res) {
         res.render('TESTorders.hbs');
     },
+
     createOrder: function (req, res) {
         const id = req.session.userID;
         const { Address, City, Region, Zip } = req.body;
+  
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
 
         const completeAddr = `${Address}, ${City}, ${Region}, ${Zip}`;
         var TotalPrice = 0;
@@ -292,7 +298,8 @@ const userController = {
         var newOrder = new Order({
             User: id,
             Address: completeAddr,
-            Status: 'Pending'
+            Status: 'Pending',
+            DateOrdered: dateTime
         })
         getCart(id, function (cart) {
             cart.map(foodItem => {
@@ -322,6 +329,17 @@ const userController = {
                     res.send(orders);
                 }
             })
+    },
+
+    updateOrderStatus: function (req, res) {
+        const { orderID, Status } = req.body;
+    
+        Order.updateOne({ _id: orderID }, { Status: Status }, function (err, result) {
+            if (err) throw err;
+            if (result) {
+                res.send('Success');
+            }
+        })
     },
 
     // ADMIN CONTROLLER
