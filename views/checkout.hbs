@@ -82,7 +82,7 @@
             getCart();
             $("#cartTable").on('click', '#remButton', function () {
                 var index = parseInt($(this).prop('name'));
-                var itemID = data[index]._id;
+                var itemID = cart[index]._id;
                 $.post(`/removeCartItem`, { itemID: itemID }, function (result) {
                     if (result) {
                         getCart()
