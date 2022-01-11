@@ -29,6 +29,7 @@ socket.on('userdb-updated', change => {
 });
 
 socket.on('orderdb-updated', change => {
+    console.log('Updated');
     getOrdersFromDB();
 });
 
@@ -68,25 +69,31 @@ function getOrdersFromDB() {
 function buildOrderTable(orders) {
     var table = $('#orderTable');
     table.empty();
-    for (var i = 0; i < orders.length; i++) {
-        var row = `<tr class="order-row">
-        <td>${orders[i].User.Username}</td>
-        <td>${orders[i].User.Email}</td>
-        <td>${orders[i].User.MobileNumber}</td>    
-        <td>${orders[i].Address}</td>
-        <td>${getOrderString(orders[i].Cart)}</td>
-        <td>${orders[i].TotalPrice}</td>
-        <td>                
-            <select name="orderProgress" id="orderProgress" value=${orders[i].Status}>
-                <option value="Pending">Pending</option>
-                <option value="On Route">On Route</option>
-                <option value="Completed">Completed</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
-        </td>
-        </tr>`
-        table.append(row);
-    };
+    if (orders.length > 0) {
+        for (var i = 0; i < orders.length; i++) {
+            var row = `<tr class="order-row">
+            <td>${orders[i].DateOrdered}</td>
+            <td>${orders[i].User.Username}</td>
+            <td>${orders[i].User.Email}</td>
+            <td>${orders[i].User.MobileNumber}</td>    
+            <td>${orders[i].Address}</td>
+            <td>${getOrderString(orders[i].Cart)}</td>
+            <td>${orders[i].TotalPrice}</td>
+            <td>                
+                <select id="orderProgressOptions" name="${i}">
+                    <option value="Pending">Pending</option>
+                    <option value="On Route">On Route</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </td>
+            </tr>`
+            console.log(orders[i].Status)
+            table.append(row);
+            $(`#orderProgressOptions`).val(`${orders[i].Status}`);
+        };
+    }
+
 }
 
 function getOrderString(Cart) {
@@ -122,7 +129,7 @@ function buildMenuTable(menu) {
     };
 }
 
-/* Filters for sorting */
+/* Filters for User sorting */
 function AtoZ(a, b) {
     if (a.Username.toLowerCase() < b.Username.toLowerCase()) {
         return -1;
@@ -174,7 +181,31 @@ function filterUser(filter, users) {
     };
 };
 
+/* Filters for Order sorting */
 
+function filterOrders(filter, orders) {
+    switch (filter) {
+        case 'All':
+            buildOrderTable(orders);
+            break;
+        case 'Pending':
+            var pendingOrders = orders.filter(order => order.Status === 'Pending');
+            buildOrderTable(pendingOrders);
+            break;
+        case 'On Route':
+            var onRouteOrders = orders.filter(order => order.Status === 'On Route');
+            buildOrderTable(onRouteOrders);
+            break;
+        case 'Completed':
+            var completedOrders = orders.filter(order => order.Status === 'Completed');
+            buildOrderTable(completedOrders);
+            break;
+        case 'Cancelled':
+            var cancelledOrders = orders.filter(order => order.Status === 'Cancelled');
+            buildOrderTable(cancelledOrders);
+            break;
+    };
+}
 
 $(document).ready(function () {
     getUsersFromDB();
@@ -200,6 +231,25 @@ $(document).ready(function () {
         filterUser(filter, users);
     });
 
+    /* Order Operations */
+    $('#orderTable').on('change', '#orderProgressOptions', function () {
+        var index = parseInt($(this).prop('name'));
+        var id = orders[index]._id;
+        var status = $('#orderProgressOptions option:selected').prop('value')
+        var body = {
+            orderID: id,
+            Status: status
+        }
+
+        $.post('/admin/updateOrderStatus', body, function (result) {
+            if (result === "Success")
+                getOrdersFromDB();
+        })
+    })
+    $('#orderFilter').change(function () {
+        var filter = $('#orderFilter option:selected').prop('value')
+        filterOrders(filter, orders);
+    });
     /* Menu Operations */
     $("#menuTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
@@ -213,21 +263,64 @@ $(document).ready(function () {
         });
     });
 
-    
-    $("#add-item").click(function() {
+
+    $("#menuTable").on('click', '#editButton', function () {
+        var index = parseInt($(this).prop('name'));
+        var item = menu[index];
+        $("#editID").val(`${item._id}`);
+        $("#editFoodName").val(`${item.FoodName}`);
+        $("#editPrice").val(`${item.Price}`);
+        $("#editDescription").val(`${item.Description}`);
+        $("#editCategory").val(`${item.Category}`);
+        $("#editAvailable").prop("checked", item.isAvailable);
+        $("#editItemModal").css("display", "block");
+    });
+    $("#edit-submitBtn").click(function () {
+        var id = $("#editID").val();
+        var foodName = $("#editFoodName").val();
+        var price = $("#editPrice").val();
+        var description = $("#editDescription").val();
+        var category = $("#editCategory").val();
+        var isAvailable = $("#editAvailable").is(":checked");
+
+        var body = {
+            FoodName: foodName,
+            Price: price,
+            Description: description,
+            Category: category,
+            isAvailable: isAvailable
+        }
+
+        $.post(`/admin/updateItem/${id}`, body, function(result) {
+            if (result === 'Success') {
+                getMenuFromDB();
+                $("#editItemModal").css("display", "none");
+            } else {
+                alert('Error updating item')
+            }
+        })
+    })
+    $("#edit-closeBtn").click(function () {
+        $("#editItemModal").css("display", "none");
+    })
+
+    $("#add-item").click(function () {
         $("#addItemModal").css("display", "block");
     });
 
-    $("#menu-closeBtn").click(function() {
+    $("#menu-closeBtn").click(function () {
         $("#addItemModal").css("display", "none");
     })
-    $("menu-submitBtn").click(function() {
+    $("menu-submitBtn").click(function () {
         $("#addItemModal").css("display", "none");
     });
-    $(window).click(function(event) {
+    $(window).click(function (event) {
         if (event.target.id == $("#addItemModal").attr('id'))
             $("#addItemModal").css("display", "none");
-    })
+    });
+
+
+
     $(".button-container").on('click', '#userBtn', function () {
         showPanel(0, 'var(--red)');
     });

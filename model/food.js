@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 
 const Schema = mongoose.Schema;
 
@@ -14,7 +15,7 @@ const foodSchema = new Schema({
 
 foodSchema.set('toObject', { virtuals: true })
 foodSchema.set('toJSON', { virtuals: true })
-
+foodSchema.plugin(mongooseLeanVirtuals);
 foodSchema.virtual('imagePath').get(function () {
     if (this.Image != null && this.ImageType != null) {
         return `data:${this.ImageType};charset=utf-8;base64,${this.Image.toString('base64')}`
