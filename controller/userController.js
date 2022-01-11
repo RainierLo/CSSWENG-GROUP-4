@@ -275,10 +275,11 @@ const userController = {
             { $set: { Cart: [] } }, function (err, result) {
                 if (err) throw err
                 if (result) {
-                    res.send("Success");
+                    res.redirect("/");
                 }
             });
     },
+
     getOrderPage: function (req, res) {
         res.render('TESTorders.hbs');
     },
@@ -314,6 +315,9 @@ const userController = {
             newOrder.TotalPrice = TotalPrice;
             newOrder.save();
         });
+        clearUserCart(id, function (user) {
+            res.redirect('/');
+        })
     },
 
     getOrders: function (req, res) {
@@ -362,6 +366,16 @@ function getCart(userID, callback) {
                 callback(Cart.Cart);
             }
         })
+}
+
+function clearUserCart(userID, callback) {
+    User.updateOne({ _id: userID },
+        { $set: { Cart: [] } }, function (err, result) {
+            if (err) throw err
+            if (result) {
+                callback(result);
+            }
+        });
 }
 
 module.exports = userController;

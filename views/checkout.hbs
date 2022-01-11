@@ -80,6 +80,8 @@
 
         $(document).ready(function () {
             getCart();
+
+            // Removes one item from cart of user
             $("#cartTable").on('click', '#remButton', function () {
                 var index = parseInt($(this).prop('name'));
                 var itemID = cart[index]._id;
