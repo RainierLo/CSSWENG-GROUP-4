@@ -32,6 +32,7 @@ app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
 app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
+app.post('/admin/updateItem/:itemID', foodController.updateItem);
 //Render routes to be added
 
 

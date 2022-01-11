@@ -54,22 +54,24 @@ const foodController = {
         });
     },
 
-    getMenu: function (req, res) {
-        Food.find(function (err, menu) {
+    getMenu: async function (req, res) {
+        try {
+            const menu = await Food.find().lean({ virtuals: true });
+            res.send(menu);
+        } catch (err) {
             if (err) throw err;
-            if (menu) {
-                res.send(menu);
-            }
+        }
 
-        });
     },
 
     updateItem: function (req, res) {
-        const { itemID, FoodName, Price, Description, isAvailable } = req.body;
+        const { itemID } = req.params;
+        const { FoodName, Price, Description, Category, isAvailable } = req.body;
         const update = {
             FoodName: FoodName,
             Price: Price,
             Description: Description,
+            Category: Category,
             isAvailable: isAvailable
         };
 

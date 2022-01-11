@@ -264,6 +264,46 @@ $(document).ready(function () {
     });
 
 
+    $("#menuTable").on('click', '#editButton', function () {
+        var index = parseInt($(this).prop('name'));
+        var item = menu[index];
+        $("#editID").val(`${item._id}`);
+        $("#editFoodName").val(`${item.FoodName}`);
+        $("#editPrice").val(`${item.Price}`);
+        $("#editDescription").val(`${item.Description}`);
+        $("#editCategory").val(`${item.Category}`);
+        $("#editAvailable").prop("checked", item.isAvailable);
+        $("#editItemModal").css("display", "block");
+    });
+    $("#edit-submitBtn").click(function () {
+        var id = $("#editID").val();
+        var foodName = $("#editFoodName").val();
+        var price = $("#editPrice").val();
+        var description = $("#editDescription").val();
+        var category = $("#editCategory").val();
+        var isAvailable = $("#editAvailable").is(":checked");
+
+        var body = {
+            FoodName: foodName,
+            Price: price,
+            Description: description,
+            Category: category,
+            isAvailable: isAvailable
+        }
+
+        $.post(`/admin/updateItem/${id}`, body, function(result) {
+            if (result === 'Success') {
+                getMenuFromDB();
+                $("#editItemModal").css("display", "none");
+            } else {
+                alert('Error updating item')
+            }
+        })
+    })
+    $("#edit-closeBtn").click(function () {
+        $("#editItemModal").css("display", "none");
+    })
+
     $("#add-item").click(function () {
         $("#addItemModal").css("display", "block");
     });
@@ -277,7 +317,10 @@ $(document).ready(function () {
     $(window).click(function (event) {
         if (event.target.id == $("#addItemModal").attr('id'))
             $("#addItemModal").css("display", "none");
-    })
+    });
+
+
+
     $(".button-container").on('click', '#userBtn', function () {
         showPanel(0, 'var(--red)');
     });
