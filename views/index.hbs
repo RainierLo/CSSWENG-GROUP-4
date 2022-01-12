@@ -10,40 +10,6 @@
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script>
-        var menu = {}
-        function getMenuFromDB() {
-            $.get('/getMenu', function (result) {
-                console.log(result);
-                menu = result;
-                buildMenu(menu);
-            });
-        }
-
-        function buildMenu(menu) {
-            {
-                {
-                    !-- var display = document.getElementsByClassName("home-palette-container");
-                    display.innerHTML = ""; --}
-            }
-            for (var i = 0; i < menu.length; i++) {
-
-                var row =
-                    ` <div class="menu-card" style="margin-left: 45px">
-                    <a href="/menu/${menu[i]._id}">
-                        <img height="150" width="150" src="${menu[i].imagePath}">
-                        <p>${menu[i].FoodName} - ${menu[i].Price}</p>
-                    </a>
-                  </div>
-                `
-                $(".home-palette-container").append(row);
-            };
-        }
-//        $(document).ready(function() {
-//            {{!-- console.log('Hello')
-//            getMenuFromDB(); --}}
-//        })
-    </script>
 </head>
 <body>
     {{> header Username=Username}}

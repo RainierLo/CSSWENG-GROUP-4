@@ -33,11 +33,12 @@
         }
         function buildCart(cart) {
             var table = document.getElementById("cartTable");
+            table.innerHTML = "";
             var subtotal = 0;
             var deliveryfee = 100;//Temporary value
             if (cart.length > 0) {
-                console.log(cart);
-                table.innerHTML = "";
+                $('.delivery-form-container').css('display', 'block');
+                
                 //Image for this is still static
                 for (var i = 0; i < cart.length; i++) {
                     var row =
@@ -62,6 +63,7 @@
                 $('#subtotal').text(`₱${subtotal}`);
                 $('#total').text(`₱${subtotal + deliveryfee}`);
             } else {
+                $('.delivery-form-container').css('display', 'none');
                 var text = "<p>You have no items in your cart.</p>";
                 table.innerHTML += text;
             }
@@ -80,7 +82,6 @@
 
         $(document).ready(function () {
             getCart();
-
             // Removes one item from cart of user
             $("#cartTable").on('click', '#remButton', function () {
                 var index = parseInt($(this).prop('name'));

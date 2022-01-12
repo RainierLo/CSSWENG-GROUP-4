@@ -4,26 +4,21 @@ const Order = require('../model/order');
 const bcrypt = require('bcrypt');
 
 const userController = {
-    getIndex: function (req, res) {
+    getIndex: async function (req, res) {
         req.session.current_url = '/';
-        Food.find(function (err, menu) {
-            if (err) throw err
-            if (menu) {
-                if (req.session.username) {
-                    var user = {
-                        Username: req.session.username,
-                        id: req.session.id,
-                        Menu: menu
-                    };
-                    res.render('index.hbs', user);
-                } else {
-                    var param = {
-                        Menu: menu
-                    }
-                    res.render('index.hbs', param);
-                }
+
+        try {
+            var body = {};
+            const menu = await Food.find();
+            body.Menu = menu
+            if (req.session.username) {
+                body.Username = req.session.username;
+                body.id = req.session.id;
             }
-        })
+            res.render('index.hbs', body);
+        } catch (err) {
+            if (err) throw err;
+        }
     },
     getRegister: function (req, res) {
         res.render('signup.hbs');
@@ -180,14 +175,7 @@ const userController = {
             ItemID: itemID,
             Quantity: Quantity
         }
-        // User.updateOne({ _id: id }, { $addToSet: { Cart: foodItem } }, function (err, result) {
-        //     if (err) throw err
-        //     if (result) {
-        //         //Item is added to the User's cart
-        //         // res.send('Success');
-        //         res.redirect('/');
-        //     }
-        // })
+
         User.updateOne({
             _id: id,
             Cart: {
@@ -315,9 +303,11 @@ const userController = {
             newOrder.TotalPrice = TotalPrice;
             newOrder.save();
         });
-        clearUserCart(id, function (user) {
-            res.redirect('/');
-        })
+        // clearUserCart(id, function (user) {
+        //     res.redirect('/');
+        // })
+        clearUserCart(id);
+        res.redirect('/');
     },
 
     getOrders: function (req, res) {
@@ -368,14 +358,16 @@ function getCart(userID, callback) {
         })
 }
 
-function clearUserCart(userID, callback) {
-    User.updateOne({ _id: userID },
-        { $set: { Cart: [] } }, function (err, result) {
-            if (err) throw err
-            if (result) {
-                callback(result);
-            }
-        });
+async function clearUserCart(userID) {
+    // User.updateOne({ _id: userID },
+    //     { $set: { Cart: [] } }, function (err, result) {
+    //         if (err) throw err
+    //         if (result) {
+    //             callback(result);
+    //         }
+    //     });
+    await User.updateOne({ _id: userID }, { $set: { Cart: [] } });
+    console.log("cart cleared")
 }
 
 module.exports = userController;
