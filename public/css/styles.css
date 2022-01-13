@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis&family=Fredoka+One&family=Fugaz+One&family=Hammersmith+One&family=M+PLUS+Rounded+1c:wght@100&family=Modak&family=Montserrat+Alternates:wght@300&family=Montserrat:wght@300;400;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Red+Hat+Mono:wght@400;500&family=Sedgwick+Ave&display=swap');
+
 
 :root {
   --black: rgb(0, 0, 0);
@@ -14,7 +15,7 @@
 }
 
 body {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Arvo', serif;
 }
 
 .nav-container {
@@ -41,11 +42,19 @@ body {
   display: flex;
   align-items: center;
 }
+
 #nav-title {
   color: white;
   font-family: 'Fugaz One', cursive;
   margin-left: 10px;
   line-height: 50px;
+}
+
+.nav-logo {
+  padding-left: 40px;
+  padding-right: 10px;
+  padding-top: 5px;
+  float: left;
 }
 
 .nav-links {
@@ -55,6 +64,54 @@ body {
   font-weight: 600;
   display: block;
   line-height: 50px;
+}
+
+nav ul {
+  float: left;
+}
+
+nav ul li {
+  float: left;
+  list-style: none;
+  position: relative;
+}
+
+nav ul li a { /*nav links*/
+  display: block;
+  font-family: 'Arvo', serif;
+  font-weight: 600;
+  color: rgb(190, 190, 190);
+  padding: 22px 14px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  color: white;
+  transition: all 0.2s ease-out;
+}
+
+nav ul li ul { /*dropdown box*/
+  display: none;
+  position: absolute;
+  background-color: var(--black);
+  border-radius: 0px 0px 6px 6px;
+}
+
+nav ul li:hover ul { /*menu hover to show doropdown*/
+  display: block;
+}
+
+nav ul li ul li { /*containers of dropdown box box*/
+  width: 110px;
+}
+
+nav ul li ul li a { /*text inside dropdown containers*/
+  padding: 14px 14px;
+}
+
+nav ul li ul li a:hover {
+  color: white;
+  transition: all 0.2s ease-out;
 }
 
 #browse-link {
@@ -161,6 +218,15 @@ body {
   background-color: var(--red);
 }
 
+.container-image1 {
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: auto;
+  background-image: url(images/bbq-background.jpeg);
+  background-size: cover;
+  padding: 10px;
+}
+
 .container-dark {
   max-width: 100%;
   margin: 0px auto;
@@ -198,9 +264,6 @@ body {
   justify-content: center;
   margin-left: 50px;
 }
-.footer-logo img {
-  width: 200px;
-}
 
 #nav-footer-title {
   font-family: "Fugaz One", cursive;
@@ -208,11 +271,47 @@ body {
   font-weight: 800;
   margin-left: 10px;
   font-weight: 800;
+  padding-top: 25px;
+}
+
+.footer-nav {
+  justify-content: center;
+}
+
+.footer-links {
+  margin-right: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-links li {
+  margin: 5px 0;
+  list-style: none;
+}
+
+.footer-links a {
+  color: rgb(189, 189, 189);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: white;
 }
 
 .footer-socials {
   margin-right: 50px;
   display: flex;
+}
+
+.footer-socials a{
+  text-decoration: none;
+}
+
+.footer-socials p{
+  color: var(--red);
+  padding-top: 7px;
 }
 
 .footer-socials i {
@@ -278,6 +377,29 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
 }
+
+/* Our Branches container */
+
+.branch-box {
+  width: 50%;
+  float: left;
+  height: 150%;
+  color: white;
+  border: 2px solid white;
+  position: relative;
+}
+
+.branch-box h2{
+  font-family: 'Sedgwick Ave', cursive;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 24px;
+}
+
 
 /* login container */
 
@@ -836,109 +958,8 @@ th:last-child{
   background-color: gray;
   color: white;
   text-align: center;
+  padding-top: 105px;
   font-size: 22px;
   display: none;
   font-family: 'Red Hat Mono', monospace;
-}
-
-#user-Table, #order-Table, #menu-Table {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.user-row, .order-row, .menu-row {
-  border-style: solid;
-}
-
-/* Modal for Admin Page*/
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modalContent {
-  color: black;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.filepond--root {
-  max-height: 100px;
-  max-width: 100px;
-}
-
-
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 22px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
