@@ -29,7 +29,6 @@ socket.on('userdb-updated', change => {
 });
 
 socket.on('orderdb-updated', change => {
-    console.log('Updated');
     getOrdersFromDB();
 });
 
@@ -69,6 +68,7 @@ function getOrdersFromDB() {
 function buildOrderTable(orders) {
     var table = $('#orderTable');
     table.empty();
+
     if (orders.length > 0) {
         for (var i = 0; i < orders.length; i++) {
             var row = `<tr class="order-row">
@@ -80,7 +80,7 @@ function buildOrderTable(orders) {
             <td>${getOrderString(orders[i].Cart)}</td>
             <td>${orders[i].TotalPrice}</td>
             <td>                
-                <select id="orderProgressOptions" name="${i}">
+                <select id="${i}" class="orderProgressOptions" name="${i}">
                     <option value="Pending">Pending</option>
                     <option value="On Route">On Route</option>
                     <option value="Completed">Completed</option>
@@ -90,12 +90,17 @@ function buildOrderTable(orders) {
             </tr>`
             console.log(orders[i].Status)
             table.append(row);
-            $(`#orderProgressOptions`).val(`${orders[i].Status}`);
+             $(`#${i}`).val(`${orders[i].Status}`);
+            // $(`#${i}`).filter(function () {
+            //     return $(this).text() == orders[i].Status;
+            // }).prop('selected', true);
         };
     }
 
 }
-
+function filterOrdetbyDate (filter, orders) {
+    
+}
 function getOrderString(Cart) {
     var orderStr = ''
     Cart.map(item => {
@@ -232,10 +237,10 @@ $(document).ready(function () {
     });
 
     /* Order Operations */
-    $('#orderTable').on('change', '#orderProgressOptions', function () {
+    $('#orderTable').on('change', '.orderProgressOptions', function () {
         var index = parseInt($(this).prop('name'));
         var id = orders[index]._id;
-        var status = $('#orderProgressOptions option:selected').prop('value')
+        var status = $(`#${index} option:selected`).prop('value')
         var body = {
             orderID: id,
             Status: status

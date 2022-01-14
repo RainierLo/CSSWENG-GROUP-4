@@ -9,7 +9,7 @@ const userController = {
 
         try {
             var body = {};
-            const menu = await Food.find();
+            const menu = await Food.find({isAvailable: true});
             body.Menu = menu
             if (req.session.username) {
                 body.Username = req.session.username;
@@ -22,7 +22,6 @@ const userController = {
     },
     getRegister: function (req, res) {
         res.render('signup.hbs');
-
     },
 
     postRegister: async function (req, res) {

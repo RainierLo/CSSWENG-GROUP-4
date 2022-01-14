@@ -13,7 +13,7 @@ const foodSchema = new Schema({
     ImageType: {type: String, required: true }
 });
 
-foodSchema.index({FoodName: 1, isAvailable: -1})
+foodSchema.index({FoodName: 1, Category: 1, isAvailable: -1})
 foodSchema.set('toObject', { virtuals: true })
 foodSchema.set('toJSON', { virtuals: true })
 foodSchema.plugin(mongooseLeanVirtuals);
