@@ -23,18 +23,7 @@
 
 <body>
     <script defer src="/js/adminScript.js" type="module"></script>
-    <div class="nav-container">
-        <nav class="nav-bar">
-            <div class="nav-right">
-                <i style="color: var(--orange);   line-height:50px;
-                    font-size: 30px; margin-left: 20px" class="fa fa-fire"></i>
-                <h1 class="" id="nav-title">Super 6 Grille House</h1>
-            </div>
-            <div class="nav-left">
-                <a class="nav-link-btn" href="/logout">Logout</a>
-            </div>
-        </nav>
-    </div>
+{{> header Username=Username Admin=Admin}}
 
     <div class="admin-bg">
         <h1 class="title">Admin Management</h1>
@@ -178,24 +167,5 @@
         </div>
     </div>
 </body>
-
-<footer class="nav-footer-container">
-    <div class="nav-footer">
-        <div class="footer-logo">
-            <div style="display: flex;">
-                <i style="color: var(--orange); font-size: 25px;" class="fa fa-fire"></i>
-                <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
-            </div>
-        </div>
-        <div class="footer-socials">
-            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-        </div>
-
-    </div>
-
-</footer>
-
 
 </html>
