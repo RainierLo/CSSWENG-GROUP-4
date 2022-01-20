@@ -91,7 +91,7 @@ const userController = {
                                     res.redirect('/');
                             } else {
                                 //For the admin / employee page
-                                res.redirect('/admin', {Admin: "Admin"});
+                                res.redirect('/admin');
                             }
 
                         } else {
