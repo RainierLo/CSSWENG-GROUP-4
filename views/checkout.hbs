@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><input type="number" name="${cart[i]._id}" value="${cart[i].Quantity}" min="1" onchange="incQty(this.value, this.name)"></td>
+                            <td><input type="number" name="${cart[i]._id}" value="${cart[i].Quantity}" min="1" oninput="validity.valid||(value='');" onchange="incQty(this.value, this.name)"></td>
                             <td>₱${cart[i].ItemID.Price * cart[i].Quantity}</td>
                         </tr>`
                     subtotal += cart[i].ItemID.Price * cart[i].Quantity;
