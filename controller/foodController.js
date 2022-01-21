@@ -39,6 +39,14 @@ const drive = google.drive({
                 body: fs.createReadStream(file.path)
             }
         })
+        await drive.permissions.create({
+            fileId: res.data.id,
+            requestBody: {
+                role: 'reader',
+                type: 'anyone',
+            },
+        });
+
         return res.data;
         // generatePublicUrl(res.data.id, foodItem);
     } catch (error) {
