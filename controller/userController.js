@@ -61,7 +61,7 @@ const userController = {
 
     postLogin: function (req, res) {
         const { username, password } = req.body;
-        if (username.length == 0 || password.length == 0) {
+        if (username == "" || password == "") {
             var details = {
                 error: 'Invalid Credentials'
             }
@@ -96,11 +96,16 @@ const userController = {
 
                         } else {
                             var details = {
-                                error: 'Invalid Credentials'
+                                error: 'Invalid Password'
                             }
                             res.render('login.hbs', details);
                         }
                     });
+                } else {
+                    var details = {
+                        error: 'Invalid Email'
+                    }
+                    res.render('login.hbs', details);
                 }
             });
         }

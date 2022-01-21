@@ -19,18 +19,18 @@
                 <h1>Login</h1>         
             </div>
             <hr style="height:2px;border-width:0;color:rgb(54, 54, 54);background-color:gray;margin: 30px 0 40px 0;">
-            <p id="error">{{error}}</p>
+            
             <form name="myForm" action="/login" class="form" id="form" method="POST">
                 <div class="form-input">
                     <label for="username">Email</label>
-                    <input type="text" placeholder="Username" id="username" name="username" />
+                    <input type="text" placeholder="juan_delacruz@example.com" id="username" name="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
                 </div>
 
                 <div class="form-input">
                     <label for="username">Password</label>
                     <input type="password" placeholder="Password" id="password" name="password" />
                 </div>
-                
+                <strong><p id="error" style="text-align: center; padding: 0 0 0 0; color: red;">{{error}}</p></strong>
                 <button type="submit" value="Submit" id="login" class="submit-form">Login</button>
                 <button type="button" value="Submit" id="cancel" class="submit-form" onclick="location.href='/'">Cancel</button>
                 <div class="form-redirect">
