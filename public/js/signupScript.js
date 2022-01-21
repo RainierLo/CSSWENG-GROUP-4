@@ -59,7 +59,7 @@ $(document).ready(function () {
             isValid = true;
         } else {
             if (field.is($('#username')))
-                $('#usernameError').text('Username should contain atleast 6 characters.');
+                $('#usernameError').text('Username should contain at least 6 characters.');
         }
         return isValid;
     }
@@ -77,7 +77,7 @@ $(document).ready(function () {
             isValid = true;
         } else {
             if (field.is($('#password')))
-                $('#passwordError').text('Passwords should contain atleast 6 characters.');
+                $('#passwordError').text('Passwords should contain at least 6 characters.');
         }
         return isValid;
     }
