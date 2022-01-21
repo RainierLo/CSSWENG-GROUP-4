@@ -95,8 +95,8 @@ const foodController = {
             newFood.save(function (err) {
                 if (err) throw err
                 else
-                    res.send('Success');
-                    //res.redirect('/admin');
+                    //res.send('Success');
+                    res.redirect('/admin');
             });
         } catch (err) {
             if (err) throw err;

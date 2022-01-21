@@ -104,7 +104,7 @@
                 <button id="add-item">Add</button>
                 <div id="addItemModal" class="modal">
                     <div class="modalContent">
-                        <form action="/addFood" method="POST" id="addItemForm">
+                        <form action="/addFood" method="POST" id="addItemForm" enctype="multipart/form-data">
                             <div>
                                 <label for="FoodName">FoodName</label>
                                 <input type="text" id="foodName" name="FoodName" required>
@@ -123,7 +123,7 @@
                             </div>
                             <div>
                                 <label for="Picture">Picture</label>
-                                <input type="file" id="picture" name="Picture" class="filepond" required>
+                                <input type="file" id="picture" name="Picture" required>
                             </div>
                             <button type="submit" id="menu-submitBtn">Submit</button>
                         </form>
