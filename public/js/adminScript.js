@@ -122,7 +122,7 @@ function buildMenuTable(menu) {
     table.empty();
     for (var i = 0; i < menu.length; i++) {
         var row = `<tr class="menu-row">
-        <td><img height="150" width="150" src="${menu[i].imagePath}"></td>
+        <td><img height="150" width="150" src="${menu[i].ImagePath}"></td>
         <td>${menu[i].FoodName}</td>
         <td>${menu[i].Price}</td>
         <td>${menu[i].Description}</td>

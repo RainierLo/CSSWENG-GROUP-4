@@ -123,6 +123,7 @@ $(document).ready(function () {
         var isMatch = checkPasswords(field);
 
         isValidEmail(field, function (validEmail) {
+
             if (filled && validEmail && validPass && isMatch && validUsername) {
                 $('#submit').prop('disabled', false);
             } else {

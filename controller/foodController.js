@@ -2,11 +2,52 @@ const Food = require('../model/food');
 const User = require('../model/user');
 const mongoose = require('mongoose');
 const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+const { google } = require('googleapis');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const fs = require('fs');
+
+
+const secretAccessKey = process.env.CLIENT_SECRET;
+const accessKeyId = process.env.CLIENT_ID;
+
+const redirect_uri = process.env.REDIRECT_URI;
+const refresh_token = process.env.REFRESH_TOKEN;
+
+const oauth2Client = new google.auth.OAuth2(
+    accessKeyId,
+    secretAccessKey,
+    redirect_uri
+)
+
+oauth2Client.setCredentials({ refresh_token: refresh_token });
+
+const drive = google.drive({
+    version: 'v3',
+    auth: oauth2Client
+})
+
+  async function uploadFile(file) {
+    try {
+        const res = await drive.files.create({
+            requestBody: {
+                name: file.originalname,
+                mimeType: file.mimetype
+            },
+            media: {
+                mimeType: file.mimetype,
+                body: fs.createReadStream(file.path)
+            }
+        })
+        return res.data;
+        // generatePublicUrl(res.data.id, foodItem);
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 const foodController = {
-    // postMenuPage: function (req, res) {
 
-    // },
 
     getIndivItemPage: function (req, res) {
         const { itemID } = req.params;
@@ -34,24 +75,32 @@ const foodController = {
         res.render('menu.hbs');
     },
 
-    addFood: function (req, res) {
-        console.log(req.body.FoodName);
-        const { FoodName, Price, Description, Category, Picture } = req.body;
-        const newFood = new Food({
-            FoodName: FoodName,
-            Price: Price,
-            Description: Description,
-            Category: Category,
-            isAvailable: true
-        });
+    addFood: async function (req, res) {
+        const { FoodName, Price, Description, Category } = req.body;
 
-        saveImage(newFood, Picture);
-        newFood.save(function (err) {
-            if (err) throw err
-            else
-                // res.send('Success');
-                res.redirect('/admin');
-        });
+        try {
+            var fileID = await uploadFile(req.file);
+            console.log(fileID);
+            var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
+            
+            const newFood = new Food({
+                FoodName: FoodName,
+                Price: Price,
+                Description: Description,
+                Category: Category,
+                isAvailable: true,
+                ImagePath: ImagePath
+            });
+
+            newFood.save(function (err) {
+                if (err) throw err
+                else
+                    res.send('Success');
+                    //res.redirect('/admin');
+            });
+        } catch (err) {
+            if (err) throw err;
+        }
     },
 
     getMenu: async function (req, res) {

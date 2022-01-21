@@ -3,6 +3,9 @@ const router = require('express').Router();
 const foodController = require('../controller/foodController');
 const userController = require('../controller/userController');
 const authSession = require('../middleware/authSession');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const fs = require('fs');
 
 const app = express();
 
@@ -27,7 +30,8 @@ app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/updateCart', userController.updateUserCart);
 app.post('/removeCartItem', userController.remOneItem);
-app.post('/addFood', foodController.addFood);
+app.post('/addFood', upload.single('Picture'), foodController.addFood)
+//app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
@@ -35,7 +39,7 @@ app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
 app.post('/admin/updateItem/:itemID', foodController.updateItem);
 //Render routes to be added
 
-
+app.post('/upload', )
 
 
 module.exports = app;
