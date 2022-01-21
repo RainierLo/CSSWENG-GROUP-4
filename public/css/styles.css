@@ -222,7 +222,7 @@ nav ul li ul li a:hover {
   max-width: 100%;
   margin: 0px auto;
   overflow: auto;
-  background-image: url(images/bbq-background.jpeg);
+  background-image: url(/images/bbq-background.jpeg);
   background-size: cover;
   padding: 10px;
 }
