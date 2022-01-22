@@ -1066,3 +1066,151 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+/* menu page */
+
+.menu-bg{
+  background: linear-gradient(
+    45deg,
+    rgba(245, 161, 66, 0.8) 0%,
+    rgba(230, 61, 9, 0.4) 100%
+  );
+  padding: 10px 0px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-title {
+  margin-top: 15px;
+  font-size: 20px;
+  height: 30px;
+  color: rgb(29, 29, 29);
+  background-color: rgba(245, 161, 66, 0.8);
+  margin-bottom: 10px;
+}
+
+.menu-app{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.menu-mea{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.menu-sea{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.menu-veg{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.menu-dri{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.menu-oth{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
+.m1{
+  margin-top: 15px;
+  margin-bottom: auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20rem 20rem 20rem;
+  justify-content: center;
+}
+
+.menu1-card {
+  height: auto;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 1rem;
+}
+
+.menu1-card img {
+  height: 200px;
+  width: 200px;
+}
+
+.menu1-card p {
+  padding: 5px 5px;
+  margin-bottom: 40px;
+}
+
+.menu1-card a {
+  text-decoration: none;
+  color: black;
+}
+
+.menu-filter {
+  position: relative;
+  display: inline-block;
+}
+
+.drop-filter {
+  background-color: transparent;
+  color: black;
+  height: 45px;
+  width: 120px;
+  font-size: 16px;
+  font-family: inherit;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 20px;
+  margin-left: 10px;
+
+}
+
+.drop-filter-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+}
+
+.drop-filter-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.menu-filter:hover .drop-filter-content{display:inline;}
+.drop-filter-content a:hover {background-color: rgba(245, 161, 66, 0.8);}
