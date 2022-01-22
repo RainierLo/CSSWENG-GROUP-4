@@ -103,14 +103,14 @@ const userController = {
 
                         } else {
                             var details = {
-                                error: 'Invalid Password'
+                                error: 'Invalid Credentials'
                             }
                             res.render('login.hbs', details);
                         }
                     });
                 } else {
                     var details = {
-                        error: 'Invalid Email'
+                        error: 'Invalid Credentials'
                     }
                     res.render('login.hbs', details);
                 }

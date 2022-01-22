@@ -61,14 +61,13 @@ function buildUserTable(users) {
 function getOrdersFromDB() {
     $.get('/getOrders', function (result) {
         orders = result;
-        buildOrderTable(orders);
+        filterOrders('All', orders);
     })
 }
 
 function buildOrderTable(orders) {
     var table = $('#orderTable');
     table.empty();
-
     if (orders.length > 0) {
         for (var i = 0; i < orders.length; i++) {
             var row = `<tr class="order-row">
@@ -191,22 +190,27 @@ function filterUser(filter, users) {
 function filterOrders(filter, orders) {
     switch (filter) {
         case 'All':
+            $('#numOrders').text(`Total Orders: ${orders.length}`);
             buildOrderTable(orders);
             break;
         case 'Pending':
             var pendingOrders = orders.filter(order => order.Status === 'Pending');
+            $('#numOrders').text(`Total Pending Orders: ${pendingOrders.length}`);
             buildOrderTable(pendingOrders);
             break;
         case 'On Route':
             var onRouteOrders = orders.filter(order => order.Status === 'On Route');
+            $('#numOrders').text(`Total On Route Orders: ${onRouteOrders.length}`);
             buildOrderTable(onRouteOrders);
             break;
         case 'Completed':
             var completedOrders = orders.filter(order => order.Status === 'Completed');
+            $('#numOrders').text(`Total Completed Orders: ${completedOrders.length}`);
             buildOrderTable(completedOrders);
             break;
         case 'Cancelled':
             var cancelledOrders = orders.filter(order => order.Status === 'Cancelled');
+            $('#numOrders').text(`Total Cancelled Orders: ${cancelledOrders.length}`);
             buildOrderTable(cancelledOrders);
             break;
     };
