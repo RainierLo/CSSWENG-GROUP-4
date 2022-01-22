@@ -1089,10 +1089,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0730b4c8ea305c9c6d0a2fb4e80df14eaa9b87e2
 /* menu page */
 
 .menu-bg{
@@ -1238,8 +1234,4 @@ input:checked + .slider:before {
 }
 
 .show {display: inline-block;}
-<<<<<<< HEAD
 .drop-filter-content a:hover {background-color: rgba(245, 161, 66, 0.8);}
-=======
-.drop-filter-content a:hover {background-color: rgba(245, 161, 66, 0.8);}
->>>>>>> 0730b4c8ea305c9c6d0a2fb4e80df14eaa9b87e2
