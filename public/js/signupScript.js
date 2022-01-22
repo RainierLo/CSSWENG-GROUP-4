@@ -53,10 +53,17 @@ $(document).ready(function () {
         var isValidLength = validator.isLength(username, { min: 6 });
 
         if (isValidLength) {
+
+            $.get('/checkUsername', { Username: username }, function (result) {
+                if (result.Username == username) {
+                    if (field.is($('#username')))
+                        $('#usernameError').text('Username is already taken.');
+                    isValid = false;
+                } else isValid = true;
+            });
+
             if (field.is($('#username')))
                 $('#usernameError').text('');
-
-            isValid = true;
         } else {
             if (field.is($('#username')))
                 $('#usernameError').text('Username should contain at least 6 characters.');
@@ -103,6 +110,25 @@ $(document).ready(function () {
         return isMatch;
     }
 
+    //Checks if the password entered corresponds to the set required length
+    function isValidContactNum(field) {
+        var isValid = false;
+
+        var ContactNum = validator.trim($('#contactnumber').val());
+        var isValidLength = validator.isLength(ContactNum, { min: 11}, {max: 11});
+
+        if (isValidLength) {
+            if (field.is($('#contactnumber')))
+                $('#contactnumberError').text('');
+
+            isValid = true;
+        } else {
+            if (field.is($('#contactnumber')))
+                $('#contactnumberError').text('Contact Number must contain 11 numbers');
+        }
+        return isValid;
+    }
+
     /*
         This function will be called for each keyup function
     */
@@ -121,16 +147,19 @@ $(document).ready(function () {
         var validUsername = isValidUsername(field);
         var validPass = isValidPassword(field);
         var isMatch = checkPasswords(field);
+        var validContact = isValidContactNum(field);
 
         isValidEmail(field, function (validEmail) {
 
-            if (filled && validEmail && validPass && isMatch && validUsername) {
+            if (filled && validEmail && validPass && isMatch && validUsername && validContact) {
                 $('#submit').prop('disabled', false);
             } else {
                 $('#submit').prop('disabled', true);
             }
         });
     }
+
+    
 
     $('#username').keyup(function () {
         validateField($('#username'), 'Username', $('#usernameError'));
@@ -143,6 +172,9 @@ $(document).ready(function () {
     });
     $('#passwordConfirm').keyup(function () {
         validateField($('#passwordConfirm'), 'Confirm Password', $('#passwordConfirmError'));
+    });
+    $('#contactnumber').keyup(function () {
+        validateField($('#contactnumber'), 'Contact Number', $('#contactnumberError'));
     });
 
 });

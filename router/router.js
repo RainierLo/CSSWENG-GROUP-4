@@ -13,6 +13,7 @@ app.get('/', userController.getIndex);
 app.get('/register', userController.getRegister);
 app.get('/login', userController.getLogin);
 app.get('/logout', userController.getLogout);
+app.get('/checkUsername', userController.checkUsername);
 app.get('/checkEmail', userController.checkEmail);
 app.get('/checkOut', authSession.checkIfLoggedIn, userController.getCheckOut);
 app.get('/getUserCart', userController.getUserCart);

@@ -47,6 +47,13 @@ const userController = {
         }
     },
 
+    checkUsername: function (req, res) {
+        const { Username } = req.query;
+        User.findOne({ Username: Username }, function (err, result) {
+            res.send(result);
+        });
+    },
+
     checkEmail: function (req, res) {
         const { Email } = req.query;
         User.findOne({ Email: Email }, function (err, result) {
