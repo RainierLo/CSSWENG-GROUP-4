@@ -17,7 +17,7 @@ $(document).ready(function () {
     /* Check if the entered email is a valid one and check in the db if there 
        are duplicates 
     */
-    function isValidEmail(field, callback) {
+    async function isValidEmail(field) {
         var email = validator.trim($('#email').val());
         var isEmail = validator.isEmail(email);
         var isDuplicate;
@@ -25,28 +25,40 @@ $(document).ready(function () {
         //Check first if the email is valid
         if (isEmail) {
             //Then check if there are duplicates in the db
-            $.get('/checkEmail', { Email: email }, function (result) {
-                if (result.Email == email) {
-                    if (field.is($('#email')))
-                        $('#emailError').text('Email is already registered');
-                    isDuplicate = true;
-                }
-                else {
-                    if (field.is($('#email')))
-                        $('#emailError').text('');
-                    isDuplicate = false;
-                }
-                return callback(!isDuplicate);
-            });
+            let result = await $.get('/checkEmail', { Email: email })
+            if (result.Email == email) {
+                if (field.is($('#email')))
+                    $('#emailError').text('Email is already registered');
+                isDuplicate = true;
+            }
+            else {
+                if (field.is($('#email')))
+                    $('#emailError').text('');
+                isDuplicate = false;
+            }
+            return !isDuplicate;
+            // $.get('/checkEmail', { Email: email }, function (result) {
+            //     if (result.Email == email) {
+            //         if (field.is($('#email')))
+            //             $('#emailError').text('Email is already registered');
+            //         isDuplicate = true;
+            //     }
+            //     else {
+            //         if (field.is($('#email')))
+            //             $('#emailError').text('');
+            //         isDuplicate = false;
+            //     }
+            //     return callback(!isDuplicate);
+            // });
         }
         else {
             if (field.is($('#email')))
                 $('#emailError').text('Email is not valid.');
-            return callback(false);
+            return false;
         }
     }
     //Checks if the username entered corresponds to the set required length
-    function isValidUsername(field) {
+    async function isValidUsername(field) {
         var isValid = false;
 
         var username = validator.trim($('#username').val());
@@ -54,16 +66,26 @@ $(document).ready(function () {
 
         if (isValidLength) {
 
-            $.get('/checkUsername', { Username: username }, function (result) {
-                if (result.Username == username) {
-                    if (field.is($('#username')))
-                        $('#usernameError').text('Username is already taken.');
-                    isValid = false;
-                } else isValid = true;
-            });
+            let result = await $.get('/checkUsername', { Username: username }).then();
+            if (result.Username == username) {
+                if (field.is($('#username')))
+                    $('#usernameError').text('Username is already taken.');
+                isValid = false;
+            } else {
+                if (field.is($('#username')))
+                    $('#usernameError').text('');
+                isValid = true
+            };
+            // $.get('/checkUsername', { Username: username }, function (result) {
+            //     if (result.Username == username) {
+            //         if (field.is($('#username')))
+            //             $('#usernameError').text('Username is already taken.');
+            //         isValid = false;
+            //     } else isValid = true;
+            // });
 
-            if (field.is($('#username')))
-                $('#usernameError').text('');
+            // if (field.is($('#username')))
+            //     $('#usernameError').text('');
         } else {
             if (field.is($('#username')))
                 $('#usernameError').text('Username should contain at least 6 characters.');
@@ -115,7 +137,7 @@ $(document).ready(function () {
         var isValid = false;
 
         var ContactNum = validator.trim($('#contactnumber').val());
-        var isValidLength = validator.isLength(ContactNum, { min: 11}, {max: 11});
+        var isValidLength = validator.isLength(ContactNum, { min: 11 }, { max: 11 });
 
         if (isValidLength) {
             if (field.is($('#contactnumber')))
@@ -132,7 +154,7 @@ $(document).ready(function () {
     /*
         This function will be called for each keyup function
     */
-    function validateField(field, fieldName, error) {
+    async function validateField(field, fieldName, error) {
         var value = validator.trim(field.val());
         var empty = validator.isEmpty(value);
 
@@ -144,22 +166,20 @@ $(document).ready(function () {
         }
 
         var filled = isFilled();
-        var validUsername = isValidUsername(field);
+        var validUsername = await isValidUsername(field);
         var validPass = isValidPassword(field);
         var isMatch = checkPasswords(field);
         var validContact = isValidContactNum(field);
-
-        isValidEmail(field, function (validEmail) {
-
-            if (filled && validEmail && validPass && isMatch && validUsername && validContact) {
-                $('#submit').prop('disabled', false);
-            } else {
-                $('#submit').prop('disabled', true);
-            }
-        });
+        var validEmail = await isValidEmail(field);
+        console.log(`${filled} ${validUsername} ${validPass} ${isMatch} ${validContact} ${validEmail}`)
+        if (filled && validEmail && validPass && isMatch && validUsername && validContact && validEmail) {
+            $('#submit').prop('disabled', false);
+        } else {
+            $('#submit').prop('disabled', true);
+        }
     }
 
-    
+
 
     $('#username').keyup(function () {
         validateField($('#username'), 'Username', $('#usernameError'));

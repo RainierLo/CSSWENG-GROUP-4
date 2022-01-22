@@ -68,6 +68,7 @@ function getOrdersFromDB() {
 function buildOrderTable(orders) {
     var table = $('#orderTable');
     table.empty();
+    console.log(orders);
     if (orders.length > 0) {
         for (var i = 0; i < orders.length; i++) {
             var row = `<tr class="order-row">

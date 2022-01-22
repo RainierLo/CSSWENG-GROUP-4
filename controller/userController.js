@@ -36,6 +36,7 @@ const userController = {
                 Email: req.body.email,
                 Password: pass,
                 DateJoined: date,
+                MobileNumber: req.body.contactnumber,
                 OrdersMade: 0,
                 Cart: [],
             });

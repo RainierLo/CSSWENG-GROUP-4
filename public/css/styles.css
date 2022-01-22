@@ -500,8 +500,10 @@ nav ul li ul li a:hover {
   margin-top: 10px;
   cursor: pointer;
 }
-
-.submit-form:hover {
+.submit-form:disabled {
+  background-color: gray;
+}
+.submit-form:hover:enabled {
   background-color: var(--orange);
 }
 
