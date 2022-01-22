@@ -158,6 +158,8 @@ const userController = {
 
     remOneUser: function (req, res) {
         const { userID } = req.params;
+
+        removeUserOrders(userID);
         User.findOneAndRemove({ _id: userID }, function (err, result) {
             if (err) throw err
             if (result) {
@@ -370,15 +372,13 @@ function getCart(userID, callback) {
 }
 
 async function clearUserCart(userID) {
-    // User.updateOne({ _id: userID },
-    //     { $set: { Cart: [] } }, function (err, result) {
-    //         if (err) throw err
-    //         if (result) {
-    //             callback(result);
-    //         }
-    //     });
     await User.updateOne({ _id: userID }, { $set: { Cart: [] } });
     console.log("cart cleared")
+}
+
+async function removeUserOrders(userID) {
+    await Order.deleteMany( { User: userID} )
+    console.log("Orders Removed");
 }
 
 module.exports = userController;
