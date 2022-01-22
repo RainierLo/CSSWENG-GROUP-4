@@ -1212,5 +1212,5 @@ input:checked + .slider:before {
   display: block;
 }
 
-.menu-filter:hover .drop-filter-content{display:inline;}
+.show {display: inline-block;}
 .drop-filter-content a:hover {background-color: rgba(245, 161, 66, 0.8);}
