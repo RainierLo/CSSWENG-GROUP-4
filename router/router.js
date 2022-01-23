@@ -18,6 +18,7 @@ app.get('/checkEmail', userController.checkEmail);
 app.get('/checkOut', authSession.checkIfLoggedIn, userController.getCheckOut);
 app.get('/getUserCart', userController.getUserCart);
 app.get('/getMenu', foodController.getMenu);
+app.get('/menu', foodController.getMenuPage);
 app.get('/menu/:itemID', foodController.getIndivItemPage);
 app.get('/admin/orders', userController.getOrderPage)
 app.get('/getOrders', userController.getOrders);
