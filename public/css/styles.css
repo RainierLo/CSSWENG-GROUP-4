@@ -1114,6 +1114,15 @@ input:checked + .slider:before {
   margin-bottom: 10px;
 }
 
+.menu{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  margin: 0px auto;
+  overflow: visible;
+}
+
 .menu-app{
   width: 100%;
   text-align: center;
