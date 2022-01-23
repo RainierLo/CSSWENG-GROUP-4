@@ -21,6 +21,8 @@ function menuFilter(){
 
 let menu = {};
 let categories = {};
+
+/* This function is used to obtain the unique categories for each food item */
 function getCategories(menu) {
 
     categories = menu.map(foodItem => foodItem.Category);
@@ -30,6 +32,8 @@ function getCategories(menu) {
     categories = uniqueCategories;
 }
 
+/* This function retrieves the menu from the database and builds the table 
+    in the menu.hbs file */
 function getMenu() {
     $.get('/getMenu', function(result) {
         if (result !== undefined) {
@@ -40,6 +44,7 @@ function getMenu() {
     })
 }
 
+/* Sets the dropdown options to the acquired categories */
 function setDropdown() {
     var dropdown = $('#menuDropdown');
     var allOption = `<a href=''>All</a>`;
@@ -51,6 +56,8 @@ function setDropdown() {
     });
 }
 
+/* This function creates a section per category and appends the food items
+    in their own respective categories */
 function buildMenu(menu) {
     getCategories(menu);
     setDropdown();
