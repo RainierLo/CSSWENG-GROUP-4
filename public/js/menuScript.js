@@ -49,7 +49,7 @@ function setDropdown() {
     var dropdown = $('#menuDropdown');
     var allOption = `<a href=''>All</a>`;
     dropdown.append(allOption);
-
+    
     categories.forEach(category => {
         var option = `<a href='#${category.toLowerCase()}'>${category}</a>`
         dropdown.append(option);
@@ -65,6 +65,7 @@ function buildMenu(menu) {
     menuContainer.empty();
 
     if (menu.length > 0) {
+        //Go through each unique category
         categories.forEach(category => {
             var section = `<section id="${category.toLowerCase()}" class="menu"></section>`;
             menuContainer.append(section);
@@ -72,7 +73,9 @@ function buildMenu(menu) {
             var itemDiv = `<div id="${category.toLowerCase()}Grid"class="m1"></div>`;
             $(`#${category.toLowerCase()}`).append(title)
             $(`#${category.toLowerCase()}`).append(itemDiv)
+            //Go through each item in the menu and compare the category
             for (i = 0; i < menu.length; i++) {
+                //If the food item's category matches the current unique category, append it to the section
                 if (menu[i].Category == category) {
                     var foodItem = `
                     <div class="menu1-card">
