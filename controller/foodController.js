@@ -88,6 +88,15 @@ const foodController = {
         res.render('menu.hbs', body);
     },
 
+    getBundleMeals: function (req,res) {
+        const { category } = req.query;
+        var body = {
+            Username: req.session.username,
+            Category: category
+        }
+        res.render('bundlemeals.hbs', body);
+    },
+
     addFood: async function (req, res) {
         const { FoodName, Price, Description, Category } = req.body;
 
@@ -124,7 +133,15 @@ const foodController = {
         } catch (err) {
             if (err) throw err;
         }
+    },
 
+    getBundle: async function (req, res) {
+        try {
+            const menu = await Food.find({Category: 'Bundle Meal'});
+            res.send(menu);
+        } catch (err) {
+            if (err) throw err;
+        }
     },
 
     updateItem: function (req, res) {
