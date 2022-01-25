@@ -7,20 +7,11 @@ const foodSchema = new Schema({
     FoodName: { type: String, required: true },
     Price: { type: Number, required: true },
     Description: { type: String },
-    Category: {type: String},
+    Category: {type: String, enum: ['Appetizer, Meat, Vegetable, Seafood, Drinks, Other']},
     isAvailable: { type: Boolean, required: true },
     ImagePath: {type: String, required: true },
 });
 
-// foodSchema.index({FoodName: 1, Category: 1, isAvailable: -1})
-// foodSchema.set('toObject', { virtuals: true })
-// foodSchema.set('toJSON', { virtuals: true })
-// foodSchema.plugin(mongooseLeanVirtuals);
-// foodSchema.virtual('imagePath').get(function () {
-//     if (this.Image != null && this.ImageType != null) {
-//         return `data:${this.ImageType};charset=utf-8;base64,${this.Image.toString('base64')}`
-//     }
-// })
 
 const Food = mongoose.model('Food', foodSchema);
 
