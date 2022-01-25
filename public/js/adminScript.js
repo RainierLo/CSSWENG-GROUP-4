@@ -101,7 +101,7 @@ function buildOrderTable(orders) {
             //Append the row created to the table
             table.append(row);
             //Set the status of the created select tag
-             $(`#${i}`).val(`${orders[i].Status}`);
+            $(`#${i}`).val(`${orders[i].Status}`);
         };
     }
 
@@ -280,7 +280,13 @@ $(document).ready(function () {
     $("#menuTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = menu[index]._id;
-        $.post(`/admin/removeItem/${id}`, function (result) {
+
+        //Get the image id to delete in google drive
+        var url = new URL(menu[index].ImagePath);
+        var imageID = url.searchParams.get('id');
+
+
+        $.post(`/admin/removeItem/${id}`, { imageID: imageID }, function (result) {
             if (result) {
                 getMenuFromDB();
             } else {
@@ -319,7 +325,7 @@ $(document).ready(function () {
             isAvailable: isAvailable
         }
 
-        $.post(`/admin/updateItem/${id}`, body, function(result) {
+        $.post(`/admin/updateItem/${id}`, body, function (result) {
             if (result === 'Success') {
                 getMenuFromDB();
                 $("#editItemModal").css("display", "none");

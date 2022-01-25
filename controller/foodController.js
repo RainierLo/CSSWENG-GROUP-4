@@ -3,7 +3,7 @@ const User = require('../model/user');
 const mongoose = require('mongoose');
 const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 const { google } = require('googleapis');
-const multer  = require('multer')
+const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 
@@ -27,7 +27,7 @@ const drive = google.drive({
     auth: oauth2Client
 })
 
-  async function uploadFile(file) {
+async function uploadFile(file) {
     try {
         const res = await drive.files.create({
             requestBody: {
@@ -49,10 +49,21 @@ const drive = google.drive({
 
         return res.data;
         // generatePublicUrl(res.data.id, foodItem);
-    } catch (error) {
-        console.log(error.message)
+    } catch (err) {
+        console.log(err.message)
     }
 }
+
+async function deleteFile(fileId) {
+    try {
+        const res = await drive.files.delete({
+            fileId: fileId
+        });
+        console.log('File Successfully Deleted')
+    } catch (err) {
+        console.log(err.message)
+    }
+} 
 
 const foodController = {
 
@@ -62,24 +73,24 @@ const foodController = {
 
         // Check if logged in
         // if (req.session.username) {
-            Food.findOne( {_id: itemID }, function (err, result) {
-                if (err) throw err
-                if (result) {
-                    var body = {
-                        Username: req.session.username,
-                        Food: result
-                    }
-                    res.render('indivitem.hbs', body);
+        Food.findOne({ _id: itemID }, function (err, result) {
+            if (err) throw err
+            if (result) {
+                var body = {
+                    Username: req.session.username,
+                    Food: result
                 }
-            })
+                res.render('indivitem.hbs', body);
+            }
+        })
         // }
         // else {
         //     res.redirect('login.hbs');
         // }
-        
+
     },
 
-    getMenuPage: function (req,res) {
+    getMenuPage: function (req, res) {
         const { category } = req.query;
         var body = {
             Username: req.session.username,
@@ -88,7 +99,7 @@ const foodController = {
         res.render('menu.hbs', body);
     },
 
-    getBundleMeals: function (req,res) {
+    getBundleMeals: function (req, res) {
         const { category } = req.query;
         var body = {
             Username: req.session.username,
@@ -104,7 +115,7 @@ const foodController = {
             var fileID = await uploadFile(req.file);
             console.log(fileID);
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
-            
+
             const newFood = new Food({
                 FoodName: FoodName,
                 Price: Price,
@@ -137,7 +148,7 @@ const foodController = {
 
     getBundle: async function (req, res) {
         try {
-            const menu = await Food.find({Category: 'Bundle Meal'});
+            const menu = await Food.find({ Category: 'Bundle Meal' });
             res.send(menu);
         } catch (err) {
             if (err) throw err;
@@ -166,9 +177,12 @@ const foodController = {
     removeItem: function (req, res) {
 
         const { itemID } = req.params;
+        const { imageID } = req.body;
+        
         Food.findOneAndRemove({ _id: itemID }, function (err, result) {
             if (err) throw err
             if (result) {
+                deleteFile(imageID);
                 res.send('Sucess');
             }
         });
