@@ -49,7 +49,7 @@ function setDropdown() {
     var dropdown = $('#menuDropdown');
     var allOption = `<a href=''>All</a>`;
     dropdown.append(allOption);
-
+    
     categories.forEach(category => {
         var option = `<a href='#${category.toLowerCase()}'>${category}</a>`
         dropdown.append(option);
@@ -60,11 +60,13 @@ function setDropdown() {
     in their own respective categories */
 function buildMenu(menu) {
     getCategories(menu);
+    console.log(getCategories(menu));
     setDropdown();
     var menuContainer = $('#menu-container');
     menuContainer.empty();
 
     if (menu.length > 0) {
+        //Go through each unique category
         categories.forEach(category => {
             var section = `<section id="${category.toLowerCase()}" class="menu"></section>`;
             menuContainer.append(section);
@@ -72,7 +74,9 @@ function buildMenu(menu) {
             var itemDiv = `<div id="${category.toLowerCase()}Grid"class="m1"></div>`;
             $(`#${category.toLowerCase()}`).append(title)
             $(`#${category.toLowerCase()}`).append(itemDiv)
+            //Go through each item in the menu and compare the category
             for (i = 0; i < menu.length; i++) {
+                //If the food item's category matches the current unique category, append it to the section
                 if (menu[i].Category == category) {
                     var foodItem = `
                     <div class="menu1-card">
@@ -92,4 +96,56 @@ function buildMenu(menu) {
 
 $(document).ready(function() {
     getMenu();
+    $('body').on('change', '#filter', function(){
+        if($(this).val() == "appetizer") {
+            $("#appetizer").show();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if($(this).val() == "meat"){
+            $("#appetizer").hide();
+            $("#meat").show();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if($(this).val() == "seafood") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").show();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if($(this).val() == "vegetable") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").show();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if($(this).val() == "drinks") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").show();
+            $("#others").hide();
+        } else if($(this).val() == "others") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").show();
+        } else {
+            $("#appetizer").show();
+            $("#meat").show();
+            $("#seafood").show();
+            $("#vegetable").show();
+            $("#drinks").show();
+            $("#others").show();
+        }
+    });
 })

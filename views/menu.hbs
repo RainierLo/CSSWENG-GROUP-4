@@ -19,220 +19,229 @@
         <h1 class="title">MENU</h1>
         <div class="menu-filter">
             <a>Filter by: </a>
-            <button onclick="menuFilter()" class="drop-filter">All</button>
+            <select class="drop-filter" name="foodCategory" id="filter">
+                <option value="all" selected>All</option>
+                <option value="appetizer">Appetizers</option>
+                <option value="meat">Meat</option>
+                <option value="seafood">Seafood</option>
+                <option value="vegetable">Vegetables</option>
+                <option value="drinks">Drinks</option>
+                <option value="others">Others</option>
+            </select>
+            {{!-- <button onclick="menuFilter()" class="drop-filter">All</button>
             <div id="menuDropdown" class="drop-filter-content">
-                {{!-- <a href="">All</a>
-                <a href="#appetizers">Appetizers</a>
-                <a href="">Meat</a>
-                <a href="">Seafood</a>
-                <a href="">Vegetables</a>
-                <a href="">Drinks</a>
-                <a href="">Others</a> --}}
-            </div>
+                <a id="foodCategory" href="">All</a>
+                <a id="foodCategory" href="#appetizers">Appetizers</a>
+                <a id="foodCategory" href="">Meat</a>
+                <a id="foodCategory" href="">Seafood</a>
+                <a id="foodCategory" href="">Vegetables</a>
+                <a id="foodCategory" href="">Drinks</a>
+                <a id="foodCategory" href="">Others</a>
+            </div> --}}
         </div>
         <div id="menu-container">
-            <section class="menu-app">
-                <div id="appetizers" class="menu-title">APPETIZERS</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
+                <section class="appetizer">
+                    <div id="appetizers" class="menu-title">APPETIZERS</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
                     </div>
+                </section>
 
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
+                <section class="meat">
+                    <div class="menu-title">MEAT</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
                     </div>
+                </section>
 
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
+                <section class="seafood">
+                    <div class="menu-title">SEAFOOD</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
                     </div>
+                </section>
 
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
+                <section class="vegetable">
+                    <div class="menu-title">VEGETABLES</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
                     </div>
+                </section>
 
-                </div>
-            </section>
+                <section class="drinks">
+                    <div class="menu-title">DRINKS</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
 
-            <section class="menu-mea">
-                <div class="menu-title">MEAT</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
                     </div>
+                </section>
 
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
+                <section class="others">
+                    <div class="menu-title">OTHERS</div>
+                    <div class="m1">
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Sisig.jpg"></a>
+                            <a href="">
+                                <p>Pork Sisig - 160</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
+                        <div class="menu1-card">
+                            <a href=""><img src="./images/Buttered Chicken.jpg"></a>
+                            <a href="">
+                                <p>Buttered Chicken - 220</p>
+                            </a>
+                        </div>
+
                     </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="menu-sea">
-                <div class="menu-title">SEAFOOD</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="menu-veg">
-                <div class="menu-title">VEGETABLES</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="menu-dri">
-                <div class="menu-title">DRINKS</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="menu-oth">
-                <div class="menu-title">OTHERS</div>
-                <div class="m1">
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Sisig.jpg"></a>
-                        <a href="">
-                            <p>Pork Sisig - 160</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                    <div class="menu1-card">
-                        <a href=""><img src="./images/Buttered Chicken.jpg"></a>
-                        <a href="">
-                            <p>Buttered Chicken - 220</p>
-                        </a>
-                    </div>
-
-                </div>
-            </section>
+                </section>
         </div>
 
     </div>
