@@ -21,13 +21,17 @@ const socket = io("http://localhost:3000");
 var users = {};
 var orders = {};
 var menu = {};
+
+/* If there are updates to the user db, perform a getUsers query again
+   to update the user table */
 socket.on('userdb-updated', change => {
     $.get('/getUsers', function (result) {
-        users = result;
-        filterUser("Date-Ascending", users);
+        getUsersFromDB();
     });
 });
 
+/* If there are updates to the order db, perform a getOrders query again
+   to update the order table */
 socket.on('orderdb-updated', change => {
     getOrdersFromDB();
 });
@@ -41,8 +45,11 @@ function getUsersFromDB() {
     });
 };
 
+/* This function appends each item of the user array as rows to 
+   the user table*/
 function buildUserTable(users) {
     var table = $('#userTable');
+    //Clear the body of the table
     table.empty();
     for (var i = 0; i < users.length; i++) {
         var row = `<tr class="user-row">
@@ -52,6 +59,7 @@ function buildUserTable(users) {
             <td>${users[i].OrdersMade}</td>
             <td><button type="button" id="remButton" name="${i}">Remove</button></td>
         </tr>`
+        //Append the row created to the table
         table.append(row);
     };
 }
@@ -64,9 +72,11 @@ function getOrdersFromDB() {
         filterOrders('All', orders);
     })
 }
-
+/* This function appends each item of the order array as rows to 
+   the order table*/
 function buildOrderTable(orders) {
     var table = $('#orderTable');
+    //Clear the body of the table
     table.empty();
     console.log(orders);
     if (orders.length > 0) {
@@ -88,19 +98,15 @@ function buildOrderTable(orders) {
                 </select>
             </td>
             </tr>`
-            console.log(orders[i].Status)
+            //Append the row created to the table
             table.append(row);
+            //Set the status of the created select tag
              $(`#${i}`).val(`${orders[i].Status}`);
-            // $(`#${i}`).filter(function () {
-            //     return $(this).text() == orders[i].Status;
-            // }).prop('selected', true);
         };
     }
 
 }
-function filterOrdetbyDate (filter, orders) {
-    
-}
+/* This function a concatenated string of the user's orders */
 function getOrderString(Cart) {
     var orderStr = ''
     Cart.map(item => {
@@ -117,8 +123,11 @@ function getMenuFromDB() {
         buildMenuTable(menu);
     });
 }
+/* This function appends each item of the menu array as rows to 
+   the menu table*/
 function buildMenuTable(menu) {
     var table = $('#menuTable');
+    //Clear the body of the table
     table.empty();
     for (var i = 0; i < menu.length; i++) {
         var row = `<tr class="menu-row">
@@ -130,11 +139,13 @@ function buildMenuTable(menu) {
         <td><button type="button" id="editButton" name="${i}">Edit</button></td>    
         <td><button type="button" id="remButton" name="${i}">Remove</button></td>
         </tr>`
+        //Append the row created to the table
         table.append(row);
     };
 }
 
 /* Filters for User sorting */
+/* Filter for Ascending alphabetic order*/
 function AtoZ(a, b) {
     if (a.Username.toLowerCase() < b.Username.toLowerCase()) {
         return -1;
@@ -144,7 +155,7 @@ function AtoZ(a, b) {
     }
     return 0;
 };
-
+/* Filter for Descending alphabetic order*/
 function ZtoA(a, b) {
     if (a.Username.toLowerCase() > b.Username.toLowerCase()) {
         return -1;
@@ -155,6 +166,8 @@ function ZtoA(a, b) {
     return 0;
 };
 
+/* This function handles the filtering of the user based on the 
+   chosen filter (Alphabetical, Date joined, number of orders made) */
 function filterUser(filter, users) {
     switch (filter) {
         case 'Date-Ascending':
@@ -187,7 +200,6 @@ function filterUser(filter, users) {
 };
 
 /* Filters for Order sorting */
-
 function filterOrders(filter, orders) {
     switch (filter) {
         case 'All':
@@ -221,6 +233,8 @@ $(document).ready(function () {
     getUsersFromDB();
     getOrdersFromDB();
     getMenuFromDB();
+
+    //Removes the chosen user from the db
     $("#userTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = users[index]._id;
@@ -242,6 +256,7 @@ $(document).ready(function () {
     });
 
     /* Order Operations */
+    //Updates the status of the order
     $('#orderTable').on('change', '.orderProgressOptions', function () {
         var index = parseInt($(this).prop('name'));
         var id = orders[index]._id;
@@ -261,6 +276,7 @@ $(document).ready(function () {
         filterOrders(filter, orders);
     });
     /* Menu Operations */
+    //Removes the chosen food item from the menu
     $("#menuTable").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = menu[index]._id;
@@ -273,7 +289,7 @@ $(document).ready(function () {
         });
     });
 
-
+    //Allows for updating / editing of the current food item's values
     $("#menuTable").on('click', '#editButton', function () {
         var index = parseInt($(this).prop('name'));
         var item = menu[index];
@@ -285,6 +301,8 @@ $(document).ready(function () {
         $("#editAvailable").prop("checked", item.isAvailable);
         $("#editItemModal").css("display", "block");
     });
+
+    //Makes the post request to accomplish the update of values
     $("#edit-submitBtn").click(function () {
         var id = $("#editID").val();
         var foodName = $("#editFoodName").val();
