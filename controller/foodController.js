@@ -63,11 +63,9 @@ async function deleteFile(fileId) {
     } catch (err) {
         console.log(err.message)
     }
-} 
+}
 
 const foodController = {
-
-
     getIndivItemPage: function (req, res) {
         const { itemID } = req.params;
 
@@ -166,9 +164,17 @@ const foodController = {
             isAvailable: isAvailable
         };
 
+
         Food.updateOne({ _id: itemID }, update, function (err, update) {
             if (err) throw err;
             if (update) {
+                /* If the item is set to unavailable, remove it from all of the 
+                   user's carts */
+                if (isAvailable == 'false') {
+                    const result = removeItemFromCart(itemID);
+                    if (result)
+                        console.log('item removed from cart')
+                }
                 res.send('Success');
             }
         });
@@ -178,7 +184,7 @@ const foodController = {
 
         const { itemID } = req.params;
         const { imageID } = req.body;
-        
+
         Food.findOneAndRemove({ _id: itemID }, function (err, result) {
             if (err) throw err
             if (result) {
@@ -190,14 +196,16 @@ const foodController = {
     }
 }
 
-function saveImage(foodItem, encodedImg) {
-    if (encodedImg == null) return;
-
-    const image = JSON.parse(encodedImg);
-    if (image != null && imageMimeTypes.includes(image.type)) {
-        foodItem.Image = new Buffer.from(image.data, 'base64');
-        foodItem.ImageType = image.type;
+async function removeItemFromCart(foodID) {
+    try {
+        const result = await User.updateMany({},
+            { $pull: { Cart: { ItemID: foodID } } },
+            { multi: true });
+        return true
+    } catch (err) {
+        return false
     }
+
 }
 
 module.exports = foodController;
