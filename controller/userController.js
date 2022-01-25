@@ -9,7 +9,7 @@ const userController = {
 
         try {
             var body = {};
-            const menu = await Food.find({isAvailable: true});
+            const menu = await Food.find({isAvailable: true}).limit(10);
             body.Menu = menu
             if (req.session.username) {
                 body.Username = req.session.username;

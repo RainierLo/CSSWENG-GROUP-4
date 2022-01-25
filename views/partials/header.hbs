@@ -1,34 +1,34 @@
 <div class="nav-container">
-        <nav class="nav-bar">
-            <div class="nav-right">
-                <a class="nav-logo" href="/"><img src="/images/logo.png" height="50px" width="50px"></img></a>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/menu">Menu</a>
-                        <ul>
-                            <li><a href="/menu#appetizers">Appetizers</a></li>
-                            <li><a href="">Meat</a></li>
-                            <li><a href="">Seafood</a></li>
-                            <li><a href="">Vegetables</a></li>
-                            <li><a href="">Others</a></li>
-                            <li><a href="">Drinks</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="">Bundle Meals</a></li>
-                    <li><a href="">Our Story</a></li>
-                </ul>
-            </div>
-            <div class="nav-left">
-                <a href="/checkOut" style ="font-size: 20px;"class="fa-stack fa-4x nav-write">
-                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                    <i style ="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
-                </a>
-                {{#if Username}}
-                    <a class="nav-link-btn" href="">{{Username}}</a>
-                    <a class="nav-link-btn" href="/logout">Logout</a>
-                {{else}}
-                    <a class="nav-link-btn" href="/login">Login</a>
-                {{/if}}
-            </div>
-        </nav>
-    </div>
+    <nav class="nav-bar">
+        <div class="nav-right">
+            <a class="nav-logo" href="/"><img src="/images/logo.png" height="50px" width="50px"></img></a>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu?category=all">Menu</a>
+                    <ul>
+                        <li><a href="/menu?category=appetizer">Appetizers</a></li>
+                        <li><a href="/menu?category=meat">Meat</a></li>
+                        <li><a href="/menu?category=seafood">Seafood</a></li>
+                        <li><a href="/menu?category=vegetable">Vegetables</a></li>
+                        <li><a href="/menu?category=drinks">Drinks</a></li>
+                        <li><a href="/menu?category=others">Others</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Bundle Meals</a></li>
+                <li><a href="">Our Story</a></li>
+            </ul>
+        </div>
+        <div class="nav-left">
+            <a href="/checkOut" style="font-size: 20px;" class="fa-stack fa-4x nav-write">
+                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                <i style="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
+            </a>
+            {{#if Username}}
+            <a class="nav-link-btn" href="">{{Username}}</a>
+            <a class="nav-link-btn" href="/logout">Logout</a>
+            {{else}}
+            <a class="nav-link-btn" href="/login">Login</a>
+            {{/if}}
+        </div>
+    </nav>
+</div>

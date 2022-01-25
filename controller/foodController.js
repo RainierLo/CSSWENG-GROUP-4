@@ -80,7 +80,12 @@ const foodController = {
     },
 
     getMenuPage: function (req,res) {
-        res.render('menu.hbs');
+        const { category } = req.query;
+        var body = {
+            Username: req.session.username,
+            Category: category
+        }
+        res.render('menu.hbs', body);
     },
 
     addFood: async function (req, res) {

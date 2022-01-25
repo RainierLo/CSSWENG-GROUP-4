@@ -1,5 +1,5 @@
 
-function menuFilter(){
+function menuFilter() {
     document.getElementById("menuDropdown").classList.toggle("show");
 }
 
@@ -27,29 +27,28 @@ function getCategories(menu) {
 
     categories = menu.map(foodItem => foodItem.Category);
 
-    let uniqueCategories = [...new Set (categories)]
-    
+    let uniqueCategories = [...new Set(categories)]
+
     categories = uniqueCategories;
 }
 
 /* This function retrieves the menu from the database and builds the table 
     in the menu.hbs file */
-function getMenu() {
-    $.get('/getMenu', function(result) {
-        if (result !== undefined) {
-            menu = result;
-            console.log(menu);
-            buildMenu(menu)
-        }         
-    })
+async function getMenu() {
+    var result = await $.get('/getMenu').then() 
+    if (result !== undefined) {
+        menu = result;
+        buildMenu(menu)
+    }
 }
+
 
 /* Sets the dropdown options to the acquired categories */
 function setDropdown() {
     var dropdown = $('#menuDropdown');
     var allOption = `<a href=''>All</a>`;
     dropdown.append(allOption);
-    
+
     categories.forEach(category => {
         var option = `<a href='#${category.toLowerCase()}'>${category}</a>`
         dropdown.append(option);
@@ -60,8 +59,7 @@ function setDropdown() {
     in their own respective categories */
 function buildMenu(menu) {
     getCategories(menu);
-    console.log(getCategories(menu));
-    setDropdown();
+    console.log(menu)
     var menuContainer = $('#menu-container');
     menuContainer.empty();
 
@@ -94,45 +92,114 @@ function buildMenu(menu) {
 }
 
 
-$(document).ready(function() {
-    getMenu();
-    $('body').on('change', '#filter', function(){
-        if($(this).val() == "appetizer") {
+function filterMenu(category, menu) {
+    buildMenu(menu);
+    switch (category) {
+        case 'all':
+            $('#filter').val(category)
+            $("#appetizer").show();
+            $("#meat").show();
+            $("#seafood").show();
+            $("#vegetable").show();
+            $("#drinks").show();
+            $("#others").show();
+            break;
+        case 'appetizer':
+            $('#filter').val(category)
             $("#appetizer").show();
             $("#meat").hide();
             $("#seafood").hide();
             $("#vegetable").hide();
             $("#drinks").hide();
             $("#others").hide();
-        } else if($(this).val() == "meat"){
+            break;
+        case 'meat':
+            $('#filter').val(category)
             $("#appetizer").hide();
             $("#meat").show();
             $("#seafood").hide();
             $("#vegetable").hide();
             $("#drinks").hide();
             $("#others").hide();
-        } else if($(this).val() == "seafood") {
+            break;
+        case 'seafood':
+            $('#filter').val(category)
             $("#appetizer").hide();
             $("#meat").hide();
             $("#seafood").show();
             $("#vegetable").hide();
             $("#drinks").hide();
             $("#others").hide();
-        } else if($(this).val() == "vegetable") {
+            break;
+        case 'vegetable':
+            $('#filter').val(category)
             $("#appetizer").hide();
             $("#meat").hide();
             $("#seafood").hide();
             $("#vegetable").show();
             $("#drinks").hide();
             $("#others").hide();
-        } else if($(this).val() == "drinks") {
+            break;
+        case 'drinks':
+            $('#filter').val(category)
             $("#appetizer").hide();
             $("#meat").hide();
             $("#seafood").hide();
             $("#vegetable").hide();
             $("#drinks").show();
             $("#others").hide();
-        } else if($(this).val() == "others") {
+            break;
+        case 'others':
+            $('#filter').val(category)
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").show();
+            break;
+    }
+}
+
+$(document).ready(async function () {
+    await getMenu();
+    $('body').on('change', '#filter', function () {
+        if ($(this).val() == "appetizer") {
+            $("#appetizer").show();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if ($(this).val() == "meat") {
+            $("#appetizer").hide();
+            $("#meat").show();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if ($(this).val() == "seafood") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").show();
+            $("#vegetable").hide();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if ($(this).val() == "vegetable") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").show();
+            $("#drinks").hide();
+            $("#others").hide();
+        } else if ($(this).val() == "drinks") {
+            $("#appetizer").hide();
+            $("#meat").hide();
+            $("#seafood").hide();
+            $("#vegetable").hide();
+            $("#drinks").show();
+            $("#others").hide();
+        } else if ($(this).val() == "others") {
             $("#appetizer").hide();
             $("#meat").hide();
             $("#seafood").hide();
@@ -148,4 +215,9 @@ $(document).ready(function() {
             $("#others").show();
         }
     });
+
+    var category = $('#Category').attr('name');
+    console.log(category)
+
+    filterMenu(category, menu)
 })
