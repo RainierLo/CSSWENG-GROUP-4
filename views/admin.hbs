@@ -14,7 +14,7 @@
 
 <body>
     <script defer src="/js/adminScript.js" type="module"></script>
-{{> adminHeader }}
+    {{> adminHeader }}
 
     <div class="admin-bg">
         <h1 class="title">Admin Management</h1>
@@ -111,7 +111,15 @@
                             </div>
                             <div>
                                 <label for="Category">Category</label>
-                                <input type="text" id="category" name="Category" required>
+                                <select id="category" name="Category" required>
+                                    <option value="Appetizer">Appetizer</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Seafood">Seafood</option>
+                                    <option value="Vegetable">Vegetable</option>
+                                    <option value="Drinks">Drinks</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Bundle Meal">Bundle Meal</option>
+                                </select>
                             </div>
                             <div>
                                 <label for="Picture">Picture</label>
@@ -140,7 +148,16 @@
                             </div>
                             <div>
                                 <label for="Category">Category: </label>
-                                <input type="text" id="editCategory" name="Category" required>
+                                <select id="editCategory" name="Category" required>
+                                    <option value="Appetizer">Appetizer</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Seafood">Seafood</option>
+                                    <option value="Vegetable">Vegetable</option>
+                                    <option value="Drinks">Drinks</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Bundle Meal">Bundle Meal</option>
+                                </select>
+                                {{!-- <input type="text" id="editCategory" name="Category" required> --}}
                             </div>
                             <div>
                                 <label for="Available">Available: </label>

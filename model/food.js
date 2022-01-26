@@ -7,7 +7,7 @@ const foodSchema = new Schema({
     FoodName: { type: String, required: true },
     Price: { type: Number, required: true },
     Description: { type: String },
-    Category: {type: String, enum: ['Appetizer, Meat, Vegetable, Seafood, Drinks, Other, Bundle Meal']},
+    Category: {type: String, enum: ['Appetizer', 'Meat', 'Vegetable', 'Seafood', 'Drinks', 'Other', 'Bundle Meal']},
     isAvailable: { type: Boolean, required: true },
     ImagePath: {type: String, required: true },
 });

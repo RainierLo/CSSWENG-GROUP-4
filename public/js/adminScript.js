@@ -78,7 +78,7 @@ function buildOrderTable(orders) {
     var table = $('#orderTable');
     //Clear the body of the table
     table.empty();
-    console.log(orders);
+    //console.log(orders);
     if (orders.length > 0) {
         for (var i = 0; i < orders.length; i++) {
             var row = `<tr class="order-row">
@@ -314,7 +314,7 @@ $(document).ready(function () {
         var foodName = $("#editFoodName").val();
         var price = $("#editPrice").val();
         var description = $("#editDescription").val();
-        var category = $("#editCategory").val();
+        var category = $("#editCategory option:selected").val();
         var isAvailable = $("#editAvailable").is(":checked");
 
         var body = {
@@ -324,7 +324,6 @@ $(document).ready(function () {
             Category: category,
             isAvailable: isAvailable
         }
-
         $.post(`/admin/updateItem/${id}`, body, function (result) {
             if (result === 'Success') {
                 getMenuFromDB();
