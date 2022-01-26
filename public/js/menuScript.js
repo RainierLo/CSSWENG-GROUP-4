@@ -35,10 +35,13 @@ function getCategories(menu) {
 /* This function retrieves the menu from the database and builds the table 
     in the menu.hbs file */
 async function getMenu() {
-    var result = await $.get('/getMenu').then() 
+    var result = await $.get('/getMenu').then()
     if (result !== undefined) {
         menu = result;
         buildMenu(menu)
+
+        var category = $('#Category').attr('name');
+        filterMenu(category, menu)
     }
 }
 
@@ -59,7 +62,6 @@ function setDropdown() {
     in their own respective categories */
 function buildMenu(menu) {
     getCategories(menu);
-    console.log(menu)
     var menuContainer = $('#menu-container');
     menuContainer.empty();
 
@@ -162,7 +164,7 @@ function filterMenu(category, menu) {
 }
 
 $(document).ready(async function () {
-    await getMenu();
+    getMenu();
     $('body').on('change', '#filter', function () {
         if ($(this).val() == "appetizer") {
             $("#appetizer").show();
@@ -215,9 +217,4 @@ $(document).ready(async function () {
             $("#others").show();
         }
     });
-
-    var category = $('#Category').attr('name');
-    console.log(category)
-
-    filterMenu(category, menu)
 })
