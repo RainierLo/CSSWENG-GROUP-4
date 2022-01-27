@@ -118,7 +118,7 @@ function getOrderString(Cart) {
 /* Menu Tab */
 
 function getMenuFromDB() {
-    $.get('/getMenu', function (result) {
+    $.get('/getAdminMenu', function (result) {
         menu = result;
         buildMenuTable(menu);
     });

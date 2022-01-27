@@ -22,6 +22,7 @@ app.get('/getBundle', foodController.getBundle);
 app.get('/menu', foodController.getMenuPage);
 app.get('/menu/bundlemeals', foodController.getBundleMeals);
 app.get('/menu/:itemID', foodController.getIndivItemPage);
+app.get('/getAdminMenu', foodController.getAdminMenu);
 app.get('/admin/orders', userController.getOrderPage)
 app.get('/getOrders', userController.getOrders);
 app.get('/getUsers', userController.getUsers);

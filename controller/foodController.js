@@ -133,7 +133,15 @@ const foodController = {
             if (err) throw err;
         }
     },
-
+    getAdminMenu: async function (req, res) {
+        try {
+            // const menu = await Food.find().lean({ virtuals: true });
+            const menu = await Food.find();
+            res.send(menu);
+        } catch (err) {
+            if (err) throw err;
+        }
+    }, 
     getMenu: async function (req, res) {
         try {
             // const menu = await Food.find().lean({ virtuals: true });
