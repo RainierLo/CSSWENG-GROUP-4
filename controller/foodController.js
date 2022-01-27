@@ -137,7 +137,7 @@ const foodController = {
     getMenu: async function (req, res) {
         try {
             // const menu = await Food.find().lean({ virtuals: true });
-            const menu = await Food.find();
+            const menu = await Food.find({isAvailable: 'true'});
             res.send(menu);
         } catch (err) {
             if (err) throw err;
@@ -146,7 +146,7 @@ const foodController = {
 
     getBundle: async function (req, res) {
         try {
-            const menu = await Food.find({ Category: 'Bundle Meal' });
+            const menu = await Food.find({ Category: 'Bundle Meal', isAvailable: 'true' });
             res.send(menu);
         } catch (err) {
             if (err) throw err;
