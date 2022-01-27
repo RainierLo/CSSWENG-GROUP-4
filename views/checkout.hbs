@@ -59,6 +59,8 @@
                 $('.delivery-form-container').css('display', 'none');
                 var text = "<p>You have no items in your cart.</p>";
                 table.innerHTML += text;
+                $('#subtotal').text(`₱${subtotal}`);
+                $('#total').text(`₱${subtotal + deliveryfee}`);
             }
         }
 
