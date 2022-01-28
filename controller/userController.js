@@ -13,7 +13,7 @@ const userController = {
             body.Menu = menu
             if (req.session.username) {
                 body.Username = req.session.username;
-                body.id = req.session.id;
+                body.id = req.session.userID;
             }
             res.render('index.hbs', body);
         } catch (err) {
@@ -174,7 +174,7 @@ const userController = {
         if (req.session.username) {
             var user = {
                 Username: req.session.username,
-                id: req.session.id
+                id: req.session.userID
             };
             res.render('checkout.hbs', user);
         } else {
@@ -349,13 +349,21 @@ const userController = {
             }
         })
     },
-    getAccountPage: function (req, res) {
-        var body = {
-            Username: req.session.username,
-            id: req.session.id
-        };
+    getAccountPage: async function (req, res) {
 
-        res.render('viewProfile.hbs', body);
+        try {
+            var user = await User.findOne({_id: req.session.userID});
+            var body = {
+                Username: req.session.username,
+                id: req.session.userID, 
+                DateJoined: user.DateJoined 
+            };
+    
+            res.render('viewProfile.hbs', body);
+        } catch (err) {
+            throw err;
+        }
+
     },
     // ADMIN CONTROLLER
 

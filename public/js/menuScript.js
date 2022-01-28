@@ -4,7 +4,7 @@ function menuFilter() {
 }
 
 let menu = {};
-let categories = {};
+let categories = ['Appetizer', 'Meat', 'Vegetable', 'Seafood', 'Drinks', 'Others'];
 
 /* This function is used to obtain the unique categories for each food item */
 function getCategories(menu) {
@@ -45,7 +45,7 @@ function setDropdown() {
 /* This function creates a section per category and appends the food items
     in their own respective categories */
 function buildMenu(menu) {
-    getCategories(menu);
+    //getCategories(menu);
     var menuContainer = $('#menu-container');
     menuContainer.empty();
 
