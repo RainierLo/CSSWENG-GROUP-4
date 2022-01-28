@@ -16,7 +16,7 @@
 
 <body>
     <div hidden id="Category" name={{Category}}></div>
-    {{> header Username=Username}}
+    {{> header Username=Username UserID=id}}
     <div class="menu-bg">
         <h1 class="title">MENU</h1>
         <div class="menu-filter">
@@ -62,16 +62,17 @@
         </div>
 
     </footer>
-        {{!-- <script defer>
-            var test;
-            async function waitMenu() {
-                var menu = await getQueryMenu();
-                filterMenu('{{Category}}', menu)
-            }
+    {{!--
+    <script defer>
+        var test;
+        async function waitMenu() {
+            var menu = await getQueryMenu();
+            filterMenu('{{Category}}', menu)
+        }
 
 
 
-            waitMenu();
+        waitMenu();
         //filterMenu('{{Category}}')
     </script> --}}
 </body>

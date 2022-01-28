@@ -12,13 +12,13 @@
 
 </head>
 <body>
-    {{> header Username=Username}}
+    {{> header Username=Username UserID=id}}
     <div class="profile-bg">
             
         <div class="content">
             <div class="userData">
-                <h1>Welcome (insert username here)</h1>
-                <p>ID: (insert user ID here if necessary, if not just delete)</p>
+                <h1>Welcome {{Username}}</h1>
+                <p>ID: {{id}}</p>
                 <p><i class="far fa-calendar-alt"></i> Date Joined: (insert date joined if necessary, if not just delete)</p>
             </div>
         </div>

@@ -26,7 +26,7 @@ app.get('/getAdminMenu', foodController.getAdminMenu);
 app.get('/admin/orders', userController.getOrderPage)
 app.get('/getOrders', userController.getOrders);
 app.get('/getUsers', userController.getUsers);
-
+app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccountPage);
 //app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
 //For Testing purposes only.
 app.get('/admin', userController.getAdmin);

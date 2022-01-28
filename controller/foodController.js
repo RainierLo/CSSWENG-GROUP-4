@@ -76,6 +76,7 @@ const foodController = {
             if (result) {
                 var body = {
                     Username: req.session.username,
+                    id: req.session.id,
                     Food: result
                 }
                 res.render('indivitem.hbs', body);
@@ -92,6 +93,7 @@ const foodController = {
         const { category } = req.query;
         var body = {
             Username: req.session.username,
+            id: req.session.id,
             Category: category
         }
         res.render('menu.hbs', body);
@@ -101,6 +103,7 @@ const foodController = {
         const { category } = req.query;
         var body = {
             Username: req.session.username,
+            id: req.session.id,
             Category: category
         }
         res.render('bundlemeals.hbs', body);

@@ -31,7 +31,7 @@
             var deliveryfee = 100;//Temporary value
             if (cart.length > 0) {
                 $('.delivery-form-container').css('display', 'block');
-                
+
                 //Image for this is still static
                 for (var i = 0; i < cart.length; i++) {
                     var row =
@@ -95,7 +95,7 @@
 </head>
 
 <body>
-    {{> header Username=Username}}
+    {{> header Username=Username UserID=id}}
 
     <!---- cart item details ---->
     <div class="checkout-bg">
@@ -146,7 +146,8 @@
                             <input type="text" class="input" name="Region" placeholder="Region" required>
                         </div>
                         <div class="delivery-info">
-                            <input type="text" class="input" name="Zip" placeholder="ZIP Code" title="Please enter a valid zip code." pattern="[0-9]{3,4}" required>
+                            <input type="text" class="input" name="Zip" placeholder="ZIP Code"
+                                title="Please enter a valid zip code." pattern="[0-9]{3,4}" required>
                         </div>
                     </div>
             </div>
@@ -154,7 +155,7 @@
             </form>
         </section>
     </div>
-    {{> footer}} 
+    {{> footer}}
 </body>
 
 </html>

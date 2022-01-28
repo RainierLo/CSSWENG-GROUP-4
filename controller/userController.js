@@ -349,7 +349,14 @@ const userController = {
             }
         })
     },
+    getAccountPage: function (req, res) {
+        var body = {
+            Username: req.session.username,
+            id: req.session.id
+        };
 
+        res.render('viewProfile.hbs', body);
+    },
     // ADMIN CONTROLLER
 
     getAdmin: function (req,res) {
