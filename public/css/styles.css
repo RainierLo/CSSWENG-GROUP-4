@@ -1256,3 +1256,120 @@ input:checked + .slider:before {
 
 .show {display: inline-block;}
 .drop-filter-content a:hover {background-color: rgba(245, 161, 66, 0.8);}
+
+/* edit profile page */
+
+.editUserData{
+  height: 35px;
+  width: 130px;
+  font-size: 10px;
+  font-family: inherit;
+  border: transparent;
+  background-color: var(--orange);
+  color: white;
+  padding: 6px 16px;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.editUserData:hover {
+  background-color: var(--red);
+}
+
+.editUD .overlay{
+  position:fixed;
+  top:0px;
+  left:0px;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,0.7);
+  z-index:1;
+  display:none;
+}
+
+.editUD .userDetails{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) scale(0);
+  background:#fff;
+  width:450px;
+  height:350px;
+  z-index:2;
+  text-align:center;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+.editUD .exitEdit{
+  position:absolute;
+  right:20px;
+  top:15px;
+  width:30px;
+  height:30px;
+  background:#222;
+  color:#fff;
+  font-size:25px;
+  font-weight:600;
+  line-height:30px;
+  text-align:center;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.editUD.active .overlay{
+  display: block;
+}
+
+.editUD.active .userDetails{
+  transition: all 300ms ease-in-out;
+  transform:translate(-50%, -50%) scale(1);
+}
+
+.saveUserData {
+  width: 100px;
+  height: 30px;
+  background-color: var(--orange);
+  color: white;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: 3px;
+  border: 0px;
+  margin-top: 10px;
+  cursor: pointer;
+  position:absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.saveUserData:hover {
+  background-color: var(--red);
+}
+
+.newUserDetails{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position:relative;
+  
+}
+
+.newUserDetails label {
+  display: inline;
+  margin-bottom: 5px;
+  
+}
+
+.newUserDetails input {
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 10px;
+  width: 300px;
+}
