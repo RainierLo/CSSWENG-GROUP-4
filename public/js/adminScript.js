@@ -69,7 +69,7 @@ function buildUserTable(users) {
 function getOrdersFromDB() {
     $.get('/getOrders', function (result) {
         orders = result;
-        filterOrders('All', orders);
+        filterOrders('Pending', orders);
     })
 }
 /* This function appends each item of the order array as rows to 
@@ -89,7 +89,7 @@ function buildOrderTable(orders) {
             <td>${orders[i].Address}</td>
             <td>${getOrderString(orders[i].Cart)}</td>
             <td>${orders[i].TotalPrice}</td>
-            <td>                
+            <td id="StatusCol${i}">                
                 <select id="${i}" class="orderProgressOptions" name="${i}">
                     <option value="Pending">Pending</option>
                     <option value="On Route">On Route</option>
@@ -102,6 +102,11 @@ function buildOrderTable(orders) {
             table.append(row);
             //Set the status of the created select tag
             $(`#${i}`).val(`${orders[i].Status}`);
+
+            if (orders[i].Status == 'Completed' || orders[i].Status == 'Cancelled') {
+                $(`#StatusCol${i}`).empty();
+                $(`#StatusCol${i}`).text(orders[i].Status);
+            }
         };
     }
 
@@ -208,6 +213,9 @@ function filterOrders(filter, orders) {
             break;
         case 'Pending':
             var pendingOrders = orders.filter(order => order.Status === 'Pending');
+            pendingOrders = pendingOrders.sort(function (a, b) {
+                return new Date(b.DateOrdered) - new Date(a.DateOrdered);
+            });
             $('#numOrders').text(`Total Pending Orders: ${pendingOrders.length}`);
             buildOrderTable(pendingOrders);
             break;
@@ -260,9 +268,11 @@ $(document).ready(function () {
     $('#orderTable').on('change', '.orderProgressOptions', function () {
         var index = parseInt($(this).prop('name'));
         var id = orders[index]._id;
+        var userID = orders[index].User._id;
         var status = $(`#${index} option:selected`).prop('value')
         var body = {
             orderID: id,
+            userID: userID,
             Status: status
         }
 

@@ -323,7 +323,14 @@ const userController = {
         clearUserCart(id);
         res.redirect('/');
     },
-
+    getUserOrder: function (req, res) {
+        Order.find({User: req.session.userID}, function (err, result) {
+            if (err) throw err;
+            if (result) {
+                res.send(result);
+            }
+        })
+    },
     getOrders: function (req, res) {
         Order
             .find()
@@ -340,11 +347,14 @@ const userController = {
     },
 
     updateOrderStatus: function (req, res) {
-        const { orderID, Status } = req.body;
-    
+        const { orderID, userID, Status } = req.body;
+
         Order.updateOne({ _id: orderID }, { Status: Status }, function (err, result) {
             if (err) throw err;
             if (result) {
+                if (Status == 'Completed') {
+                    incOrderCompleted(userID);
+                }
                 res.send('Success');
             }
         })
@@ -395,6 +405,10 @@ async function clearUserCart(userID) {
 async function removeUserOrders(userID) {
     await Order.deleteMany( { User: userID} )
     console.log("Orders Removed");
+}
+
+async function incOrderCompleted(userID) {
+    await User.updateOne({_id: userID}, {$inc: {OrdersMade: 1} });
 }
 
 module.exports = userController;
