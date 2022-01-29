@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <link rel="stylesheet" href="styles.css">
+    <title>Super 6 Grille House</title>
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>    
+    <script src="profileScript.js"></script>  
+
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+</head>
+<body>
+    <div class="nav-container">
+        <nav class="nav-bar">
+            <div class="nav-right">
+                <a class="nav-logo" href="index.html"><img src="images/logo.png" height="50px" width="50px"></img></a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Menu</a>
+                        <ul>
+                            <li><a href="">Appetizers</a></li>
+                            <li><a href="">Meat</a></li>
+                            <li><a href="">Seafood</a></li>
+                            <li><a href="">Vegetables</a></li>
+                            <li><a href="">Others</a></li>
+                            <li><a href="">Drinks</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html">Bundle Meals</a></li>
+                    <li><a href="index.html">Our Story</a></li>
+                </ul>
+            </div>
+            <div class="nav-left">
+                <a href="checkout.html" style ="font-size: 20px;"class="fa-stack fa-4x nav-write">
+                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                    <i style ="color: white;" class="fa fa-shopping-cart fa-stack-1x"></i>
+                </a>
+                <a class="nav-link-btn"href="login.html">Login</a>
+            </div>
+        </nav>
+    </div>
+    <div class="profile-bg">
+            
+        <div class="content">
+            <div class="userData">
+                    
+                <h1>Welcome (insert username here)</h1>
+                <p>ID: (insert user ID here if necessary, if not just delete)</p>
+                <p><i class="far fa-calendar-alt"></i> Date Joined: (insert date joined if necessary, if not just delete)</p>
+                <div class="editUD" id="editUD-1">
+                    <div class="overlay"></div>
+                    <div class="userDetails">
+                        <div class="exitEdit" onclick="togglePopup()">&times;</div>
+                        <div class="newUserDetails">
+                            <label for="username">New Username:</label>
+                            <input type="text" placeholder="New Username" id="username" name="username" /><br><br>
+
+                            <label for="password">New Password:</label>
+                            <input type="password" placeholder="New Password" id="password" name="password" /><br><br>
+
+                            <label for="contactnum">New Contact Number:</label>
+                            <input type="contactnum" placeholder="New Contact Number" id="contactnum" name="contactnum" />
+                        </div>
+                        
+                        
+                        <button type="submit" value="Submit" class="saveUserData">Save Changes</button>
+                    </div>
+                </div>
+                <button class="editUserData" onclick="togglePopup()">Edit Account Details</button>
+            </div>
+        </div>
+        
+        <div class="secondContainer">
+            
+        </div>
+        <div class="box-container">
+            <h1 style="margin-bottom: 30px;">Insert Data Here:</h1>
+            
+            <div class="profile-card-container">
+
+            </div>
+        </div>
+    </div>
+    <footer class= "nav-footer-container">
+        <div class="nav-footer">
+            <div class="footer-logo">
+                <div style="display: flex;">
+                    <img src="images/logo.png"></img>
+                    <h2 class="" id="nav-footer-title">Super 6 Grille House</h2>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <ul class="footer-links">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">View Menu</a></li>
+                    <li><a href="">Our Story</a></li>
+                    <li><a href="">Login/Sign Up</a></li>
+                </ul>
+            </div>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/supersixhouse/?ref=page_internal" target="_blank"><p>Follow us on Facebook</p></a>
+                <a href="https://www.facebook.com/supersixhouse/?ref=page_internal" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+            </div>
+
+        </div>
+
+    </footer>
+</body>
+</html>
