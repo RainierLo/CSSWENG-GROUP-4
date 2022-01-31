@@ -140,7 +140,6 @@ const userController = {
     updateOneUser: async function (req, res) {
         const userID = req.session.userID;
         pw = req.body.password;
-        pw = pw.toString()
         const hash_pass = await bcrypt.hash(pw, 10);
         pass = hash_pass;
         var userDetails = {
