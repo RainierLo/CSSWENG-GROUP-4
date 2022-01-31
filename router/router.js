@@ -39,6 +39,7 @@ app.post('/login', userController.postLogin);
 app.post('/updateCart', userController.updateUserCart);
 app.post('/removeCartItem', userController.remOneItem);
 app.post('/addFood', upload.single('Picture'), foodController.addFood)
+app.post('/editaccount', userController.updateOneUser)
 //app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);

@@ -4,13 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
     <title>Super 6 Grille House</title>
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/js/profileScript.js"></script>
+    <script src="/js/validator.min.js" type="text/javascript"></script>
+    <script src="/js/editProfileScript.js"></script>
 
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+        function togglePopup() {
+            document.getElementById("editUD-1").classList.toggle("active");
+        }
+    </script>
 </head>
 <body>
     {{> header Username=Username UserID=id}}
@@ -21,6 +34,35 @@
                 <h1>Welcome {{Username}}</h1>
                 <p>ID: {{id}}</p>
                 <p><i class="far fa-calendar-alt"></i> Date Joined: {{DateJoined}}</p>
+                <div class="editUD" id="editUD-1">
+                    <div class="overlay"></div>
+                    <div class="userDetails">
+                        <div class="exitEdit" onclick="togglePopup()">&times;</div>
+                        <form action="/editaccount" method="post">
+                            <div class="newUserDetails">
+                                <h1 style="text-align: center; margin-bottom: 20px;">Edit User Details</h1>
+
+                                <label for="username">New Username:</label>
+                                <input type="text" placeholder="New Username" id="username" name="username" required/><br><br>
+                                <p id="usernameError"></p>
+
+                                <label for="password">New Password:</label>
+                                <input type="password" placeholder="New Password" id="password" name="password" required/><br><br>
+                                <p id="passwordError"></p>
+
+                                <label for="password">Confirm New Password:</label>
+                                <input type="password" placeholder="Confirm New Password" id="passwordConfirm" name="password" required/><br><br>
+                                <p id="passwordConfirmError"></p>
+
+                                <label for="contactnum">New Contact Number:</label>
+                                <input type="tel" placeholder="New Contact Number" id="contactnumber" name="contactnum" required/>
+                                <p id="contactnumberError"></p>
+                            </div>
+                            <button type="submit" value="Submit" class="saveUserData" id="submit" disabled>Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+                <button class="editUserData" onclick="togglePopup()">Edit User Details</button>
             </div>
         </div>
         

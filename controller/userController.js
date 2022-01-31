@@ -137,14 +137,16 @@ const userController = {
         })
     },
 
-    updateOneUser: function (req, res) {
+    updateOneUser: async function (req, res) {
         const userID = req.session.userID;
-
+        pw = req.body.password;
+        pw = pw.toString()
+        const hash_pass = await bcrypt.hash(pw, 10);
+        pass = hash_pass;
         var userDetails = {
-            Email: req.body.email,
             Username: req.body.username,
-            Password: req.body.password,
-            MobileNumber: req.body.mobileNum
+            Password: pass,
+            MobileNumber: req.body.contactnumber
         };
 
         User.updateOne({ _id: userID },
@@ -152,7 +154,8 @@ const userController = {
             function (err, result) {
                 if (err) throw err
                 if (result) {
-                    res.send('Success');
+                    console.log("Account updated.");
+                    res.redirect('/login');
                 }
             });
     },
@@ -374,6 +377,40 @@ const userController = {
             throw err;
         }
 
+    },
+
+    postEditAccount: async function (req, res) {
+        try {
+            const userID = req.session.userID;
+            const hash_pass = await bcrypt.hash(req.body.password, 10);
+            pass = hash_pass;
+            var userDetails = {
+                Username: req.body.username,
+                Password: pass,
+                MobileNumber: req.body.contactnumber
+            };
+            User.updateOne({ _id: userID },
+                { $set: userDetails },
+                function (err, result) {
+                    if (err) throw err
+                    if (result) {
+                        res.send('Success');
+                    }
+                });
+        } catch (err) {
+            throw err;
+        }
+
+        const userID = req.session.userID;
+
+        var userDetails = {
+            Email: req.body.email,
+            Username: req.body.username,
+            Password: req.body.password,
+            MobileNumber: req.body.mobileNum
+        };
+
+        
     },
     // ADMIN CONTROLLER
 

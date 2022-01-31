@@ -1347,7 +1347,11 @@ input:checked + .slider:before {
   bottom: 10px;
 }
 
-.saveUserData:hover {
+.saveUserData:disabled {
+  background-color: gray;
+}
+
+.saveUserData:hover:enabled {
   background-color: var(--red);
 }
 
