@@ -203,6 +203,7 @@ const foodController = {
         Food.findOneAndRemove({ _id: itemID }, function (err, result) {
             if (err) throw err
             if (result) {
+                removeItemFromCart(itemID);
                 deleteFile(imageID);
                 res.send('Sucess');
             }
