@@ -1297,7 +1297,7 @@ input:checked + .slider:before {
   transform:translate(-50%, -50%) scale(0);
   background:rgb(253, 191, 121);
   width:570px;
-  height:500px;
+  height:560px;
   z-index:2;
   text-align:left;
   padding:20px;
@@ -1377,7 +1377,7 @@ input:checked + .slider:before {
   font-size: 14px;
   padding: 10px;
   width: 300px;
-  margin-bottom: 25px;
+  margin-top: 30px;
 }
 
 /*to remove scroll bar for number input*/
