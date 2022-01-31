@@ -141,8 +141,8 @@ function buildMenuTable(menu) {
         <td>${menu[i].Price}</td>
         <td>${menu[i].Description}</td>
         <td>${menu[i].Category}</td>
-        <td><button type="button" id="editButton" name="${i}">Edit</button></td>    
-        <td><button type="button" id="remButton" name="${i}">Remove</button></td>
+        <td><button type="button" id="editButton" class="admin-btn" name="${i}">Edit</button></td>    
+        <td><button type="button" id="remButton" class="admin-btn" name="${i}">Remove</button></td>
         </tr>`
         //Append the row created to the table
         table.append(row);
@@ -315,7 +315,7 @@ $(document).ready(function () {
         $("#editDescription").val(`${item.Description}`);
         $("#editCategory").val(`${item.Category}`);
         $("#editAvailable").prop("checked", item.isAvailable);
-        $("#editItemModal").css("display", "block");
+        $("#editItemModal").css("display", "flex");
     });
 
     //Makes the post request to accomplish the update of values
@@ -346,15 +346,19 @@ $(document).ready(function () {
     $("#edit-closeBtn").click(function () {
         $("#editItemModal").css("display", "none");
     })
-
-    $("#add-item").click(function () {
-        $("#addItemModal").css("display", "block");
+    $('#editMenu-xBtn').click(function () {
+        $("#editItemModal").css("display", "none");
     });
-
+    $("#add-item").click(function () {
+        $("#addItemModal").css("display", "flex");
+    });
+    $('#addMenu-xBtn').click(function () {
+        $("#addItemModal").css("display", "none");
+    });
     $("#menu-closeBtn").click(function () {
         $("#addItemModal").css("display", "none");
     })
-    $("menu-submitBtn").click(function () {
+    $("#menu-submitBtn").click(function () {
         $("#addItemModal").css("display", "none");
     });
     $(window).click(function (event) {
