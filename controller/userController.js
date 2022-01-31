@@ -9,7 +9,7 @@ const userController = {
 
         try {
             var body = {};
-            const menu = await Food.find({isAvailable: true}).limit(10);
+            const menu = await Food.find({ isAvailable: true }).limit(10);
             body.Menu = menu
             if (req.session.username) {
                 body.Username = req.session.username;
@@ -90,7 +90,8 @@ const userController = {
                         if (equal) {
                             req.session.userID = result._id;
                             req.session.username = result.Username;
-                            var redirect_to = req.session.redirect_to;
+                            var redirect_to = req.session.current_url;
+                            console.log(redirect_to);
                             if (result.UserType === 'Customer') {
                                 if (redirect_to !== undefined)
                                     res.redirect(redirect_to)
@@ -138,25 +139,28 @@ const userController = {
     },
 
     updateOneUser: async function (req, res) {
-        const userID = req.session.userID;
-        pw = req.body.password;
-        const hash_pass = await bcrypt.hash(pw, 10);
-        pass = hash_pass;
-        var userDetails = {
-            Username: req.body.username,
-            Password: pass,
-            MobileNumber: req.body.contactnumber
-        };
+        try {
+            const userID = req.session.userID;
+            pw = req.body.password;
+            const hash_pass = await bcrypt.hash(pw, 10);
+            var userDetails = {
+                Username: req.body.username,
+                Password: hash_pass,
+                MobileNumber: req.body.contactnumber
+            };
 
-        User.updateOne({ _id: userID },
-            { $set: userDetails },
-            function (err, result) {
-                if (err) throw err
-                if (result) {
-                    console.log("Account updated.");
-                    res.redirect('/login');
-                }
-            });
+            User.updateOne({ _id: userID },
+                { $set: userDetails },
+                function (err, result) {
+                    if (err) throw err
+                    if (result) {
+                        console.log("Account updated.");
+                        res.redirect('/login');
+                    }
+                });
+        } catch (err) {
+            if (err) throw err
+        }
     },
 
     remOneUser: function (req, res) {
@@ -231,6 +235,7 @@ const userController = {
     },
 
     getUserCart: function (req, res) {
+        req.session.current_url = '/checkOut';
         const id = req.session.userID;
 
         User.findOne({ _id: id })
@@ -291,11 +296,11 @@ const userController = {
     createOrder: function (req, res) {
         const id = req.session.userID;
         const { Address, City, Region, Zip } = req.body;
-  
+
         var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date+' '+time;
+        var dateTime = date + ' ' + time;
 
         const completeAddr = `${Address}, ${City}, ${Region}, ${Zip}`;
         var TotalPrice = 0;
@@ -326,7 +331,7 @@ const userController = {
         res.redirect('/');
     },
     getUserOrder: function (req, res) {
-        Order.find({User: req.session.userID}, function (err, result) {
+        Order.find({ User: req.session.userID }, function (err, result) {
             if (err) throw err;
             if (result) {
                 res.send(result);
@@ -362,15 +367,15 @@ const userController = {
         })
     },
     getAccountPage: async function (req, res) {
-
+        req.session.current_url = `/account/${req.session.userID}`;
         try {
-            var user = await User.findOne({_id: req.session.userID});
+            var user = await User.findOne({ _id: req.session.userID });
             var body = {
                 Username: req.session.username,
-                id: req.session.userID, 
-                DateJoined: user.DateJoined 
+                id: req.session.userID,
+                DateJoined: user.DateJoined
             };
-    
+
             res.render('viewProfile.hbs', body);
         } catch (err) {
             throw err;
@@ -382,20 +387,22 @@ const userController = {
         try {
             const userID = req.session.userID;
             const hash_pass = await bcrypt.hash(req.body.password, 10);
-            pass = hash_pass;
+            // pass = hash_pass;
             var userDetails = {
                 Username: req.body.username,
-                Password: pass,
+                Password: hash_pass,
                 MobileNumber: req.body.contactnumber
             };
-            User.updateOne({ _id: userID },
-                { $set: userDetails },
-                function (err, result) {
-                    if (err) throw err
-                    if (result) {
-                        res.send('Success');
-                    }
-                });
+
+            console.log(hash_pass)
+            // User.updateOne({ _id: userID },
+            //     { $set: userDetails },
+            //     function (err, result) {
+            //         if (err) throw err
+            //         if (result) {
+            //             res.send('Success');
+            //         }
+            //     });
         } catch (err) {
             throw err;
         }
@@ -409,11 +416,11 @@ const userController = {
             MobileNumber: req.body.mobileNum
         };
 
-        
+
     },
     // ADMIN CONTROLLER
 
-    getAdmin: function (req,res) {
+    getAdmin: function (req, res) {
         res.render('admin.hbs');
     }
 }
@@ -439,12 +446,12 @@ async function clearUserCart(userID) {
 }
 
 async function removeUserOrders(userID) {
-    await Order.deleteMany( { User: userID} )
+    await Order.deleteMany({ User: userID })
     console.log("Orders Removed");
 }
 
 async function incOrderCompleted(userID) {
-    await User.updateOne({_id: userID}, {$inc: {OrdersMade: 1} });
+    await User.updateOne({ _id: userID }, { $inc: { OrdersMade: 1 } });
 }
 
 module.exports = userController;

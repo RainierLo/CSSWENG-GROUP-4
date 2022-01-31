@@ -67,8 +67,9 @@ async function deleteFile(fileId) {
 
 const foodController = {
     getIndivItemPage: function (req, res) {
-        const { itemID } = req.params;
 
+        const { itemID } = req.params;
+        req.session.current_url = `/menu/${itemID}`;
         // Check if logged in
         // if (req.session.username) {
         Food.findOne({ _id: itemID }, function (err, result) {
@@ -90,7 +91,9 @@ const foodController = {
     },
 
     getMenuPage: function (req, res) {
+        
         const { category } = req.query;
+        req.session.current_url = `/menu?category=${category}`;
         var body = {
             Username: req.session.username,
             id: req.session.userID,
@@ -101,6 +104,7 @@ const foodController = {
 
     getBundleMeals: function (req, res) {
         const { category } = req.query;
+        req.session.current_url = `/menu?category=${category}`;
         var body = {
             Username: req.session.username,
             id: req.session.userID,
