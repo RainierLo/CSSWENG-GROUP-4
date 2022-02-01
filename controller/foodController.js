@@ -91,7 +91,7 @@ const foodController = {
     },
 
     getMenuPage: function (req, res) {
-        
+
         const { category } = req.query;
         req.session.current_url = `/menu?category=${category}`;
         var body = {
@@ -118,7 +118,7 @@ const foodController = {
 
         try {
             var fileID = await uploadFile(req.file);
-            console.log(fileID);
+            console.log(req.body);
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
 
             const newFood = new Food({
@@ -133,8 +133,8 @@ const foodController = {
             newFood.save(function (err) {
                 if (err) throw err
                 else
-                    //res.send('Success');
-                    res.redirect('/admin');
+                    res.send('Success');
+                    //res.redirect('/admin');
             });
         } catch (err) {
             if (err) throw err;
@@ -148,11 +148,11 @@ const foodController = {
         } catch (err) {
             if (err) throw err;
         }
-    }, 
+    },
     getMenu: async function (req, res) {
         try {
             // const menu = await Food.find().lean({ virtuals: true });
-            const menu = await Food.find({isAvailable: 'true'});
+            const menu = await Food.find({ isAvailable: 'true' });
             res.send(menu);
         } catch (err) {
             if (err) throw err;
@@ -168,31 +168,46 @@ const foodController = {
         }
     },
 
-    updateItem: function (req, res) {
+    updateItem: async function (req, res) {
         const { itemID } = req.params;
+
         const { FoodName, Price, Description, Category, isAvailable } = req.body;
-        const update = {
-            FoodName: FoodName,
-            Price: Price,
-            Description: Description,
-            Category: Category,
-            isAvailable: isAvailable
-        };
-
-
-        Food.updateOne({ _id: itemID }, update, function (err, update) {
-            if (err) throw err;
-            if (update) {
-                /* If the item is set to unavailable, remove it from all of the 
-                   user's carts */
-                if (isAvailable == 'false') {
-                    const result = removeItemFromCart(itemID);
-                    if (result)
-                        console.log('item removed from cart')
-                }
-                res.send('Success');
+        try {
+            const update = {
+                FoodName: FoodName,
+                Price: Price,
+                Description: Description,
+                Category: Category,
+                isAvailable: isAvailable,
+            };
+            if (req.file !== undefined) {
+                var fileID = await uploadFile(req.file);
+                var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
+                update.ImagePath = ImagePath;
+                var oldImageID = await getImageID(itemID);
+                console.log(oldImageID)
+                if (oldImageID !== false) 
+                    deleteFile(oldImageID);
             }
-        });
+                
+            // console.log(fileID);
+
+            Food.updateOne({ _id: itemID }, update, function (err, update) {
+                if (err) throw err;
+                if (update) {
+                    /* If the item is set to unavailable, remove it from all of the 
+                       user's carts */
+                    if (isAvailable == 'false') {
+                        const result = removeItemFromCart(itemID);
+                        if (result)
+                            console.log('item removed from cart')
+                    }
+                    res.send('Success');
+                }
+            });
+        } catch (err) {
+            if (err) throw err;
+        }
     },
 
     removeItem: function (req, res) {
@@ -224,4 +239,15 @@ async function removeItemFromCart(foodID) {
 
 }
 
+async function getImageID(itemID) {
+    try {
+        const result = await Food.findOne({ _id: itemID}, 'ImagePath');
+        var url = new URL(result.ImagePath);
+        var imageID = url.searchParams.get('id');
+        return imageID;
+    } catch (err) {
+        if (err) throw err;
+        return false;
+    }
+}
 module.exports = foodController;

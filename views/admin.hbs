@@ -96,44 +96,45 @@
                 <button class="admin-btn" id="add-item">Add</button>
                 <div id="addItemModal" class="modal">
                     <div class="modalContent">
-                        <form action="/addFood" method="POST" id="addItemForm" enctype="multipart/form-data">
-                            <div>
-                                <label for="FoodName">FoodName</label>
-                                <input type="text" id="foodName" name="FoodName" required>
-                            </div>
-                            <div>
-                                <label for="Price">Price</label>
-                                <input type="number" id="price" name="Price" min="0" required>
-                            </div>
-                            <div>
-                                <label for="Description">Description</label>
-                                <input type="text" id="description" name="Description" required>
-                            </div>
-                            <div>
-                                <label for="Category">Category</label>
-                                <select id="category" name="Category" required>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Meat">Meat</option>
-                                    <option value="Seafood">Seafood</option>
-                                    <option value="Vegetable">Vegetable</option>
-                                    <option value="Drinks">Drinks</option>
-                                    <option value="Others">Others</option>
-                                    <option value="Bundle Meal">Bundle Meal</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="Picture">Picture</label>
-                                <input type="file" id="picture" name="Picture" accept=".jpg,.jpeg,.png" required>
-                            </div>
-                            <button class="admin-btn" type="submit" id="menu-submitBtn">Submit</button>
-                        </form>
-                        <button class="admin-btn" type="button" id="menu-closeBtn">Close</button>
-                        <div id="addMenu-xBtn" class="admin-close-btn">+</div>
+                        {{!-- <form action="/addFood" method="POST" id="addItemForm" enctype="multipart/form-data"> --}}
+                            <form id="addItemForm" enctype="multipart/form-data">
+                                <div>
+                                    <label for="FoodName">FoodName</label>
+                                    <input type="text" id="foodName" name="FoodName" required>
+                                </div>
+                                <div>
+                                    <label for="Price">Price</label>
+                                    <input type="number" id="price" name="Price" min="0" required>
+                                </div>
+                                <div>
+                                    <label for="Description">Description</label>
+                                    <input type="text" id="description" name="Description" required>
+                                </div>
+                                <div>
+                                    <label for="Category">Category</label>
+                                    <select id="category" name="Category" required>
+                                        <option value="Appetizer">Appetizer</option>
+                                        <option value="Meat">Meat</option>
+                                        <option value="Seafood">Seafood</option>
+                                        <option value="Vegetable">Vegetable</option>
+                                        <option value="Drinks">Drinks</option>
+                                        <option value="Others">Others</option>
+                                        <option value="Bundle Meal">Bundle Meal</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="Picture">Picture</label>
+                                    <input type="file" id="picture" name="Picture" accept=".jpg,.jpeg,.png" required>
+                                </div>
+                                <button class="admin-btn" type="button" id="menu-submitBtn">Submit</button>
+                            </form>
+                            <button class="admin-btn" type="button" id="menu-closeBtn">Close</button>
+                            <div id="addMenu-xBtn" class="admin-close-btn">+</div>
                     </div>
                 </div>
                 <div id="editItemModal" class="modal">
                     <div class="modalContent">
-                        <form>
+                        <form id="editForm" name="editForm">
                             <input type="hidden" id="editID">
                             <div>
                                 <label for="FoodName">FoodName: </label>
@@ -167,16 +168,25 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
+                            <div>
+                                <label for="Picture">Picture</label>
+                                <input type="file" id="editPicture" name="Picture" accept=".jpg,.jpeg,.png" required>
+                            </div>
+
                             <button class="admin-btn" type="button" id="edit-submitBtn">Submit</button>
                         </form>
                         <button class="admin-btn" type="button" id="edit-closeBtn">Close</button>
-                        <div id="editMenu-xBtn"class="admin-close-btn">+</div>
+                        <div id="editMenu-xBtn" class="admin-close-btn">+</div>
                     </div>
                 </div>
-
             </div>
         </div>
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+
     </div>
+
 </body>
 
 </html>

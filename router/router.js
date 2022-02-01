@@ -38,14 +38,14 @@ app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/updateCart', userController.updateUserCart);
 app.post('/removeCartItem', userController.remOneItem);
-app.post('/addFood', upload.single('Picture'), foodController.addFood)
+app.post('/admin/addFood', upload.single('Picture'), foodController.addFood)
 app.post('/editaccount', userController.updateOneUser)
 //app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
 app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
 app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
-app.post('/admin/updateItem/:itemID', foodController.updateItem);
+app.post('/admin/updateItem/:itemID', upload.single('Picture'), foodController.updateItem);
 //Render routes to be added
 
 app.post('/upload', )

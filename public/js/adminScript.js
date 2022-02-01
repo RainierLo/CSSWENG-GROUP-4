@@ -236,11 +236,17 @@ function filterOrders(filter, orders) {
             break;
     };
 }
+$(document).on({
+    ajaxStart: function () { $('.loader-container').css('display', 'block') },
+    ajaxStop: function () { $('.loader-container').css('display', 'none') }
+})
 
 $(document).ready(function () {
     getUsersFromDB();
     getOrdersFromDB();
     getMenuFromDB();
+
+
 
     //Removes the chosen user from the db
     $("#userTable").on('click', '#remButton', function () {
@@ -305,6 +311,29 @@ $(document).ready(function () {
         });
     });
 
+    $('#menu-submitBtn').click(function () {
+        var addForm = document.getElementById("addItemForm")
+        var body = new FormData(addForm)
+
+        $.ajax({
+            url: `/admin/addFood`,
+            type: 'POST',
+            data: body,
+            processData: false,
+            contentType: false
+        }).then(
+            function () {
+                getMenuFromDB();
+                $("#addItemModal").css("display", "none");
+            },
+            function () {
+                alert('Error')
+                $("#addItemModal").css("display", "none");
+            }
+        )
+
+    })
+
     //Allows for updating / editing of the current food item's values
     $("#menuTable").on('click', '#editButton', function () {
         var index = parseInt($(this).prop('name'));
@@ -320,28 +349,50 @@ $(document).ready(function () {
 
     //Makes the post request to accomplish the update of values
     $("#edit-submitBtn").click(function () {
+        // var editForm = $('#editForm');
+        var editForm = document.getElementById("editForm")
+        var body = new FormData(editForm)
         var id = $("#editID").val();
-        var foodName = $("#editFoodName").val();
-        var price = $("#editPrice").val();
-        var description = $("#editDescription").val();
-        var category = $("#editCategory option:selected").val();
-        var isAvailable = $("#editAvailable").is(":checked");
+        // var foodName = $("#editFoodName").val();
+        // var price = $("#editPrice").val();
+        // var description = $("#editDescription").val();
+        // var category = $("#editCategory option:selected").val();
+        // var isAvailable = $("#editAvailable").is(":checked");
+        // var imageFile = $("#editPicture").val();
+        console.log(body.values)
+        // var body = {
+        //     FoodName: foodName,
+        //     Price: price,
+        //     Description: description,
+        //     Category: category,
+        //     isAvailable: isAvailable
+        // }
+        // $.post(`/admin/updateItem/${id}`, body, function (result) {
+        //     if (result === 'Success') {
+        //         getMenuFromDB();
+        //         $("#editItemModal").css("display", "none");
+        //     } else {
+        //         alert('Error updating item')
+        //     }
+        // })
 
-        var body = {
-            FoodName: foodName,
-            Price: price,
-            Description: description,
-            Category: category,
-            isAvailable: isAvailable
-        }
-        $.post(`/admin/updateItem/${id}`, body, function (result) {
-            if (result === 'Success') {
+        $.ajax({
+            url: `/admin/updateItem/${id}`,
+            type: 'POST',
+            data: body,
+            processData: false,
+            contentType: false
+        }).then(
+            function () {
                 getMenuFromDB();
                 $("#editItemModal").css("display", "none");
-            } else {
-                alert('Error updating item')
+            },
+            function () {
+                alert('Error')
+                $("#editItemModal").css("display", "none");
             }
-        })
+        )
+
     })
     $("#edit-closeBtn").click(function () {
         $("#editItemModal").css("display", "none");
