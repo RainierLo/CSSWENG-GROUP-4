@@ -1322,7 +1322,7 @@ input:checked + .slider:before {
   transform:translate(-50%, -50%) scale(0);
   background:rgb(253, 191, 121);
   width:570px;
-  height:560px;
+  height:600px;
   z-index:2;
   text-align:left;
   padding:20px;
