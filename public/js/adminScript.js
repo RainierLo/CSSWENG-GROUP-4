@@ -353,28 +353,6 @@ $(document).ready(function () {
         var editForm = document.getElementById("editForm")
         var body = new FormData(editForm)
         var id = $("#editID").val();
-        // var foodName = $("#editFoodName").val();
-        // var price = $("#editPrice").val();
-        // var description = $("#editDescription").val();
-        // var category = $("#editCategory option:selected").val();
-        // var isAvailable = $("#editAvailable").is(":checked");
-        // var imageFile = $("#editPicture").val();
-        console.log(body.values)
-        // var body = {
-        //     FoodName: foodName,
-        //     Price: price,
-        //     Description: description,
-        //     Category: category,
-        //     isAvailable: isAvailable
-        // }
-        // $.post(`/admin/updateItem/${id}`, body, function (result) {
-        //     if (result === 'Success') {
-        //         getMenuFromDB();
-        //         $("#editItemModal").css("display", "none");
-        //     } else {
-        //         alert('Error updating item')
-        //     }
-        // })
 
         $.ajax({
             url: `/admin/updateItem/${id}`,

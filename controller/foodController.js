@@ -118,7 +118,6 @@ const foodController = {
 
         try {
             var fileID = await uploadFile(req.file);
-            console.log(req.body);
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
 
             const newFood = new Food({
@@ -185,7 +184,6 @@ const foodController = {
                 var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
                 update.ImagePath = ImagePath;
                 var oldImageID = await getImageID(itemID);
-                console.log(oldImageID)
                 if (oldImageID !== false) 
                     deleteFile(oldImageID);
             }
