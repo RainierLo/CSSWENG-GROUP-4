@@ -170,14 +170,14 @@ const foodController = {
     updateItem: async function (req, res) {
         const { itemID } = req.params;
 
-        const { FoodName, Price, Description, Category, isAvailable } = req.body;
+        const { FoodName, Price, Description, Category, editAvailable } = req.body;
         try {
             const update = {
                 FoodName: FoodName,
                 Price: Price,
                 Description: Description,
                 Category: Category,
-                isAvailable: isAvailable,
+                isAvailable: editAvailable,
             };
             if (req.file !== undefined) {
                 var fileID = await uploadFile(req.file);
@@ -188,14 +188,14 @@ const foodController = {
                     deleteFile(oldImageID);
             }
                 
-            // console.log(fileID);
+             //console.log(req.body);
 
             Food.updateOne({ _id: itemID }, update, function (err, update) {
                 if (err) throw err;
                 if (update) {
                     /* If the item is set to unavailable, remove it from all of the 
                        user's carts */
-                    if (isAvailable == 'false') {
+                    if (editAvailable == 'false') {
                         const result = removeItemFromCart(itemID);
                         if (result)
                             console.log('item removed from cart')

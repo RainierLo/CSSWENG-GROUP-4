@@ -353,6 +353,11 @@ $(document).ready(function () {
         var editForm = document.getElementById("editForm")
         var body = new FormData(editForm)
         var id = $("#editID").val();
+        var isAvailable = $("#editAvailable").is(':checked');
+        if (isAvailable == true)
+            body.append($('#editAvailable').attr('id'), true);
+        else
+            body.append($('#editAvailable').attr('id'), false);
 
         $.ajax({
             url: `/admin/updateItem/${id}`,
