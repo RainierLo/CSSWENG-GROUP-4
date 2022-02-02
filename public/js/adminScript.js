@@ -89,8 +89,8 @@ function buildOrderTable(orders) {
             <td>${orders[i].Address}</td>
             <td>${getOrderString(orders[i].Cart)}</td>
             <td>${orders[i].TotalPrice}</td>
-            <td id="StatusCol${i}">                
-                <select id="${i}" class="orderProgressOptions" name="${i}">
+            <td id="StatusCol-${orders[i]._id}">                
+                <select id="${orders[i]._id}" class="orderProgressOptions" name="${orders[i].User._id}">
                     <option value="Pending">Pending</option>
                     <option value="On Route">On Route</option>
                     <option value="Completed">Completed</option>
@@ -101,11 +101,11 @@ function buildOrderTable(orders) {
             //Append the row created to the table
             table.append(row);
             //Set the status of the created select tag
-            $(`#${i}`).val(`${orders[i].Status}`);
+            $(`#${orders[i]._id}`).val(`${orders[i].Status}`);
 
             if (orders[i].Status == 'Completed' || orders[i].Status == 'Cancelled') {
-                $(`#StatusCol${i}`).empty();
-                $(`#StatusCol${i}`).text(orders[i].Status);
+                $(`#StatusCol-${orders[i]._id}`).empty();
+                $(`#StatusCol-${orders[i]._id}`).text(orders[i].Status);
             }
         };
     }
@@ -272,16 +272,16 @@ $(document).ready(function () {
     /* Order Operations */
     //Updates the status of the order
     $('#orderTable').on('change', '.orderProgressOptions', function () {
-        var index = parseInt($(this).prop('name'));
-        var id = orders[index]._id;
-        var userID = orders[index].User._id;
-        var status = $(`#${index} option:selected`).prop('value')
+        var id = $(this).prop('id');
+        //var id = orders[index]._id;
+        var userID = $(this).prop('name');;
+        var status = $(`#${id} option:selected`).prop('value')
         var body = {
             orderID: id,
             userID: userID,
             Status: status
         }
-
+        console.log(body);
         $.post('/admin/updateOrderStatus', body, function (result) {
             if (result === "Success")
                 getOrdersFromDB();
