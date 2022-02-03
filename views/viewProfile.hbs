@@ -40,23 +40,23 @@
                         <div class="exitEdit" onclick="togglePopup()">&times;</div>
                         <form action="/editaccount" method="post">
                             <div class="newUserDetails">
-                                <h1 style="text-align: center; margin-bottom: 20px;">Edit User Details</h1>
+                                <h1>Edit User Details</h1>
 
                                 <label for="username">New Username:</label>
-                                <input type="text" placeholder="New Username" id="username" name="username" required/><br><br>
-                                <p style="color:red" id="usernameError"></p>
+                                <input type="text" placeholder="New Username" id="username" name="username" required/>
+                                <p id="usernameError"></p>
 
                                 <label for="password">New Password:</label>
-                                <input type="password" placeholder="New Password" id="password" name="password" required/><br><br>
-                                <p style="color:red" id="passwordError"></p>
+                                <input type="password" placeholder="New Password" id="password" name="password" required/>
+                                <p id="passwordError"></p>
 
                                 <label for="password">Confirm New Password:</label>
-                                <input type="password" placeholder="Confirm New Password" id="passwordConfirm" name="passwordConfirm" required/><br><br>
-                                <p style="color:red" id="passwordConfirmError"></p>
+                                <input type="password" placeholder="Confirm New Password" id="passwordConfirm" name="passwordConfirm" required/>
+                                <p id="passwordConfirmError"></p>
 
                                 <label for="contactnum">New Contact Number:</label>
                                 <input type="tel" placeholder="New Contact Number" id="contactnumber" name="contactnum" required/>
-                                <p style="color:red" id="contactnumberError"></p>
+                                <p id="contactnumberError"></p>
                             </div>
                             <button type="submit" value="Submit" class="saveUserData" id="submit" disabled>Save Changes</button>
                         </form>
