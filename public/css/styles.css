@@ -939,7 +939,8 @@ th:last-child{
 .indivButton{
   position: absolute;
   bottom: 180px;
-  margin-left: 5px;
+  margin-left: 495px;
+  text-align: center;
 }
 
 /* admin page */
