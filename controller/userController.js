@@ -289,10 +289,6 @@ const userController = {
             });
     },
 
-    getOrderPage: function (req, res) {
-        res.render('TESTorders.hbs');
-    },
-
     createOrder: function (req, res) {
         const id = req.session.userID;
         const { Address, City, Region, Zip } = req.body;
@@ -394,29 +390,41 @@ const userController = {
                 MobileNumber: req.body.contactnumber
             };
 
-            console.log(hash_pass)
-            // User.updateOne({ _id: userID },
-            //     { $set: userDetails },
-            //     function (err, result) {
-            //         if (err) throw err
-            //         if (result) {
-            //             res.send('Success');
-            //         }
-            //     });
+            User.updateOne({ _id: userID },
+                { $set: userDetails },
+                function (err, result) {
+                    if (err) throw err
+                    if (result) {
+                        res.send('Success');
+                    }
+                });
         } catch (err) {
             throw err;
         }
 
-        const userID = req.session.userID;
+        // const userID = req.session.userID;
 
-        var userDetails = {
-            Email: req.body.email,
-            Username: req.body.username,
-            Password: req.body.password,
-            MobileNumber: req.body.mobileNum
-        };
+        // var userDetails = {
+        //     Email: req.body.email,
+        //     Username: req.body.username,
+        //     Password: req.body.password,
+        //     MobileNumber: req.body.mobileNum
+        // };
 
 
+    },
+
+    getOurStoryPage: function (req, res) {
+        req.session.current_url = '/ourStory';
+        if (req.session.username) {
+            var user = {
+                Username: req.session.username,
+                id: req.session.userID
+            };
+            res.render('ourstory.hbs', user);
+        } else {
+            res.render('ourstory.hbs');
+        }
     },
     // ADMIN CONTROLLER
 

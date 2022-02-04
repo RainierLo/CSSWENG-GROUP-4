@@ -281,7 +281,7 @@ $(document).ready(function () {
             userID: userID,
             Status: status
         }
-        console.log(body);
+        //console.log(body);
         $.post('/admin/updateOrderStatus', body, function (result) {
             if (result === "Success")
                 getOrdersFromDB();
