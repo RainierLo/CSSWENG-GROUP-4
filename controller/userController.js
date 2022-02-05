@@ -426,6 +426,19 @@ const userController = {
             res.render('ourstory.hbs');
         }
     },
+
+    getReviewsPage: function (req, res) {
+        req.session.current_url = '/reviews';
+        if (req.session.username) {
+            var user = {
+                Username: req.session.username,
+                id: req.session.userID
+            };
+            res.render('reviews.hbs', user)
+        } else {
+            res.render('reviews.hbs')
+        }
+    },
     // ADMIN CONTROLLER
 
     getAdmin: function (req, res) {

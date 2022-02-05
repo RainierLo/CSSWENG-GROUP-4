@@ -27,10 +27,12 @@ app.get('/getOrders', userController.getOrders);
 app.get('/getUserOrder', userController.getUserOrder);
 app.get('/getUsers', userController.getUsers);
 app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccountPage);
+
 //app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
 //For Testing purposes only.
 app.get('/ourStory', userController.getOurStoryPage);
 app.get('/admin', userController.getAdmin);
+app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
 
 
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
