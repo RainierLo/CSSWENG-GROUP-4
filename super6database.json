@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "super6database",
+  "private_key_id": "5c7fcda88387176a2695b323730764193bd39c46",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDsKyGRdWrsfkqT\n9Opo/cUiYo+VWaikWt+ExkUqE7sdYt10Nkt5FeU+9tP0AtJHlRjwki/HzgVCCQE+\nKVeM+RdxNNhEZkJ2LmcTxwRxjg+WcFXLoqIbUb7Is9hwhyScCEr0EBDb6G6uYDBO\nLkzrHnFjgzbmLjMj2I3597R7OEuMqvLs2m2xB9WohWdD5Y1Q0T0jRhWjhp75UHfm\nLBmJrjDC7vFpBmvPKBCg/Z6+9eXPef2AikWAImlkhG172ciQli4VRl5db5N8fUpN\nafEnizCG0TN0SP7LCqjF9nP0QN88UNUmZqLdBiGmRgvrru1J/Ujt/4SZoCK8zx11\ne//1BRF1AgMBAAECggEAHB3NGEksr/fKdITy/LRBqk9Q8syYJEEMB/2m3FSPBqJE\n5Syq8uvQEsfwrJtCt5z2OXszTwv7BO/s2ElfD/x+daQp9IgMH4/KBnO/gVloB6wG\nECv44AcXue3stbDmgzZa3hBPltlm2+xoXoEVTTn0Ro786Th/hCP9pdB/XzAbkSUf\nzJ7e4m1QrjNmJYqE0ZRnQqrywuRCu5iwHMcE8cawStsqu5+fYTiB9PGyuTFm3X4G\nIJzH71RQ8se4U8jrjowviZaFVVi3pdC/a5BFUVSlQdRzo5gLa0oAIle5nYXF7wbS\nZBsno7tq+CRuHFVU6kqyqqxi56Zu4lyoYXeV8kt2/QKBgQD2aiEaFfcFf3w2Irok\nCsdZVvTHHHkVHK1p5AcfzZCm+S5QSu/mJ10wkGNhqGs4QlnnVRJOzSkQcVD+34//\nKf6LBXRi4t8hypxRA0B61rzxisGz0W5iNzo9CxHntPxmunu3Oa6Bs6kOgBkdOIYN\nQ/hnIkxRmGHOGP6YbPXGYlY1pwKBgQD1Wvfbrw1BTrX+lMiYcPKfEXyUtwKt+CEi\nR/NJkek2v4tQhPtKAr9XiSCkZADvzK7sjk7xeoU7czTRSdwRRg11Fyr9SacbBjjd\nrLxFpgnBnDrkSXSGtB5xE+9HP8IAHAHNY0Hgj58nhy8DWHTVqu1prKuXDe4c4R60\nfs7X4KkbgwKBgHUFM5EiyzumLkO7PDCvmboYrIf+QpY/Fy+JZcS5p69T+KWS4Nio\n6v2MJFYVWE3QXMeaQ+Z+UbkIR1Gys7yWodY9kecAHLz8bj2e0LlFT1dZ8OFHXSdx\nWMvyfN9PuOnEN8psry3TNz62oLaayDZ2h/nadOnu9sucXRPf8tvyiURTAoGBAK16\njnm0AglFIAVLKbIvWj0CXjXAWJKtOLBGc0x3cJAXSue5vvuLicLY4E2br9XdwWjd\nDhBLctygDp5UPNex0l4R7YF9jDvdYGPMeKo+RfOxBSrYjR2ZSVTmpW6ZNBBjvRp9\nrdybcArA2IrjBmj1HDx1rDV30f51ZgJ1DscwwCEFAoGARr1mJQOKxydTSaDPrjRa\n5zggo7PjEA7pnX+bbvl8nGoz48SUf+XESyzJntt/P1QMxi72PBeKSKMP2Xp8LAFv\n+c+kcSoBuAVUQgefkIdYrUbi0avBNeI0fOJizCdd7KILKPJzjq3+LZKPjvo1Aiye\nlR3A/xfw/UQMEIUPGmb10BM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "super6database@super6database.iam.gserviceaccount.com",
+  "client_id": "108681275578315787085",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/super6database%40super6database.iam.gserviceaccount.com"
+}

@@ -7,27 +7,34 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 
-
+const { GoogleAuth } = require('google-auth-library');
 const secretAccessKey = process.env.CLIENT_SECRET;
 const accessKeyId = process.env.CLIENT_ID;
 
 const redirect_uri = process.env.REDIRECT_URI;
 const refresh_token = process.env.REFRESH_TOKEN;
 
-const oauth2Client = new google.auth.OAuth2(
-    accessKeyId,
-    secretAccessKey,
-    redirect_uri
-)
+// const oauth2Client = new google.auth.OAuth2(
+//     accessKeyId,
+//     secretAccessKey,
+//     redirect_uri
+// )
 
-oauth2Client.setCredentials({ refresh_token: refresh_token });
-
+// oauth2Client.setCredentials({ refresh_token: refresh_token });
+const keyFile = './super6database.json';
+const scopes = ['https://www.googleapis.com/auth/drive'];
+const auth = new GoogleAuth({
+    keyFile: keyFile,
+    scopes: scopes
+})
 const drive = google.drive({
     version: 'v3',
-    auth: oauth2Client
+    auth: auth
 })
 
 async function uploadFile(file) {
+
+
     try {
         const res = await drive.files.create({
             requestBody: {
@@ -117,6 +124,7 @@ const foodController = {
         const { FoodName, Price, Description, Category } = req.body;
 
         try {
+            //console.log(keyFile)
             var fileID = await uploadFile(req.file);
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
 
