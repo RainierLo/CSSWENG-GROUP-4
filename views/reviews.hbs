@@ -44,8 +44,8 @@
         <div class="reviews-container">
             <div class="comment-box">
                 <h2>Feel Free to Leave Us a Review</h2>
-                <form>
-                    <textarea placeholder="Leave a Review here..."></textarea>
+                <form action="/addReview" method="POST">
+                    <textarea placeholder="Leave a Review here..." name="review"></textarea>
                     <button class="review-btn">Submit Review</button>
                 </form>
                 <p>You must have an account in order to leave a review. <a href="/login">Login/Signup</a></p>

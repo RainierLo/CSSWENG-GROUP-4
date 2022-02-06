@@ -9,6 +9,19 @@ const reviewsController = {
         } catch (error) {
             if (error) throw error;
         }
+    },
+
+    addReview: function (req, res) {
+        userID = req.session.userID;
+        const { review } = req.body;
+        const newReview = new Reviews({
+            User: userID,
+            Review: review
+        });
+
+        newReview.save();
+
+        res.redirect('/reviews')
     }
 }
 

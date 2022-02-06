@@ -33,7 +33,8 @@ app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccou
 //For Testing purposes only.
 app.get('/ourStory', userController.getOurStoryPage);
 app.get('/admin', userController.getAdmin);
-app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
+// app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
+app.get('/reviews', userController.getReviewsPage)
 app.get('/getReviews', reviewsController.getReviews);
 
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
@@ -51,7 +52,7 @@ app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
 app.post('/admin/updateItem/:itemID', upload.single('Picture'), foodController.updateItem);
 //Render routes to be added
 
-app.post('/upload', )
+app.post('/addReview', authSession.checkIfLoggedIn, reviewsController.addReview);
 
 
 module.exports = app;
