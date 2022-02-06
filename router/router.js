@@ -2,6 +2,7 @@ const express = require('express');
 const router = require('express').Router();
 const foodController = require('../controller/foodController');
 const userController = require('../controller/userController');
+const reviewsController = require('../controller/reviewsController');
 const authSession = require('../middleware/authSession');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -33,7 +34,7 @@ app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccou
 app.get('/ourStory', userController.getOurStoryPage);
 app.get('/admin', userController.getAdmin);
 app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
-
+app.get('/getReviews', reviewsController.getReviews);
 
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 app.post('/register', userController.postRegister);
