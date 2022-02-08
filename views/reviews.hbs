@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
     <link rel="stylesheet" href="/css/styles.css">
     <title>Super 6 Grille House</title>
     <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/validator.min.js" type="text/javascript"></script>
     <script src="/js/reviewScript.js"></script>
 </head>
+
 <body>
     {{> header Username=Username UserID=id}}
 
@@ -19,35 +21,14 @@
         <div class="reviews-heading">
             <h1>Reviews from our Customers</h1>
         </div>
-        <div class="reviews-container">
-            <div class="review-box">
-                <div class="review-info">
-                    <div class="review-user">Javier Soler</div>
-                    <p>Great place to order super good, budget-friendly Filipino food. Highly Recommend.
-                    </p>
-                </div>
-            </div>
-            <div class="review-box">
-                <div class="review-info">
-                    <div class="review-user">Jinky Lim Piche</div>
-                    <p>Great food and affordable pricing! 👌 
-                        Great food, Cheap eats, Fast delivery.
-                    </p>
-                </div>
-            </div>
-            <div class="review-box">
-                <div class="review-info">
-                    <div class="review-user">Joris Avelino</div>
-                    <p>Will definitiely order again, food was great and the delivery was quick.
-                    </p>
-                </div>
-            </div>
+        <div id="review-table" class="reviews-container">
+
         </div>
         <div class="reviews-container">
             <div class="comment-box">
                 <h2>Feel Free to Leave Us a Review</h2>
                 <form action="/addReview" method="POST">
-                    <textarea placeholder="Leave a Review here..." name="review" id="review" ></textarea>
+                    <textarea placeholder="Leave a Review here..." name="review" id="review"></textarea>
                     <p id="error" style="color: red;"></p>
                     <button type="submit" value="Submit" class="review-btn" id="submit" disabled>Submit Review</button>
                 </form>
@@ -62,4 +43,5 @@
 
     {{> footer}}
 </body>
+
 </html>

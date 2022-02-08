@@ -154,7 +154,6 @@ function buildMenuTable(menu) {
 function getReviewsFromDB() {
     $.get('/getReviews', function (result) {
         reviews = result;
-        console.log(reviews)
         buildReviewTable(reviews)
     })
 }
