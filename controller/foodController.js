@@ -130,7 +130,6 @@ const foodController = {
         try {
 
             var fileID = await uploadFile(req.file);
-            console.log(fileID)
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
 
             const newFood = new Food({
