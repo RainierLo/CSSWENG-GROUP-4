@@ -16,7 +16,7 @@ const http = require('http').Server(app);
 
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname + '/views'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
@@ -37,7 +37,7 @@ uri = process.env.URI;
 const { Server } = require('socket.io');
 const io = new Server(http);
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname + "/public")));
 
 app.use(session({
     'secret': 'secret',
