@@ -7,7 +7,7 @@ const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 
-const { GoogleAuth } = require('google-auth-library');
+const { GoogleAuth, auth } = require('google-auth-library');
 const secretAccessKey = process.env.CLIENT_SECRET;
 const accessKeyId = process.env.CLIENT_ID;
 
@@ -21,20 +21,26 @@ const refresh_token = process.env.REFRESH_TOKEN;
 // )
 
 // oauth2Client.setCredentials({ refresh_token: refresh_token });
-const keyFile = './super6database.json';
+// const keyFile = './super6database.json';
+const keysEnv = process.env.GDRIVE_CRED
+const keyFile = JSON.parse(keysEnv);
 const scopes = ['https://www.googleapis.com/auth/drive'];
-const auth = new GoogleAuth({
-    keyFile: keyFile,
-    scopes: scopes
-})
+// const client = auth.fromJSON(keyFile);
+// const authKey = new GoogleAuth({
+//     keyFile: keyFile,
+//     scopes: scopes
+// })
+
+const authKey = auth.fromJSON(keyFile);
+authKey.scopes = scopes;
 const drive = google.drive({
     version: 'v3',
-    auth: auth
+    auth: authKey
 })
 
 async function uploadFile(file) {
 
-
+  
     try {
         const res = await drive.files.create({
             requestBody: {
@@ -53,7 +59,6 @@ async function uploadFile(file) {
                 type: 'anyone',
             },
         });
-
         return res.data;
         // generatePublicUrl(res.data.id, foodItem);
     } catch (err) {
@@ -123,8 +128,9 @@ const foodController = {
         const { FoodName, Price, Description, Category } = req.body;
 
         try {
-            //console.log(keyFile)
+
             var fileID = await uploadFile(req.file);
+            console.log(fileID)
             var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
 
             const newFood = new Food({
