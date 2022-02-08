@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Super 6 Grille House</title>
+    <script src="https://kit.fontawesome.com/e9f791b4ab.js" crossorigin="anonymous"></script>
+
+    <script>
+        var menu = {}
+        function getFoodFromDB() {
+            $.get('/menu/:itemID', function (result) {
+                console.log(result);
+                menu = result;
+                buildFoodPage(menu);
+            });
+        }
+
+        function buildFoodPage(food) {
+            //for (var i = 0; i < menu.length; i++) {
+
+            var row =
+                `   <img class="indivImage" src="${food.imagePath}">
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">${food.FoodName}</p>
+                        <br>
+                        <small style="font-size: 20px; ">${food.Description}</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ ${food.Price}.00</small>
+                        <br>
+                            <div class="indivButton">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"type="number" value="1"><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form" id="addToCart">Add to Cart</button><br>
+                                <button style="width: 350px" type="submit" value="Submit" class="submit-form">Back to Menu</button>
+                            </div>
+                    </div>
+                `
+            $(".indivItem-info").append(row);
+            //};
+        }
+        $(document).ready(function () {
+            //getFoodFromDB();
+        })
+    </script>
+</head>
+
+<body>
+    {{> header Username=Username UserID=id}}
+
+    <!---- individual item details ---->
+    <div class="indivItem-bg">
+        <section class="indivItem-container">
+            <div class="indivItem-page">
+                <div class="indivItem-info">
+                    <img class="indivImage" src="{{Food.ImagePath}}">
+                    <div class="indivInfo">
+                        <p style="font-size: 40px;">{{Food.FoodName}}</p>
+                        <br>
+                        <small style="font-size: 20px; ">{{{Food.Description}}}</small>
+                        <br><br>
+                        <small style="font-size: 20px;">₱ {{Food.Price}}.00</small>
+                        <br>
+                    </div>
+                    <div class="indivButton">
+                            <form action='/' method="POST">
+                                <small style="font-size: 20px">Quantity: </small>
+                                <input style="width:40px; height:30px; margin-top:120px; margin-bottom:10px;"
+                                    id="Quantity" type="number" min=1 value="1" name="Quantity" oninput="validity.valid||(value='');" required>
+                                <input type="hidden" name="itemID" value="{{Food._id}}" /> <br>
+
+                                <button id="addToCart" style="width: 350px" type="submit" class="submit-form">Add to
+                                    Cart</button>
+                                <br>
+                            </form>
+                            <button style="width: 350px" type="submit" class="submit-form" onclick="location.href='/'">Back to
+                                Menu</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{> footer}} 
+</body>
+
+</html>
