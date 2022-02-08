@@ -50,8 +50,8 @@ app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
 app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
 app.post('/admin/updateItem/:itemID', upload.single('Picture'), foodController.updateItem);
-//Render routes to be added
 
+app.post('/admin/removeReview/:reviewID', reviewsController.remOneReview);
 app.post('/addReview', authSession.checkIfLoggedIn, reviewsController.addReview);
 
 

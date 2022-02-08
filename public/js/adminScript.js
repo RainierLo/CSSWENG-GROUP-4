@@ -18,9 +18,10 @@ showPanel(0, 'var(--red)');
 
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
 const socket = io("http://localhost:3000");
-var users = {};
-var orders = {};
-var menu = {};
+let users = {};
+let orders = {};
+let menu = {};
+let reviews = {};
 
 /* If there are updates to the user db, perform a getUsers query again
    to update the user table */
@@ -48,7 +49,7 @@ function getUsersFromDB() {
 /* This function appends each item of the user array as rows to 
    the user table*/
 function buildUserTable(users) {
-    var table = $('#userTable');
+    var table = $('#user-body');
     //Clear the body of the table
     table.empty();
     for (var i = 0; i < users.length; i++) {
@@ -57,7 +58,7 @@ function buildUserTable(users) {
             <td>${users[i].Username}</td>
             <td>${users[i].Email}</td>
             <td>${users[i].OrdersMade}</td>
-            <td><button type="button" id="remButton" name="${i}">Remove</button></td>
+            <td><button type="button" id="remButton" class="admin-btn" name="${i}">Remove</button></td>
         </tr>`
         //Append the row created to the table
         table.append(row);
@@ -75,7 +76,7 @@ function getOrdersFromDB() {
 /* This function appends each item of the order array as rows to 
    the order table*/
 function buildOrderTable(orders) {
-    var table = $('#orderTable');
+    var table = $('#order-body');
     //Clear the body of the table
     table.empty();
     //console.log(orders);
@@ -131,7 +132,7 @@ function getMenuFromDB() {
 /* This function appends each item of the menu array as rows to 
    the menu table*/
 function buildMenuTable(menu) {
-    var table = $('#menuTable');
+    var table = $('#menu-body');
     //Clear the body of the table
     table.empty();
     for (var i = 0; i < menu.length; i++) {
@@ -149,6 +150,30 @@ function buildMenuTable(menu) {
     };
 }
 
+/* Review Tab */
+function getReviewsFromDB() {
+    $.get('/getReviews', function (result) {
+        reviews = result;
+        console.log(reviews)
+        buildReviewTable(reviews)
+    })
+}
+
+function buildReviewTable(reviews) {
+    var table = $('#review-body');
+    //Clear the body of the table
+    table.empty();
+    for (var i = 0; i < reviews.length; i++) {
+        var row = `<tr class="menu-row">
+        <td>${reviews[i].User.Username}</td>
+        <td>${reviews[i].User.Email}</td>
+        <td>${reviews[i].Review}</td>
+        <td><button type="button" class="admin-btn remReview-btn" name="${i}">Remove</button></td>
+        </tr>`
+        //Append the row created to the table
+        table.append(row);
+    };
+}
 /* Filters for User sorting */
 /* Filter for Ascending alphabetic order*/
 function AtoZ(a, b) {
@@ -245,11 +270,11 @@ $(document).ready(function () {
     getUsersFromDB();
     getOrdersFromDB();
     getMenuFromDB();
-
+    getReviewsFromDB();
 
 
     //Removes the chosen user from the db
-    $("#userTable").on('click', '#remButton', function () {
+    $("#user-body").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = users[index]._id;
 
@@ -271,7 +296,7 @@ $(document).ready(function () {
 
     /* Order Operations */
     //Updates the status of the order
-    $('#orderTable').on('change', '.orderProgressOptions', function () {
+    $('#order-body').on('change', '.orderProgressOptions', function () {
         var id = $(this).prop('id');
         //var id = orders[index]._id;
         var userID = $(this).prop('name');;
@@ -293,7 +318,7 @@ $(document).ready(function () {
     });
     /* Menu Operations */
     //Removes the chosen food item from the menu
-    $("#menuTable").on('click', '#remButton', function () {
+    $("#menu-body").on('click', '#remButton', function () {
         var index = parseInt($(this).prop('name'));
         var id = menu[index]._id;
 
@@ -335,7 +360,7 @@ $(document).ready(function () {
     })
 
     //Allows for updating / editing of the current food item's values
-    $("#menuTable").on('click', '#editButton', function () {
+    $("#menu-body").on('click', '#editButton', function () {
         var index = parseInt($(this).prop('name'));
         var item = menu[index];
         $("#editID").val(`${item._id}`);
@@ -377,6 +402,21 @@ $(document).ready(function () {
         )
 
     })
+
+        //Removes the chosen user from the db
+        $("#review-body").on('click', '.remReview-btn', function () {
+            var index = parseInt($(this).prop('name'));
+            var id = reviews[index]._id;
+    
+            $.post(`/admin/removeReview/${id}`, function (result) {
+                if (result) {
+                    reviews = reviews.filter(review => reviews.indexOf(review) !== index);
+                    buildReviewTable(reviews);
+                } else {
+                    alert("Error");
+                }
+            });
+        });
     $("#edit-closeBtn").click(function () {
         $("#editItemModal").css("display", "none");
     })
@@ -410,5 +450,8 @@ $(document).ready(function () {
     });
     $(".button-container").on('click', '#menuBtn', function () {
         showPanel(2, 'var(--red)');
+    });
+    $(".button-container").on('click', '#reviewBtn', function () {
+        showPanel(3, 'var(--red)');
     });
 })
