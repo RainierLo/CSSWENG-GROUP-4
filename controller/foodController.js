@@ -73,14 +73,14 @@ async function deleteFile(fileId) {
 }
 
 const foodController = {
-    getIndivItemPage: function (req, res) {
+    getIndivItemPage: async function (req, res) {
 
         const { itemID } = req.params;
         req.session.current_url = `/menu/${itemID}`;
         // Check if logged in
         // if (req.session.username) {
-        Food.findOne({ _id: itemID }, function (err, result) {
-            if (err) throw err
+        try {
+            const result = await Food.findOne({ _id: itemID });
             if (result) {
                 var body = {
                     Username: req.session.username,
@@ -89,11 +89,10 @@ const foodController = {
                 }
                 res.render('indivitem.hbs', body);
             }
-        })
-        // }
-        // else {
-        //     res.redirect('login.hbs');
-        // }
+        } catch (err) {
+            if (err) throw err;
+        }
+
 
     },
 
@@ -141,7 +140,7 @@ const foodController = {
                 if (err) throw err
                 else
                     res.send('Success');
-                    //res.redirect('/admin');
+                //res.redirect('/admin');
             });
         } catch (err) {
             if (err) throw err;
@@ -192,11 +191,11 @@ const foodController = {
                 var ImagePath = `https://drive.google.com/uc?export=view&id=${fileID.id}`
                 update.ImagePath = ImagePath;
                 var oldImageID = await getImageID(itemID);
-                if (oldImageID !== false) 
+                if (oldImageID !== false)
                     deleteFile(oldImageID);
             }
-                
-             //console.log(req.body);
+
+            //console.log(req.body);
 
             Food.updateOne({ _id: itemID }, update, function (err, update) {
                 if (err) throw err;
@@ -247,7 +246,7 @@ async function removeItemFromCart(foodID) {
 
 async function getImageID(itemID) {
     try {
-        const result = await Food.findOne({ _id: itemID}, 'ImagePath');
+        const result = await Food.findOne({ _id: itemID }, 'ImagePath');
         var url = new URL(result.ImagePath);
         var imageID = url.searchParams.get('id');
         return imageID;
