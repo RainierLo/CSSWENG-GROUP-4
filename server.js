@@ -31,8 +31,8 @@ uri = process.env.URI;
 //     }
 // });
 
-const {socketIO } = require('socket.io');
-const io = socketIO(app);
+const { Server } = require('socket.io');
+const io = new Server(app);
 
 app.use(express.static(__dirname + "/public"));
 
