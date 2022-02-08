@@ -1,6 +1,7 @@
 const User = require('../model/user');
 const Food = require('../model/food');
 const Order = require('../model/order');
+const Reviews = require('../model/reviews');
 const bcrypt = require('bcrypt');
 
 const userController = {
@@ -167,6 +168,7 @@ const userController = {
         const { userID } = req.params;
 
         removeUserOrders(userID);
+        removeUserReviews(userID);
         User.findOneAndRemove({ _id: userID }, function (err, result) {
             if (err) throw err
             if (result) {
@@ -467,8 +469,13 @@ async function clearUserCart(userID) {
 }
 
 async function removeUserOrders(userID) {
-    await Order.deleteMany({ User: userID })
+    await Order.deleteMany({ User: userID });
     console.log("Orders Removed");
+}
+
+async function removeUserReviews(userID) {
+    await Reviews.deleteMany({User: userID});
+    console.log("Reviews Removed");
 }
 
 async function incOrderCompleted(userID) {
