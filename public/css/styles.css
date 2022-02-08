@@ -1536,6 +1536,10 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   cursor: pointer;
 }
 
+.review-btn:disabled {
+  background-color: gray;
+}
+
 .comment-box{
   width: 500px;
   background-color: white;
