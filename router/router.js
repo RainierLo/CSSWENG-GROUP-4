@@ -29,10 +29,10 @@ app.get('/getUserOrder', userController.getUserOrder);
 app.get('/getUsers', userController.getUsers);
 app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccountPage);
 
-//app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
-//For Testing purposes only.
+app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
+
 app.get('/ourStory', userController.getOurStoryPage);
-app.get('/admin', userController.getAdmin);
+//app.get('/admin', userController.getAdmin);
 // app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
 app.get('/reviews', userController.getReviewsPage)
 app.get('/getReviews', reviewsController.getReviews);
@@ -42,10 +42,9 @@ app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
 app.post('/updateCart', userController.updateUserCart);
 app.post('/removeCartItem', userController.remOneItem);
-app.post('/admin/addFood', upload.single('Picture'), foodController.addFood)
 app.post('/editaccount', userController.updateOneUser)
-//app.post('/addFood', foodController.addFood);
 app.post('/submitOrder', userController.createOrder);
+app.post('/admin/addFood', upload.single('Picture'), foodController.addFood)
 app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
 app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
