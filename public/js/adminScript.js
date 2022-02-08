@@ -17,7 +17,7 @@ function showPanel(panelIndex, colorCode) {
 showPanel(0, 'var(--red)');
 
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-const socket = io("http://localhost:3000");
+const socket = io();
 let users = {};
 let orders = {};
 let menu = {};

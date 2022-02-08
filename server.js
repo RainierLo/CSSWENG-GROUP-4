@@ -25,11 +25,34 @@ port = process.env.PORT;
 hostname = process.env.HOSTNAME;
 uri = process.env.URI;
 
-const io = require('socket.io')(3000, {
-    cors: {
-        origin: '*',
-    }
+// const io = require('socket.io')(3000, {
+//     cors: {
+//         origin: '*',
+//     }
+// });
+
+const {socketIO } = require('socket.io');
+const io = socketIO(app);
+
+app.use(express.static(__dirname + "/public"));
+
+app.use(session({
+    'secret': 'secret',
+    'resave': false,
+    'saveUninitialized': false,
+}));
+
+const router = require('./router/router.js');
+app.use('/', router);
+
+
+app.listen(port, hostname, function () {
+    console.log(`Server running at: `);
+    console.log(`http://` + hostname + `:` + port);
 });
+
+
+
 mongoose.connect(uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -51,23 +74,3 @@ connection.once('open', () => {
         });
     })
 });
-
-app.use(express.static(__dirname + "/public"));
-
-app.use(session({
-    'secret': 'secret',
-    'resave': false,
-    'saveUninitialized': false,
-}));
-
-const router = require('./router/router.js');
-app.use('/', router);
-
-
-app.listen(port, hostname, function () {
-    console.log(`Server running at: `);
-    console.log(`http://` + hostname + `:` + port);
-});
-
-
-
