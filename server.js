@@ -1,4 +1,4 @@
-const http = require('http');
+
 const dotenv = require('dotenv');
 const fs = require('fs');
 const url = require('url');
@@ -10,7 +10,10 @@ const hbs = require('hbs');
 const session = require('express-session');
 const path = require('path');
 
+
 const app = express();
+const https = require('https').Server(app);
+
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +35,7 @@ uri = process.env.URI;
 // });
 
 const { Server } = require('socket.io');
-const io = new Server(app);
+const io = new Server(https);
 
 app.use(express.static(__dirname + "/public"));
 
