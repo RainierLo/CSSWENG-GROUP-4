@@ -12,7 +12,7 @@ const path = require('path');
 
 
 const app = express();
-const https = require('https').Server(app);
+const http = require('http').Server(app);
 
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
@@ -35,7 +35,7 @@ uri = process.env.URI;
 // });
 
 const { Server } = require('socket.io');
-const io = new Server(https);
+const io = new Server(http);
 
 app.use(express.static(__dirname + "/public"));
 
@@ -47,13 +47,6 @@ app.use(session({
 
 const router = require('./router/router.js');
 app.use('/', router);
-
-
-app.listen(port, hostname, function () {
-    console.log(`Server running at: `);
-    console.log(`http://` + hostname + `:` + port);
-});
-
 
 
 mongoose.connect(uri);
@@ -77,3 +70,10 @@ connection.once('open', () => {
         });
     })
 });
+
+http.listen(port, hostname, function () {
+    console.log(`Server running at: `);
+    console.log(`http://` + hostname + `:` + port);
+});
+
+
