@@ -6,15 +6,6 @@ function menuFilter() {
 let menu = {};
 let categories = ['Appetizer', 'Meat', 'Vegetable', 'Seafood', 'Drinks', 'Others'];
 
-/* This function is used to obtain the unique categories for each food item */
-function getCategories(menu) {
-
-    categories = menu.map(foodItem => foodItem.Category);
-
-    let uniqueCategories = [...new Set(categories)]
-
-    categories = uniqueCategories;
-}
 
 /* This function retrieves the menu from the database and builds the table 
     in the menu.hbs file */
@@ -45,7 +36,6 @@ function setDropdown() {
 /* This function creates a section per category and appends the food items
     in their own respective categories */
 function buildMenu(menu) {
-    //getCategories(menu);
     var menuContainer = $('#menu-container');
     menuContainer.empty();
 
@@ -77,7 +67,7 @@ function buildMenu(menu) {
     }
 }
 
-
+/* This function filters the menu based on the category selected */
 function filterMenu(category, menu) {
     buildMenu(menu);
     switch (category) {

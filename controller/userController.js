@@ -44,8 +44,8 @@ const userController = {
             newUser.save()
 
             res.redirect('/login');
-        } catch {
-            //res.status(500).send();
+        } catch (err) {
+            if (err) throw err;
         }
     },
 
@@ -65,7 +65,6 @@ const userController = {
 
     getLogin: function (req, res) {
         res.render('login.hbs');
-        // res.sendFile('login.html', { root: 'views' });
     },
 
     postLogin: function (req, res) {
@@ -257,13 +256,11 @@ const userController = {
 
         User.updateOne({
             _id: id,
-            //Cart: { $elemMatch: { ItemID: ItemID} }
             Cart: { $elemMatch: { _id: ItemID } }
         }, { $inc: { 'Cart.$.Quantity': Quantity } }, function (err, result) {
             if (err) throw err
             if (result) {
                 //Item is added to the User's cart
-                // res.send('Success');
                 res.send('Success');
             }
         })
@@ -322,9 +319,6 @@ const userController = {
             newOrder.TotalPrice = TotalPrice;
             newOrder.save();
         });
-        // clearUserCart(id, function (user) {
-        //     res.redirect('/');
-        // })
         clearUserCart(id);
         res.redirect('/');
     },
@@ -385,7 +379,6 @@ const userController = {
         try {
             const userID = req.session.userID;
             const hash_pass = await bcrypt.hash(req.body.password, 10);
-            // pass = hash_pass;
             var userDetails = {
                 Username: req.body.username,
                 Password: hash_pass,
@@ -403,17 +396,6 @@ const userController = {
         } catch (err) {
             throw err;
         }
-
-        // const userID = req.session.userID;
-
-        // var userDetails = {
-        //     Email: req.body.email,
-        //     Username: req.body.username,
-        //     Password: req.body.password,
-        //     MobileNumber: req.body.mobileNum
-        // };
-
-
     },
 
     getOurStoryPage: function (req, res) {
@@ -444,6 +426,7 @@ const userController = {
     // ADMIN CONTROLLER
 
     getAdmin: function (req, res) {
+        req.session.current_url = '/admin';
         res.render('admin.hbs');
     }
 }
@@ -474,7 +457,7 @@ async function removeUserOrders(userID) {
 }
 
 async function removeUserReviews(userID) {
-    await Reviews.deleteMany({User: userID});
+    await Reviews.deleteMany({ User: userID });
     console.log("Reviews Removed");
 }
 

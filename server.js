@@ -28,12 +28,6 @@ port = process.env.PORT;
 hostname = process.env.HOSTNAME;
 uri = process.env.URI;
 
-// const io = require('socket.io')(3000, {
-//     cors: {
-//         origin: '*',
-//     }
-// });
-
 const { Server } = require('socket.io');
 const io = new Server(http);
 

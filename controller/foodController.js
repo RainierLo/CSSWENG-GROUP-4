@@ -1,46 +1,24 @@
 const Food = require('../model/food');
 const User = require('../model/user');
 const mongoose = require('mongoose');
-const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 const { google } = require('googleapis');
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 
 const { GoogleAuth, auth } = require('google-auth-library');
-const secretAccessKey = process.env.CLIENT_SECRET;
-const accessKeyId = process.env.CLIENT_ID;
 
-const redirect_uri = process.env.REDIRECT_URI;
-const refresh_token = process.env.REFRESH_TOKEN;
-
-// const oauth2Client = new google.auth.OAuth2(
-//     accessKeyId,
-//     secretAccessKey,
-//     redirect_uri
-// )
-
-// oauth2Client.setCredentials({ refresh_token: refresh_token });
-// const keyFile = './super6database.json';
 const keysEnv = process.env.GDRIVE_CRED
 const keyFile = JSON.parse(keysEnv);
 const scopes = ['https://www.googleapis.com/auth/drive'];
-// const client = auth.fromJSON(keyFile);
-// const authKey = new GoogleAuth({
-//     keyFile: keyFile,
-//     scopes: scopes
-// })
-
 const authKey = auth.fromJSON(keyFile);
 authKey.scopes = scopes;
+
 const drive = google.drive({
     version: 'v3',
     auth: authKey
 })
 
 async function uploadFile(file) {
-
-  
     try {
         const res = await drive.files.create({
             requestBody: {
@@ -60,7 +38,6 @@ async function uploadFile(file) {
             },
         });
         return res.data;
-        // generatePublicUrl(res.data.id, foodItem);
     } catch (err) {
         console.log(err.message)
     }
@@ -82,8 +59,6 @@ const foodController = {
 
         const { itemID } = req.params;
         req.session.current_url = `/menu/${itemID}`;
-        // Check if logged in
-        // if (req.session.username) {
         try {
             const result = await Food.findOne({ _id: itemID });
             if (result) {
@@ -145,7 +120,6 @@ const foodController = {
                 if (err) throw err
                 else
                     res.send('Success');
-                //res.redirect('/admin');
             });
         } catch (err) {
             if (err) throw err;
@@ -153,7 +127,6 @@ const foodController = {
     },
     getAdminMenu: async function (req, res) {
         try {
-            // const menu = await Food.find().lean({ virtuals: true });
             const menu = await Food.find();
             res.send(menu);
         } catch (err) {
@@ -162,7 +135,6 @@ const foodController = {
     },
     getMenu: async function (req, res) {
         try {
-            // const menu = await Food.find().lean({ virtuals: true });
             const menu = await Food.find({ isAvailable: 'true' });
             res.send(menu);
         } catch (err) {
@@ -199,8 +171,6 @@ const foodController = {
                 if (oldImageID !== false)
                     deleteFile(oldImageID);
             }
-
-            //console.log(req.body);
 
             Food.updateOne({ _id: itemID }, update, function (err, update) {
                 if (err) throw err;

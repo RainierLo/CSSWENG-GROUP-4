@@ -1,6 +1,7 @@
 var tabButtons = document.querySelectorAll(".tab-container .button-container button");
 var tabPanels = document.querySelectorAll(".tab-container .tab-panel");
 
+/* Function to show the current panel selected */
 function showPanel(panelIndex, colorCode) {
     tabButtons.forEach(function (node) {
         node.style.backgroundColor = "";
@@ -39,6 +40,7 @@ socket.on('orderdb-updated', change => {
 
 
 /* User Tab */
+/* Retrieves the user data from the database */
 function getUsersFromDB() {
     $.get('/getUsers', function (result) {
         users = result;
@@ -66,7 +68,7 @@ function buildUserTable(users) {
 }
 
 /* Order Tab */
-
+/* Retrieves the order details from the database */
 function getOrdersFromDB() {
     $.get('/getOrders', function (result) {
         orders = result;
@@ -79,7 +81,6 @@ function buildOrderTable(orders) {
     var table = $('#order-body');
     //Clear the body of the table
     table.empty();
-    //console.log(orders);
     if (orders.length > 0) {
         for (var i = 0; i < orders.length; i++) {
             var row = `<tr class="order-row">
@@ -122,7 +123,7 @@ function getOrderString(Cart) {
     return orderStr;
 }
 /* Menu Tab */
-
+/* Retrieve the menu data from the database */
 function getMenuFromDB() {
     $.get('/getAdminMenu', function (result) {
         menu = result;
@@ -151,13 +152,15 @@ function buildMenuTable(menu) {
 }
 
 /* Review Tab */
+/* Retrieves the review data from the database */
 function getReviewsFromDB() {
     $.get('/getReviews', function (result) {
         reviews = result;
         buildReviewTable(reviews)
     })
 }
-
+/* This function appends each item of the reviews array as rows to 
+   the reviews table*/
 function buildReviewTable(reviews) {
     var table = $('#review-body');
     //Clear the body of the table
@@ -402,20 +405,20 @@ $(document).ready(function () {
 
     })
 
-        //Removes the chosen user from the db
-        $("#review-body").on('click', '.remReview-btn', function () {
-            var index = parseInt($(this).prop('name'));
-            var id = reviews[index]._id;
-    
-            $.post(`/admin/removeReview/${id}`, function (result) {
-                if (result) {
-                    reviews = reviews.filter(review => reviews.indexOf(review) !== index);
-                    buildReviewTable(reviews);
-                } else {
-                    alert("Error");
-                }
-            });
+    //Removes the chosen user from the db
+    $("#review-body").on('click', '.remReview-btn', function () {
+        var index = parseInt($(this).prop('name'));
+        var id = reviews[index]._id;
+
+        $.post(`/admin/removeReview/${id}`, function (result) {
+            if (result) {
+                reviews = reviews.filter(review => reviews.indexOf(review) !== index);
+                buildReviewTable(reviews);
+            } else {
+                alert("Error");
+            }
         });
+    });
     $("#edit-closeBtn").click(function () {
         $("#editItemModal").css("display", "none");
     })

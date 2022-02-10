@@ -9,7 +9,7 @@ const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 
 const app = express();
-
+/* GET Requests */
 app.get('/', userController.getIndex);
 app.get('/register', userController.getRegister);
 app.get('/login', userController.getLogin);
@@ -28,15 +28,12 @@ app.get('/getOrders', userController.getOrders);
 app.get('/getUserOrder', userController.getUserOrder);
 app.get('/getUsers', userController.getUsers);
 app.get('/account/:userID', authSession.checkIfLoggedIn, userController.getAccountPage);
-
 app.get('/admin', authSession.checkIfLoggedIn, userController.getAdmin);
-
 app.get('/ourStory', userController.getOurStoryPage);
-//app.get('/admin', userController.getAdmin);
-// app.get('/reviews', authSession.checkIfLoggedIn, userController.getReviewsPage);
 app.get('/reviews', userController.getReviewsPage)
 app.get('/getReviews', reviewsController.getReviews);
 
+/* POST Requests */
 app.post('/', authSession.checkIfLoggedIn, userController.postAddtoCart);
 app.post('/register', userController.postRegister);
 app.post('/login', userController.postLogin);
@@ -49,7 +46,6 @@ app.post('/admin/removeUser/:userID', userController.remOneUser);
 app.post('/admin/removeItem/:itemID', foodController.removeItem);
 app.post('/admin/updateOrderStatus', userController.updateOrderStatus);
 app.post('/admin/updateItem/:itemID', upload.single('Picture'), foodController.updateItem);
-
 app.post('/admin/removeReview/:reviewID', reviewsController.remOneReview);
 app.post('/addReview', authSession.checkIfLoggedIn, reviewsController.addReview);
 

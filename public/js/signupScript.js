@@ -37,19 +37,6 @@ $(document).ready(function () {
                 isDuplicate = false;
             }
             return !isDuplicate;
-            // $.get('/checkEmail', { Email: email }, function (result) {
-            //     if (result.Email == email) {
-            //         if (field.is($('#email')))
-            //             $('#emailError').text('Email is already registered');
-            //         isDuplicate = true;
-            //     }
-            //     else {
-            //         if (field.is($('#email')))
-            //             $('#emailError').text('');
-            //         isDuplicate = false;
-            //     }
-            //     return callback(!isDuplicate);
-            // });
         }
         else {
             if (field.is($('#email')))
@@ -76,16 +63,6 @@ $(document).ready(function () {
                     $('#usernameError').text('');
                 isValid = true
             };
-            // $.get('/checkUsername', { Username: username }, function (result) {
-            //     if (result.Username == username) {
-            //         if (field.is($('#username')))
-            //             $('#usernameError').text('Username is already taken.');
-            //         isValid = false;
-            //     } else isValid = true;
-            // });
-
-            // if (field.is($('#username')))
-            //     $('#usernameError').text('');
         } else {
             if (field.is($('#username')))
                 $('#usernameError').text('Username should contain at least 6 characters.');

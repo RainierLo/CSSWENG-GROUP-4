@@ -1,12 +1,13 @@
 let reviews = {};
-
+/* Retrieve the reviews data from the database */
 function getReviewsFromDB() {
     $.get('/getReviews', function (result) {
         reviews = result;
         buildReviewTable(reviews)
     })
 }
-
+/* This function appends each item of the reviews array as rows to 
+   the reviews table*/
 function buildReviewTable(reviews) {
     var table = $('#review-table');
     //Clear the body of the table
@@ -24,7 +25,7 @@ function buildReviewTable(reviews) {
         table.append(row);
     };
 } 
-
+/* This function handles the validation of the review text area */
 function isValidReview() {
     var isValid = false;
     var review = $('#review').val()
