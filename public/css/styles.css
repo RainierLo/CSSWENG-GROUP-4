@@ -1449,7 +1449,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 /* our story page */
 .os-content {
-  height: 100vh;
+  height: max-content;
   width: 100%;
   background: linear-gradient(
     45deg,
@@ -1469,8 +1469,34 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   color: rgb(114, 14, 14);
 }
 
-.os-content p{
+.os-content h2{
   font-size:20px;
+  font-weight: lighter;
+}
+
+.os-content p{
+  font-size: 16px;
+}
+
+.os-content img{
+  height: 250px;
+  width: 250px;
+}
+
+.os-img{
+  margin-top: 15px;
+  margin-bottom: auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20rem 20rem 20rem 20rem;
+  justify-content: center;
+}
+
+.os-img1{
+  height: auto;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 1rem;
 }
 
 /* Reviews Page */
