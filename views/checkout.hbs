@@ -28,7 +28,6 @@
             var table = document.getElementById("cartTable");
             table.innerHTML = "";
             var subtotal = 0;
-            var deliveryfee = 100;//Temporary value
             if (cart.length > 0) {
                 $('.delivery-form-container').css('display', 'block');
 
@@ -60,7 +59,7 @@
                 var text = "<p>You have no items in your cart.</p>";
                 table.innerHTML += text;
                 $('#subtotal').text(`₱${subtotal}`);
-                $('#total').text(`₱${subtotal + deliveryfee}`);
+                $('#total').text(`₱${subtotal}`);
             }
         }
 
@@ -115,17 +114,13 @@
                 <div class="total-price">
                     <table>
                         <tr>
-                            <td>Subtotal</td>
-                            <td id="subtotal"></td>
-                        </tr>
-                        <tr>
-                            <td>Delivery Fee</td>
-                            <td>₱100</td>
-                        </tr>
-                        <tr>
                             <td>Total</td>
                             <td id="total"></td>
                         </tr>
+                        <tr>
+                            <td style="font-size: 13px; text-align: left;">*Delivery Fee is not yet included</td>
+                        </tr>
+
                     </table>
                 </div>
             </div>
