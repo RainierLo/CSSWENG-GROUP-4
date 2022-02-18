@@ -365,7 +365,9 @@ const userController = {
             var body = {
                 Username: req.session.username,
                 id: req.session.userID,
-                DateJoined: user.DateJoined
+                DateJoined: user.DateJoined,
+                Email: user.Email,
+                MobileNumber: user.MobileNumber
             };
 
             res.render('viewProfile.hbs', body);
