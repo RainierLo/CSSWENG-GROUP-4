@@ -91,7 +91,6 @@ const userController = {
                             req.session.userID = result._id;
                             req.session.username = result.Username;
                             var redirect_to = req.session.current_url;
-                            console.log(redirect_to);
                             if (result.UserType === 'Customer') {
                                 if (redirect_to !== undefined)
                                     res.redirect(redirect_to)
