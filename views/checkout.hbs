@@ -52,13 +52,11 @@
                     subtotal += cart[i].ItemID.Price * cart[i].Quantity;
                     table.innerHTML += row
                 }
-                $('#subtotal').text(`₱${subtotal}`);
-                $('#total').text(`₱${subtotal + deliveryfee}`);
+                $('#total').text(`₱${subtotal}`);
             } else {
                 $('.delivery-form-container').css('display', 'none');
                 var text = "<p>You have no items in your cart.</p>";
                 table.innerHTML += text;
-                $('#subtotal').text(`₱${subtotal}`);
                 $('#total').text(`₱${subtotal}`);
             }
         }
