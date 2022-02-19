@@ -32,10 +32,17 @@
         <div class="content">
             <div class="userData">
                 <h1>Welcome {{Username}}</h1>
-                <p>ID: {{id}}</p>
-                <p>Email: {{Email}}</p>
-                <p>Contact Number: {{MobileNumber}}</p>
-                <p><i class="far fa-calendar-alt"></i> Date Joined: {{DateJoined}}</p>
+                <div class="row">
+                    <div class="column">
+                        <p>ID: <b>{{id}}</b></p><br>
+                        <p>Email: <b>{{Email}}</b></p>
+                    </div>
+                    
+                    <div class="column">
+                        <p>Contact Number: <b>{{MobileNumber}}</b></p><br>
+                        <p><i class="far fa-calendar-alt"></i> Date Joined: <b>{{DateJoined}}</b></p>
+                    </div>
+                </div>
                 <div class="editUD" id="editUD-1">
                     <div class="overlay"></div>
                     <div class="userDetails">
