@@ -21,9 +21,9 @@ const drive = google.drive({
 async function uploadFile(file) {
     try {
         const res = await drive.files.create({
-            requestBody: {
+            resource: {
                 name: file.originalname,
-                mimeType: file.mimetype
+                parents: ['16-HXkKM56zGyZePkV8DPoGDm5BUWbngm']
             },
             media: {
                 mimeType: file.mimetype,
