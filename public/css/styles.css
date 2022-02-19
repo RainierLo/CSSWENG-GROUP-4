@@ -405,14 +405,13 @@ nav ul li ul li a:hover {
 .branch-box {
   width: 50%;
   float: left;
-  height: 150%;
+  height: 130%;
   color: white;
   border: 2px solid white;
   position: relative;
 }
 
-.branch-box h2{
-  font-family: 'Sedgwick Ave', cursive;
+.branch-box h1{
   margin: 0;
   position: absolute;
   top: 50%;
@@ -421,6 +420,18 @@ nav ul li ul li a:hover {
   text-align: center;
   font-size: 24px;
 }
+
+.branch-box h2{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 22px;
+}
+
+
 
 
 /* login container */
@@ -512,7 +523,7 @@ nav ul li ul li a:hover {
 .submit-form {
   width: 100%;
   padding: 10px 0;
-  background-color: var(--red);
+  background-color: var(--orange);
   color: white;
   font-size: 20px;
   font-family: inherit;
@@ -526,7 +537,7 @@ nav ul li ul li a:hover {
   background-color: gray;
 }
 .submit-form:hover:enabled {
-  background-color: var(--orange);
+  background-color: var(--red);
 }
 
 .form-redirect {
@@ -721,7 +732,8 @@ nav ul li ul li a:hover {
   font-weight: lighter;
   letter-spacing: 1px;
   height: fit-content;
-  display: flex;
+  text-align: center;
+  justify-content: center;
 }
 .profile-bg .content .userData {
   margin-top: 25px;
@@ -739,6 +751,18 @@ nav ul li ul li a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+}
+
+.column {
+  float: left;
+  width:50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 /*menu cards*/
@@ -820,8 +844,8 @@ th{
   text-align: left;
   padding: 5px;
   color: #fff;
-  background-color: #e74c3c;
-  font-weight: normal;
+  background-color: var(--orange);
+  font-weight: 500;
 }
 
 td{
@@ -962,7 +986,8 @@ th:last-child{
 .title{
   color:var(--red);
   padding: 30px;
-  font-family: 'Red Hat Mono', monospace;
+  font-family: 'Arvo', serif;
+  font-size: 32px;
 }
 
 .tab-container{
@@ -1146,9 +1171,10 @@ input:checked + .slider:before {
 .menu-title {
   margin-top: 15px;
   font-size: 20px;
+  font-weight:500;
   height: 30px;
-  color: rgb(29, 29, 29);
-  background-color: rgba(245, 161, 66, 0.8);
+  color: white;
+  background-color: var(--orange);
   margin-bottom: 10px;
 }
 
@@ -1456,7 +1482,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     rgba(245, 161, 66, 0.8) 0%,
     rgba(230, 61, 9, 0.4) 100%
   );
-  padding-top: 50px;
+  padding-top: 15px;
   padding-left: 150px;
   padding-right: 150px;
   font-weight: lighter;
@@ -1513,16 +1539,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .reviews-heading{
-  font-size: 24px;
-  margin-top: 30px;
+  font-size: 32px;
   margin-bottom: 60px;
   text-align: center;
-}
-
-.reviews-heading h1{
-  font-weight: 300;
-  padding: 10px 20px;
-  color: var(--red);
 }
 
 .reviews-container{
@@ -1577,7 +1596,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .comment-box h2{
   font-size: 22px;
   text-align: center;
-  color: var(--red);
+  color: var(--orange);
   margin-bottom: 20px;
 }
 
